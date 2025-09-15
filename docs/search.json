@@ -1,0 +1,24 @@
+[
+  {
+    "objectID": "eda2.html",
+    "href": "eda2.html",
+    "title": "Data Processing & EDA",
+    "section": "",
+    "text": "https://www.codiet.eu/",
+    "crumbs": [
+      "Sections",
+      "Data Processing & EDA"
+    ]
+  },
+  {
+    "objectID": "eda2.html#idf-metabolic-syndrome-definition",
+    "href": "eda2.html#idf-metabolic-syndrome-definition",
+    "title": "Data Processing & EDA",
+    "section": "IDF Metabolic Syndrome Definition",
+    "text": "IDF Metabolic Syndrome Definition\n\n\n\n\n\n\nMetabolic Syndrome Variables (Timepoint 1)\n\n\n\n\n\n\n\n\n\n\n\nClinical Variable\nN\nOverall\nN = 1511\n\nIDF Metabolic Syndrome\n\nΝΟ\nN = 21\np-value2,3\n\n\nNO\nN = 1161\nYES\nN = 331\n\n\n\n\nGender\n151\n\n\n\n\n\n\n\n\n0.016*\n\n\n    Female\n\n\n98 (65%)\n81 (70%)\n15 (45%)\n2 (100%)\n\n\n\n\n    Male\n\n\n53 (35%)\n35 (30%)\n18 (55%)\n0 (0%)\n\n\n\n\nSite Collection\n151\n\n\n\n\n\n\n\n\n0.512\n\n\n    AUTH\n\n\n32 (21%)\n25 (22%)\n7 (21%)\n0 (0%)\n\n\n\n\n    BILBAO\n\n\n17 (11%)\n14 (12%)\n3 (9.1%)\n0 (0%)\n\n\n\n\n    CORK\n\n\n50 (33%)\n40 (34%)\n10 (30%)\n0 (0%)\n\n\n\n\n    ICL\n\n\n24 (16%)\n17 (15%)\n5 (15%)\n2 (100%)\n\n\n\n\n    UVEG\n\n\n28 (19%)\n20 (17%)\n8 (24%)\n0 (0%)\n\n\n\n\nBMI\n151\n30.6 (28.5, 35.5)\n29.6 (27.7, 33.5)\n34.9 (32.4, 38.8)\n29.6 (29.3, 29.9)\n&lt;0.001***\n\n\nTRIG\n151\n69 (46, 116)\n61 (44, 101)\n93 (66, 136)\n101 (54, 147)\n0.015*\n\n\nHDL\n149\n53 (44, 62)\n55 (48, 63)\n43 (38, 51)\n39 (35, 43)\n&lt;0.001***\n\n\n    Missing\n\n\n2\n2\n0\n0\n\n\n\n\nGLU\n147\n91 (84, 98)\n90 (83, 95)\n101 (90, 106)\n110 (110, 110)\n&lt;0.001***\n\n\n    Missing\n\n\n4\n3\n1\n0\n\n\n\n\nHighBP\n148\n104 (70%)\n74 (65%)\n30 (91%)\n0 (0%)\n&lt;0.001***\n\n\n    Missing\n\n\n3\n3\n0\n0\n\n\n\n\n\n1 n (%); Median (Q1, Q3)\n\n\n2 Fisher’s exact test; Kruskal-Wallis rank sum test\n\n\n3 p&lt;0.05; p&lt;0.01; p&lt;0.001",
+    "crumbs": [
+      "Sections",
+      "Data Processing & EDA"
+    ]
+  }
+]
