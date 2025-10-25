@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-10-07">
+<meta name="dcterms.date" content="2025-10-24">
 
 <title>Modeling &amp; Assessing Metabolite Added Value – Codiet Project</title>
 <style>
@@ -72,6 +72,35 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -150,6 +179,18 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
  <span class="menu-text">Data Dictionary</span>
   </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hei_total_score.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HEI Total Score</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./metSyn_index_construction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Metabolic Syndrome Index Construction</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -162,7 +203,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Analysis</h2>
    
   <ul>
-  <li><a href="#priority-based-modeling" id="toc-priority-based-modeling" class="nav-link active" data-scroll-target="#priority-based-modeling"><span class="header-section-number">1</span> Priority Based Modeling</a>
+  <li><a href="#brief-summary" id="toc-brief-summary" class="nav-link active" data-scroll-target="#brief-summary"><span class="header-section-number">1</span> Brief Summary</a></li>
+  <li><a href="#priority-based-modeling" id="toc-priority-based-modeling" class="nav-link" data-scroll-target="#priority-based-modeling"><span class="header-section-number">2</span> Priority Based Modeling</a>
   <ul class="collapse">
   <li><a href="#overall-logic-behind-the-priority-order" id="toc-overall-logic-behind-the-priority-order" class="nav-link" data-scroll-target="#overall-logic-behind-the-priority-order">🧭 Overall logic behind the priority order</a></li>
   <li><a href="#demographics" id="toc-demographics" class="nav-link" data-scroll-target="#demographics">1️⃣ <strong>Demographics</strong></a>
@@ -211,42 +253,76 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#practical-note" id="toc-practical-note" class="nav-link" data-scroll-target="#practical-note">⚖️ Practical Note</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#likelihood-ratio-testing-lrt---timepoint-1" id="toc-likelihood-ratio-testing-lrt---timepoint-1" class="nav-link" data-scroll-target="#likelihood-ratio-testing-lrt---timepoint-1"><span class="header-section-number">2</span> Likelihood Ratio Testing (LRT) - Timepoint 1</a>
+  <li><a href="#assessing-predictor-added-value---timepoint-1" id="toc-assessing-predictor-added-value---timepoint-1" class="nav-link" data-scroll-target="#assessing-predictor-added-value---timepoint-1"><span class="header-section-number">3</span> Assessing Predictor Added Value - Timepoint 1</a>
   <ul class="collapse">
-  <li><a href="#device-data-1" id="toc-device-data-1" class="nav-link" data-scroll-target="#device-data-1">Device Data</a>
+  <li><a href="#dietary-indices-lifestyle-factors-1" id="toc-dietary-indices-lifestyle-factors-1" class="nav-link" data-scroll-target="#dietary-indices-lifestyle-factors-1">Dietary Indices / Lifestyle Factors</a>
   <ul class="collapse">
   <li><a href="#redundancy-analysis" id="toc-redundancy-analysis" class="nav-link" data-scroll-target="#redundancy-analysis">Redundancy Analysis</a></li>
   <li><a href="#lrt" id="toc-lrt" class="nav-link" data-scroll-target="#lrt">LRT</a></li>
+  <li><a href="#relationship-is-nonlinear" id="toc-relationship-is-nonlinear" class="nav-link" data-scroll-target="#relationship-is-nonlinear"><strong>1. Relationship is Nonlinear</strong></a></li>
+  <li><a href="#gender-differences" id="toc-gender-differences" class="nav-link" data-scroll-target="#gender-differences"><strong>2. Gender Differences</strong></a></li>
+  <li><a href="#possible-interpretation-of-the-u-shaped-pattern" id="toc-possible-interpretation-of-the-u-shaped-pattern" class="nav-link" data-scroll-target="#possible-interpretation-of-the-u-shaped-pattern"><strong>3. Possible Interpretation of the “U-shaped” Pattern</strong></a></li>
   </ul></li>
-  <li><a href="#biochemical-data" id="toc-biochemical-data" class="nav-link" data-scroll-target="#biochemical-data">Biochemical Data</a>
+  <li><a href="#medications-1" id="toc-medications-1" class="nav-link" data-scroll-target="#medications-1">Medications</a>
   <ul class="collapse">
   <li><a href="#redundancy-analysis-1" id="toc-redundancy-analysis-1" class="nav-link" data-scroll-target="#redundancy-analysis-1">Redundancy Analysis</a></li>
   <li><a href="#lrt-1" id="toc-lrt-1" class="nav-link" data-scroll-target="#lrt-1">LRT</a></li>
   </ul></li>
-  <li><a href="#amino-acids-sugars-data" id="toc-amino-acids-sugars-data" class="nav-link" data-scroll-target="#amino-acids-sugars-data">Amino Acids &amp; Sugars Data</a>
+  <li><a href="#device-data-1" id="toc-device-data-1" class="nav-link" data-scroll-target="#device-data-1">Device Data</a>
   <ul class="collapse">
   <li><a href="#redundancy-analysis-2" id="toc-redundancy-analysis-2" class="nav-link" data-scroll-target="#redundancy-analysis-2">Redundancy Analysis</a></li>
   <li><a href="#lrt-2" id="toc-lrt-2" class="nav-link" data-scroll-target="#lrt-2">LRT</a></li>
   </ul></li>
-  <li><a href="#acylcarnitines-data" id="toc-acylcarnitines-data" class="nav-link" data-scroll-target="#acylcarnitines-data">AcylCarnitines Data</a>
+  <li><a href="#biochemical-data" id="toc-biochemical-data" class="nav-link" data-scroll-target="#biochemical-data">Biochemical Data</a>
   <ul class="collapse">
   <li><a href="#redundancy-analysis-3" id="toc-redundancy-analysis-3" class="nav-link" data-scroll-target="#redundancy-analysis-3">Redundancy Analysis</a></li>
-  <li><a href="#lrt-3" id="toc-lrt-3" class="nav-link" data-scroll-target="#lrt-3">LRT</a></li>
+  <li><a href="#rexvar" id="toc-rexvar" class="nav-link" data-scroll-target="#rexvar">rexVar</a></li>
+  <li><a href="#u-shaped-relationship" id="toc-u-shaped-relationship" class="nav-link" data-scroll-target="#u-shaped-relationship"><strong>U-Shaped Relationship</strong></a></li>
+  <li><a href="#physiological-interpretation" id="toc-physiological-interpretation" class="nav-link" data-scroll-target="#physiological-interpretation">🧬 <strong>Physiological Interpretation</strong></a></li>
+  <li><a href="#physiological-interpretation-1" id="toc-physiological-interpretation-1" class="nav-link" data-scroll-target="#physiological-interpretation-1">🧪 <strong>Physiological Interpretation</strong></a></li>
+  <li><a href="#bilirubins-effect-seems-to-increase-when-included-in-the-model" id="toc-bilirubins-effect-seems-to-increase-when-included-in-the-model" class="nav-link" data-scroll-target="#bilirubins-effect-seems-to-increase-when-included-in-the-model">🔍 Bilirubin’s Effect Seems To <em>Increase</em> When Included in the Model</a></li>
+  <li><a href="#possible-explanations" id="toc-possible-explanations" class="nav-link" data-scroll-target="#possible-explanations">✅ Possible Explanations:</a></li>
+  </ul></li>
+  <li><a href="#amino-acids-sugars-data" id="toc-amino-acids-sugars-data" class="nav-link" data-scroll-target="#amino-acids-sugars-data">Amino Acids &amp; Sugars Data</a>
+  <ul class="collapse">
+  <li><a href="#redundancy-analysis-4" id="toc-redundancy-analysis-4" class="nav-link" data-scroll-target="#redundancy-analysis-4">Redundancy Analysis</a></li>
+  <li><a href="#rexvar-1" id="toc-rexvar-1" class="nav-link" data-scroll-target="#rexvar-1">rexVar</a></li>
+  <li><a href="#metabolic-role" id="toc-metabolic-role" class="nav-link" data-scroll-target="#metabolic-role"><strong>Metabolic Role</strong></a></li>
+  <li><a href="#clinical-significance" id="toc-clinical-significance" class="nav-link" data-scroll-target="#clinical-significance"><strong>Clinical Significance</strong></a></li>
+  </ul></li>
+  <li><a href="#acylcarnitines-data" id="toc-acylcarnitines-data" class="nav-link" data-scroll-target="#acylcarnitines-data">AcylCarnitines Data</a>
+  <ul class="collapse">
+  <li><a href="#redundancy-analysis-5" id="toc-redundancy-analysis-5" class="nav-link" data-scroll-target="#redundancy-analysis-5">Redundancy Analysis</a></li>
+  <li><a href="#rexvar-2" id="toc-rexvar-2" class="nav-link" data-scroll-target="#rexvar-2">rexVar</a></li>
+  <li><a href="#u-shaped-curvilinear-relationship" id="toc-u-shaped-curvilinear-relationship" class="nav-link" data-scroll-target="#u-shaped-curvilinear-relationship">1. U-Shaped (Curvilinear) Relationship</a></li>
+  <li><a href="#risk-regions-defined-by-the-red-line" id="toc-risk-regions-defined-by-the-red-line" class="nav-link" data-scroll-target="#risk-regions-defined-by-the-red-line">2. Risk Regions Defined by the Red Line</a></li>
+  <li><a href="#marker-of-impaired-amino-acid-catabolism" id="toc-marker-of-impaired-amino-acid-catabolism" class="nav-link" data-scroll-target="#marker-of-impaired-amino-acid-catabolism">3. Marker of Impaired Amino Acid Catabolism</a></li>
+  <li><a href="#association-with-insulin-resistance-and-mets-risk" id="toc-association-with-insulin-resistance-and-mets-risk" class="nav-link" data-scroll-target="#association-with-insulin-resistance-and-mets-risk">4. Association with Insulin Resistance and MetS Risk</a></li>
+  <li><a href="#contrast-with-long-chain-acylcarnitines" id="toc-contrast-with-long-chain-acylcarnitines" class="nav-link" data-scroll-target="#contrast-with-long-chain-acylcarnitines">5. Contrast with Long-Chain Acylcarnitines</a></li>
+  <li><a href="#inverted-u-shaped-curvilinear-relationship" id="toc-inverted-u-shaped-curvilinear-relationship" class="nav-link" data-scroll-target="#inverted-u-shaped-curvilinear-relationship">1. Inverted U-Shaped (Curvilinear) Relationship</a></li>
+  <li><a href="#risk-regions-defined-by-the-red-line-1" id="toc-risk-regions-defined-by-the-red-line-1" class="nav-link" data-scroll-target="#risk-regions-defined-by-the-red-line-1">2. Risk Regions Defined by the Red Line</a></li>
+  <li><a href="#biological-context-inferred" id="toc-biological-context-inferred" class="nav-link" data-scroll-target="#biological-context-inferred">3. Biological Context (Inferred)</a></li>
   </ul></li>
   <li><a href="#urine-hydrophilic-interaction-liquid-chromatography-hilic-data" id="toc-urine-hydrophilic-interaction-liquid-chromatography-hilic-data" class="nav-link" data-scroll-target="#urine-hydrophilic-interaction-liquid-chromatography-hilic-data">Urine Hydrophilic Interaction Liquid Chromatography (HILIC) Data</a>
   <ul class="collapse">
-  <li><a href="#redundancy-analysis-4" id="toc-redundancy-analysis-4" class="nav-link" data-scroll-target="#redundancy-analysis-4">Redundancy Analysis</a></li>
-  <li><a href="#lrt-4" id="toc-lrt-4" class="nav-link" data-scroll-target="#lrt-4">LRT</a></li>
+  <li><a href="#redundancy-analysis-6" id="toc-redundancy-analysis-6" class="nav-link" data-scroll-target="#redundancy-analysis-6">Redundancy Analysis</a></li>
+  <li><a href="#rexvar-3" id="toc-rexvar-3" class="nav-link" data-scroll-target="#rexvar-3">rexVar</a></li>
   </ul></li>
   <li><a href="#urine-tyrosinetryptophan-pathway-data" id="toc-urine-tyrosinetryptophan-pathway-data" class="nav-link" data-scroll-target="#urine-tyrosinetryptophan-pathway-data">Urine Tyrosine–Tryptophan Pathway Data</a>
   <ul class="collapse">
-  <li><a href="#redundancy-analysis-5" id="toc-redundancy-analysis-5" class="nav-link" data-scroll-target="#redundancy-analysis-5">Redundancy Analysis</a></li>
-  <li><a href="#lrt-5" id="toc-lrt-5" class="nav-link" data-scroll-target="#lrt-5">LRT</a></li>
+  <li><a href="#redundancy-analysis-7" id="toc-redundancy-analysis-7" class="nav-link" data-scroll-target="#redundancy-analysis-7">Redundancy Analysis</a></li>
+  <li><a href="#rexvar-4" id="toc-rexvar-4" class="nav-link" data-scroll-target="#rexvar-4">rexVar</a></li>
+  </ul></li>
+  <li><a href="#tryptophan-metabolism-inflammation" id="toc-tryptophan-metabolism-inflammation" class="nav-link" data-scroll-target="#tryptophan-metabolism-inflammation">1. Tryptophan Metabolism &amp; Inflammation</a></li>
+  <li><a href="#gut-microbiota-derived-metabolites" id="toc-gut-microbiota-derived-metabolites" class="nav-link" data-scroll-target="#gut-microbiota-derived-metabolites">2. Gut Microbiota-Derived Metabolites</a>
+  <ul class="collapse">
+  <li><a href="#metabolites-showing-a-negative-correlation" id="toc-metabolites-showing-a-negative-correlation" class="nav-link" data-scroll-target="#metabolites-showing-a-negative-correlation">1. Metabolites Showing a <strong>Negative Correlation</strong></a></li>
+  <li><a href="#metabolites-showing-a-non-linear-or-inverse-relationship" id="toc-metabolites-showing-a-non-linear-or-inverse-relationship" class="nav-link" data-scroll-target="#metabolites-showing-a-non-linear-or-inverse-relationship">2. Metabolites Showing a <strong>Non-Linear or Inverse Relationship</strong></a></li>
   </ul></li>
   <li><a href="#untargeted-metabolomics" id="toc-untargeted-metabolomics" class="nav-link" data-scroll-target="#untargeted-metabolomics">Untargeted metabolomics</a></li>
   <li><a href="#selected-predictors" id="toc-selected-predictors" class="nav-link" data-scroll-target="#selected-predictors">Selected Predictors</a></li>
   </ul></li>
-  <li><a href="#model-implementation" id="toc-model-implementation" class="nav-link" data-scroll-target="#model-implementation"><span class="header-section-number">3</span> Model Implementation</a></li>
+  <li><a href="#model-implementation" id="toc-model-implementation" class="nav-link" data-scroll-target="#model-implementation"><span class="header-section-number">4</span> Model Implementation</a></li>
   </ul>
 </nav>
     </div>
@@ -266,7 +342,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 7, 2025</p>
+      <p class="date">October 24, 2025</p>
     </div>
   </div>
   
@@ -278,9 +354,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="priority-based-modeling" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Priority Based Modeling</h1>
-<p>Prioritizing heterogeneous data sources (demographics, clinical, omics, digital health) in building a predictive/association model for metabolic syndrome (MetS). The aim is to balance (i) clinical interpretability, (ii) cost/feasibility, and (iii) explanatory power.</p>
+<section id="brief-summary" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Brief Summary</h1>
+<p>We constructed a Metabolic Syndrome Index from the available data. The modeling process was iterative, incorporating distinct data blocks based on a predetermined priority order. At each step, we used ordinal regression with penalization and an iterative forward-selection approach. Variables were only added to the model if they significantly improved predictive power, conditional on the variables already present. We assessed this conditional value using likelihood ratio testing as well as relative explained variation, applying in addition the False Discovery Rate (FDR) correction to account for multiple comparisons.</p>
+</section>
+<section id="priority-based-modeling" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Priority Based Modeling</h1>
+<p>Prioritizing heterogeneous data sources (demographics, clinical, omics, digital health) in building a predictive/association model for metabolic syndrome (<code>MetS</code>). The aim is to balance (i) clinical interpretability, (ii) cost/feasibility, and (iii) explanatory power.</p>
 <hr>
 <section id="overall-logic-behind-the-priority-order" class="level2">
 <h2 class="anchored" data-anchor-id="overall-logic-behind-the-priority-order">🧭 Overall logic behind the priority order</h2>
@@ -547,32 +627,305 @@ ul.task-list li input[type="checkbox"] {
 </section>
 </section>
 </section>
-<section id="likelihood-ratio-testing-lrt---timepoint-1" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Likelihood Ratio Testing (LRT) - Timepoint 1</h1>
-<p>We use <code>ordinal regression</code> for modeling any measurement associations with the <code>MetS</code> index. By default, <code>ordinal regression</code> uses the median value of the <code>MetS</code> index in order to separate the samples into low and high risk groups. This median value is ~60 on the <code>MetS</code> index scale, and it represents the threshold above which the risk for metabolic syndrome is elevated.</p>
-<p>Since <code>ordinal regression</code> is used, an appropriate predictor testing procedure is Likelihood Ratio Testing i.e.&nbsp;<code>LRT</code>.<code>LRT</code> is applied in order to test the added value of a predictor into the model. This process is accompanied by multiple comparison correction via false discovery rates <code>FDR</code> at an <code>alpha level of 5%</code>.</p>
-<p>In the univariate analysis of the <code>Data Processing &amp; EDA</code> page, it was observed that <code>levels 1 to 3</code> do not contain any potential predictors for modeling the <code>MetS</code>, with the exception of <code>Gender</code> i.e.&nbsp;<code>p-value &lt;0.001</code>. As such, <code>LRT</code> begins from <code>level 4: Device Data</code> with <code>Gender</code> already included in the model.</p>
-<p>However, since many data blocks contain not only correlated measurements but also measurements that are calculated by other measurements, a <code>redundancy analysis</code> is first performed for each such block before <code>LRT</code> is applied: Using flexible parametric additive models to determine how well each variable can be predicted from the remaining variables. Variables are dropped in a stepwise fashion, removing the most predictable variable at each step. The remaining variables are used to predict.</p>
+<section id="assessing-predictor-added-value---timepoint-1" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Assessing Predictor Added Value - Timepoint 1</h1>
+<p>We use <code>ordinal regression</code> for modeling any measurement associations with the <code>MetS</code> index. By default, <code>ordinal regression</code> uses the median value of the <code>MetS</code> index in order to separate the samples into low and high risk groups. This median value is <code>~58.67</code> on the <code>MetS</code> index scale, and it represents the threshold above which the risk for metabolic syndrome is elevated.</p>
+<p>Since <code>ordinal regression</code> is used, an appropriate predictor testing procedure is Likelihood Ratio Testing i.e.&nbsp;<code>LRT</code>.<code>LRT</code> is applied in order to test the added value of a predictor into the model. This process is accompanied by multiple comparison correction via false discovery rates <code>FDR</code> at an acceptance threshold level of <code>15%</code>. As this is an experimental study, the rather liberal <code>15%</code> threshold is also changed later to <code>5%</code> so that a second, more “strict” model is developed.</p>
+<p>Depending on how the various data blocks are joined, the sample size is about <code>150</code> observations. This means that the model’s effective degrees of freedom <code>effDF</code> should be in the range of <code>7 to 15 effDF</code> before overfitting occurs. Due to this constraint on the model’s complexity that is imposed by the data sample size, the priority approach uses <code>LRT</code> as long as the model’s <code>effDF</code> does not exceed the <code>7 to 15</code> range, and once the model becomes more complex due to the addition of new predictors, the approach uses <code>approximate Wald statistics</code> (i.e.&nbsp;partial R-Squared) for testing the added value of a new predictor into the model. The approximation is due to using the <code>bootstrap</code> as a resampling method in order to obtain a confidence interval for the significance of the Wald statistic. In addition, the relative explained variation <code>rexVar</code> is also used as a second metric for assessing a new predictor’s added value. After using the <code>bootstrap</code> and a <code>95%</code> confidence interval for <code>rexVar</code>, when the upper <code>2.5 percentile</code> of the confidence interval is greater than <code>20%</code>, then the new predictor is kept into the model. The <code>20%</code> threshold is arbitrary, however the aim is to use a threshold that is positive but not too close to zero.</p>
+<p>In the univariate analysis of the <code>Data Processing &amp; EDA</code> page, it was observed that all levels contain potential predictors for modeling the <code>MetS</code> index. The first data block in priority is the demographics one, and from this type of data only <code>Gender</code> shows significance in differentiating the <code>MetS</code> index i.e.&nbsp;<code>p-value 0.003</code>. As such, <code>LRT</code> begins from <code>level 2: Diatery Indices</code> with <code>Gender</code> already included in the model.</p>
+<p>From a data quality perspective, it is interesting to note that initially there were two erroneous values in the data that influenced the construction of the metabolic syndrome <code>MetS</code> index or score. There was one observation with a <code>BMI of 68.4</code> and another with a <code>Diastolic Blood Pressure of 9 mmHg</code> i.e.&nbsp;both errors. Once these values were corrected, the <code>Antihypertensives</code> variable form the medication data and the <code>HEI_Total_Score</code> variable from the dietary data showed a differentiation ability of the <code>MetS</code>, while before this correction they did not show any such differentiation.</p>
+<p>However, since many data blocks contain not only correlated measurements but also measurements that are calculated by other measurements, a <code>redundancy analysis</code> is first performed for each such block before <code>LRT</code> is applied. By <code>redundancy analysis</code> we mean using flexible parametric additive models to determine how well each variable can be predicted from the remaining variables. Variables are dropped in a stepwise fashion, removing the most predictable variable at each step, and then the remaining variables are used to as predictors.</p>
 <p>Data collected at the <strong><em>first timepoint</em></strong> are only considered for this analysis.</p>
+<p>&nbsp;</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-gender_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<div id="fig-gender_vs_MS_Index_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-gender_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="modeling2_files/figure-html/fig-gender_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+<div aria-describedby="fig-gender_vs_MS_Index_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-gender_vs_MS_Index_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gender_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gender_vs_MS_Index_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first data collection time.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<section id="dietary-indices-lifestyle-factors-1" class="level2">
+<h2 class="anchored" data-anchor-id="dietary-indices-lifestyle-factors-1">Dietary Indices / Lifestyle Factors</h2>
+<section id="redundancy-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="redundancy-analysis">Redundancy Analysis</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;">row</th>
+<th style="text-align: center;">list of remaining predictors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">HEI_Total_Score</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Total_DII</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">MEDAS_Score</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">Smoking_Status</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">Sleep</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">Sedentary</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">Light</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">Moderate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">Vigorous</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">Daily_EI</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">HEI_Total_Score_AdjEI</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>where <code>Daily_EI</code> id the daily energy intake in kcal and <code>HEI_Total_Score_AdjEI</code> is the <code>HEI_Total_Score</code> adjusted for the <code>Daily_EI</code>.</p>
+</section>
+<section id="lrt" class="level3">
+<h3 class="anchored" data-anchor-id="lrt">LRT</h3>
+<p>Model: <code>MetS ~ Gender + rcs(xDietaryLifestyle,3) + Gender:rcs(xDietaryLifestyle,3)</code> where <code>xDietaryLifestyle</code> is a predictor from the above list, <code>rcs(xDietaryLifestyle,3)</code> means that when <code>xDietaryLifestyle</code> is continuous, it is transformed using restricted cubic splines with 3 degrees of freedom in order to account for potential non-linear associations, and <code>:</code> means that the variables are also interacting.</p>
+<p>Results: None of the potential predictors show added value as the <code>FDR</code> adjusted p-values are higher than the chosen threshold of <code>15%</code>. All three predictors show similar performance, but <code>MEDAS_Score</code> shows an interaction with <code>Gender</code> that would pass the <code>FDR</code> test. The <code>HEI_Total_Score</code> has a distribution that is largely bimodal, and hence it is not considered a representative measure. As a result, we keep only the <code>MEDAS_Score</code> in the model.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 15%">
+<col style="width: 10%">
+<col style="width: 4%">
+<col style="width: 13%">
+<col style="width: 22%">
+<col style="width: 11%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">row</th>
+<th style="text-align: center;">varName</th>
+<th style="text-align: center;">chisq</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">anova_pval</th>
+<th style="text-align: center;">interactions_pval</th>
+<th style="text-align: center;">FDR_pval</th>
+<th style="text-align: center;">varTransform</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">MEDAS_Score</td>
+<td style="text-align: center;">23.0018</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">0.0451</td>
+<td style="text-align: center;">0.009632</td>
+<td style="text-align: center;">0.1804</td>
+<td style="text-align: center;">rcs</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-medas_gender_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-medas_gender_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-medas_gender_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-medas_gender_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Interaction of <code>MEDAS Score</code> and <code>Gender</code> for differentiating the <code>MetS</code> index. The red horizontal line corresponds to the median <code>MetS</code> index value of <code>58.67</code> which separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="relationship-is-nonlinear" class="level3">
+<h3 class="anchored" data-anchor-id="relationship-is-nonlinear"><strong>1. Relationship is Nonlinear</strong></h3>
+<ul>
+<li>There isn’t a simple “higher score = better metabolic health” pattern.</li>
+<li>Instead, both curves show a <strong>bend (lowest/highest MetS risk)</strong> around <strong>MEDAS scores of 7</strong>, suggesting a <em>sweet spot</em> of dietary adherence or worsening depending on <code>Gender</code>.</li>
+</ul>
+</section>
+<section id="gender-differences" class="level3">
+<h3 class="anchored" data-anchor-id="gender-differences"><strong>2. Gender Differences</strong></h3>
+<p><strong>Females (red line):</strong></p>
+<ul>
+<li>Show a <em>stronger protective effect</em> around MEDAS score <strong>7</strong>, with a significant drop in metabolic syndrome index.</li>
+<li>At both <em>very low (1–3)</em> and <em>very high MEDAS scores (&gt;9)</em>, the MetS index appears higher again—suggesting <strong>either insufficient diet quality or possibly extreme dietary restriction does not confer additional benefit</strong>.</li>
+</ul>
+<p><strong>Males (blue line):</strong></p>
+<ul>
+<li>The curve is flatter overall—meaning the Mediterranean diet adherence may have <em>less pronounced impact</em> on metabolic risk compared to females in this dataset.</li>
+<li>There’s still a mild upward tip around MEDAS 7, but not as sharp as in females.</li>
+</ul>
+</section>
+<section id="possible-interpretation-of-the-u-shaped-pattern" class="level3">
+<h3 class="anchored" data-anchor-id="possible-interpretation-of-the-u-shaped-pattern"><strong>3. Possible Interpretation of the “U-shaped” Pattern</strong></h3>
+<ul>
+<li><p>Moderate adherence to Mediterranean diet appears most beneficial.</p></li>
+<li><p>Very low adherence = poor diet → higher MetS risk</p></li>
+<li><p>Very high adherence might reflect individuals already at high risk making compensatory dietary changes, or reduced metabolic benefit after a certain point (diminishing returns).</p></li>
+<li><p><strong>The Mediterranean diet appears most metabolically protective at moderate adherence levels (MEDAS 6–7).</strong></p></li>
+<li><p><strong>Females show a stronger improvement in metabolic health with optimal MEDAS scores compared to males.</strong></p></li>
+<li><p><strong>Both very low and very high adherence are associated with higher metabolic risk</strong>, indicating a nonlinear, possibly U-shaped relationship.</p></li>
+</ul>
+</section>
+</section>
+<section id="medications-1" class="level2">
+<h2 class="anchored" data-anchor-id="medications-1">Medications</h2>
+<section id="redundancy-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="redundancy-analysis-1">Redundancy Analysis</h3>
+<p>All three variables remain.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;">row</th>
+<th style="text-align: center;">list of remaining predictors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">Antihypertensives</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Hyperlipidemias</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">Antidepressants</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="lrt-1" class="level3">
+<h3 class="anchored" data-anchor-id="lrt-1">LRT</h3>
+<p>Model: <code>MetS ~ Gender + rcs(MEDAS_Score,3) + Gender:rcs(MEDAS_Score,3) + xMedication</code> where <code>xMedication</code> is a predictor from the above list, <code>rcs(X,3)</code> means that for each X as above and continuous, X is transformed using restricted cubic splines with 3 degrees of freedom in order to account for potential non-linear associations, and <code>:</code> means that the variables are also interacting.</p>
+<p>Results:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 26%">
+<col style="width: 12%">
+<col style="width: 5%">
+<col style="width: 16%">
+<col style="width: 19%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">row</th>
+<th style="text-align: center;">varName</th>
+<th style="text-align: center;">chisq</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">anova_pval</th>
+<th style="text-align: center;">varTransform</th>
+<th style="text-align: center;">FDR_pval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">Antihypertensives</td>
+<td style="text-align: center;">31.8885</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">0.0152</td>
+<td style="text-align: center;">AsIs</td>
+<td style="text-align: center;">0.0456</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Antidepressants</td>
+<td style="text-align: center;">29.7248</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">0.0533</td>
+<td style="text-align: center;">AsIs</td>
+<td style="text-align: center;">0.0799</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Antihypertensives_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Antihypertensives_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-Antihypertensives_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Antihypertensives_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: <code>Antihypertensives</code> in differentiating the <code>MetS</code> index. The red horizontal line corresponds to the median <code>MetS</code> index value of <code>58.67</code> which separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Antidepressants_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Antidepressants_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-Antidepressants_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Antidepressants_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: <code>Antidepressants</code> in differentiating the <code>MetS</code> index. The red horizontal line corresponds to the median <code>MetS</code> index value of <code>58.67</code> which separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="device-data-1" class="level2">
 <h2 class="anchored" data-anchor-id="device-data-1">Device Data</h2>
 <p>By <code>device</code> data we mean the human body measurements as seen in the <code>Data Processing &amp; EDA</code> page. Also a shorter list of those measurements was finally selected for potential inclusion into the model (the list was based on better measurement interpretation reasons).</p>
-<section id="redundancy-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="redundancy-analysis">Redundancy Analysis</h3>
+<section id="redundancy-analysis-2" class="level3">
+<h3 class="anchored" data-anchor-id="redundancy-analysis-2">Redundancy Analysis</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -601,42 +954,34 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 </tr>
 <tr class="odd">
 <td style="text-align: center;">5</td>
-<td style="text-align: center;">stress_index</td>
+<td style="text-align: center;">fatigue_index</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">6</td>
-<td style="text-align: center;">fatigue_index</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">gender</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">8</td>
 <td style="text-align: center;">risk_group_cardiovascular</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">9</td>
+<td style="text-align: center;">7</td>
 <td style="text-align: center;">age</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">10</td>
-<td style="text-align: center;">bfm</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">smm</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">11</td>
+<td style="text-align: center;">9</td>
 <td style="text-align: center;">whr</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">12</td>
+<td style="text-align: center;">10</td>
 <td style="text-align: center;">tbw_ffm_ratio</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">13</td>
+<td style="text-align: center;">11</td>
 <td style="text-align: center;">bcm_t_score</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">14</td>
+<td style="text-align: center;">12</td>
 <td style="text-align: center;">khz_whole_body_phase_angle_z_score</td>
 </tr>
 </tbody>
@@ -644,66 +989,142 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 </div>
 </div>
 </section>
-<section id="lrt" class="level3">
-<h3 class="anchored" data-anchor-id="lrt">LRT</h3>
-<p>Model: <code>MetS ~ Gender + rcs(xDevice)</code> where <code>xDevice</code> is a predictor from the above list and <code>rcs</code> means that potential non-linear associations are taken into account.</p>
+<section id="lrt-2" class="level3">
+<h3 class="anchored" data-anchor-id="lrt-2">LRT</h3>
+<p>Model: <code>MetS ~ Gender + rcs(MEDAS_Score,3) + Gender:rcs(MEDAS_Score,3) + Antihypertensives + Antidepressants + rcs(xDevice,3) + Gender:rcs(xDevice,3)</code> where <code>xDevice</code> is a predictor from the above list, <code>rcs(X,3)</code> means that for each X as above and continuous, X is transformed using restricted cubic splines with 3 degrees of freedom in order to account for potential non-linear associations, and <code>:</code> means that the variables are also interacting.</p>
 <p>Results:</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 17%">
+<col style="width: 9%">
+<col style="width: 4%">
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 26%">
+<col style="width: 10%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">row</th>
 <th style="text-align: center;">varName</th>
 <th style="text-align: center;">chisq</th>
 <th style="text-align: center;">df</th>
+<th style="text-align: center;">varTransform</th>
 <th style="text-align: center;">anova_pval</th>
+<th style="text-align: center;">anova_pval_interactions</th>
 <th style="text-align: center;">FDR_pval</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">bfm</td>
-<td style="text-align: center;">51.2432</td>
-<td style="text-align: center;">3</td>
+<td style="text-align: center;">smm</td>
+<td style="text-align: center;">63.6400</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">rcs</td>
 <td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0100</td>
 <td style="text-align: center;">0.0000</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">whr</td>
-<td style="text-align: center;">31.0848</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">0.0004</td>
-<td style="text-align: center;">0.0022</td>
+<td style="text-align: center;">bcm_t_score</td>
+<td style="text-align: center;">63.6681</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0830</td>
+<td style="text-align: center;">0.0000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">bcm_t_score</td>
-<td style="text-align: center;">30.5236</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">0.0005</td>
-<td style="text-align: center;">0.0022</td>
+<td style="text-align: center;">whr</td>
+<td style="text-align: center;">54.5978</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">0.0012</td>
+<td style="text-align: center;">0.8559</td>
+<td style="text-align: center;">0.0048</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">4</td>
-<td style="text-align: center;">stress_index</td>
-<td style="text-align: center;">24.4287</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">0.0109</td>
-<td style="text-align: center;">0.0354</td>
+<td style="text-align: center;">fatigue_index</td>
+<td style="text-align: center;">46.4206</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">0.0243</td>
+<td style="text-align: center;">0.2061</td>
+<td style="text-align: center;">0.0729</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">Site_Collection</td>
+<td style="text-align: center;">50.9868</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">AsIs</td>
+<td style="text-align: center;">0.0529</td>
+<td style="text-align: center;">0.0575</td>
+<td style="text-align: center;">0.1270</td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<p>From the above table we can also see that <code>smm</code>, <code>bcm_t_score</code> and <code>Site_Collection</code> seem to interact with <code>Gender</code> in differentiating the <code>MetS</code> index. Examples are shown below.</p>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-gender_siteCollection_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gender_siteCollection_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-gender_siteCollection_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gender_siteCollection_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Interaction of <code>Gender</code> and <code>Site Collection</code> for differentiating the <code>MetS</code> index.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-gender_smm_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gender_smm_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-gender_smm_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gender_smm_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Interaction of <code>Gender</code> and <code>Skeletal Muscle Mass</code> for differentiating the <code>MetS</code> index.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-gender_bcm_t_score_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gender_bcm_t_score_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-gender_bcm_t_score_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gender_bcm_t_score_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Interaction of <code>Gender</code> and <code>Body Cell Mass (t-score)</code> for differentiating the <code>MetS</code> index.
+</figcaption>
+</figure>
+</div>
 </div>
 </div>
 </section>
 </section>
 <section id="biochemical-data" class="level2">
 <h2 class="anchored" data-anchor-id="biochemical-data">Biochemical Data</h2>
-<section id="redundancy-analysis-1" class="level3">
-<h3 class="anchored" data-anchor-id="redundancy-analysis-1">Redundancy Analysis</h3>
+<section id="redundancy-analysis-3" class="level3">
+<h3 class="anchored" data-anchor-id="redundancy-analysis-3">Redundancy Analysis</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -764,47 +1185,47 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 </tr>
 <tr class="odd">
 <td style="text-align: center;">13</td>
-<td style="text-align: center;">BASO_Perc</td>
+<td style="text-align: center;">MVC</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">14</td>
-<td style="text-align: center;">MVC</td>
+<td style="text-align: center;">MCHC</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">15</td>
-<td style="text-align: center;">MCHC</td>
+<td style="text-align: center;">RDW_CV_Perc</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">16</td>
-<td style="text-align: center;">RDW_CV_Perc</td>
+<td style="text-align: center;">MONO</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">17</td>
-<td style="text-align: center;">MONO</td>
+<td style="text-align: center;">EOS</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">18</td>
-<td style="text-align: center;">EOS</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">19</td>
-<td style="text-align: center;">PLT</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">20</td>
 <td style="text-align: center;">SGOT</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">21</td>
+<td style="text-align: center;">19</td>
 <td style="text-align: center;">SGPT</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">22</td>
+<td style="text-align: center;">20</td>
 <td style="text-align: center;">ALP</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">23</td>
+<td style="text-align: center;">21</td>
 <td style="text-align: center;">AISI</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">EBR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">LMR</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">24</td>
@@ -815,60 +1236,249 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 </div>
 </div>
 </section>
-<section id="lrt-1" class="level3">
-<h3 class="anchored" data-anchor-id="lrt-1">LRT</h3>
+<section id="rexvar" class="level3">
+<h3 class="anchored" data-anchor-id="rexvar">rexVar</h3>
 <p>The following predictors are not considered as they use measurements that define the <code>MetS</code>: <code>TRIG</code>, <code>HDL</code>, <code>GLU</code>, <code>TG_HDL_C_Index</code>, <code>CHOL_HDL_Ratio</code>, <code>TyG_Index</code> and <code>Atherogenic_Index</code>.</p>
-<p>Also a more liberal value for the <code>FDR_pval</code> threshold is used here: <code>10%</code></p>
-<p>Model: <code>MetS ~ Gender + rcs(bfm,3) + rcs(whr,3) + rcs(bcm_t_score,3) + rcs(stress_index,3) + rcs(xBiochem,3)</code> where <code>xBiochem</code> is a predictor from the above list and <code>rcs</code> means that potential non-linear associations are taken into account.</p>
+<p>Model: <code>MetS ~ Gender + rcs(MEDAS_Score,3) + Gender:rcs(MEDAS_Score,3) + Antihypertensives + Antidepressants + rcs(bcm_t_score,3) + rcs(whr,3) + rcs(smm,3) + rcs(fatigue_index,3) + Site_Collection + Gender:rcs(bcm_t_score,3) + Gender:rcs(smm,3) + Gender:Site_Collection + rcs(xBiochem,3) + xBiochem_Detected + rcs(xBiochem,3):xBiochem_Detected + gender:rcs(xBiochem,3) + rcs(xBiochem,3):Antihypertensives + rcs(xBiochem,3):Antidepressants + rcs(xBiochem,3):rcs(MEDAS_Score,3) + rcs(xBiochem,3):rcs(bcm_t_score,3) + rcs(xBiochem,3):rcs(whr,3) + rcs(xBiochem,3):rcs(smm,3) + rcs(xBiochem,3):rcs(fatigue_index,3) + rcs(xBiochem,3):Site_Collection</code> where <code>xBiochem</code> is a predictor from the above list, <code>xBiochem_Detected</code> is the corresponding <code>LOD</code> related indicator, <code>rcs(X,3)</code> means that for each X as above and continuous, X is transformed using restricted cubic splines with 3 degrees of freedom in order to account for potential non-linear associations, and <code>:</code> means that the variables are also interacting.</p>
+<p>Note that the indicator columns of type <code>xBiochem_Detected</code> do not play much of role in the biochemical data since they contain non-detection cases at an average rate of <code>5%</code>.</p>
 <p>Results:</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 18%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">row</th>
 <th style="text-align: center;">varName</th>
-<th style="text-align: center;">chisq</th>
 <th style="text-align: center;">df</th>
-<th style="text-align: center;">anova_pval</th>
-<th style="text-align: center;">FDR_pval</th>
+<th style="text-align: center;">pval_partialR2</th>
+<th style="text-align: center;">varTransform</th>
+<th style="text-align: center;">rowname</th>
+<th style="text-align: center;">REV</th>
+<th style="text-align: center;">Lower</th>
+<th style="text-align: center;">Upper</th>
+<th style="text-align: center;">FDR_pval_partialR2</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">HbA1c_Perc</td>
-<td style="text-align: center;">75.4276</td>
-<td style="text-align: center;">11</td>
-<td style="text-align: center;">0.0007</td>
-<td style="text-align: center;">0.0168</td>
+<td style="text-align: center;">17.2171</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xBiochem</td>
+<td style="text-align: center;">0.2066</td>
+<td style="text-align: center;">0.0710</td>
+<td style="text-align: center;">0.3409</td>
+<td style="text-align: center;">0.0000</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">ALP</td>
-<td style="text-align: center;">71.0320</td>
-<td style="text-align: center;">11</td>
-<td style="text-align: center;">0.0066</td>
-<td style="text-align: center;">0.0792</td>
+<td style="text-align: center;">TBIL</td>
+<td style="text-align: center;">18.4097</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xBiochem</td>
+<td style="text-align: center;">0.0978</td>
+<td style="text-align: center;">0.0301</td>
+<td style="text-align: center;">0.2663</td>
+<td style="text-align: center;">0.0000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">TBIL</td>
-<td style="text-align: center;">70.0593</td>
-<td style="text-align: center;">11</td>
-<td style="text-align: center;">0.0107</td>
-<td style="text-align: center;">0.0856</td>
+<td style="text-align: center;">SGPT</td>
+<td style="text-align: center;">17.1463</td>
+<td style="text-align: center;">0.0037</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xBiochem</td>
+<td style="text-align: center;">0.0992</td>
+<td style="text-align: center;">0.0268</td>
+<td style="text-align: center;">0.2430</td>
+<td style="text-align: center;">0.0045</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-HbA1c_Perc_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-HbA1c_Perc_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-HbA1c_Perc_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-HbA1c_Perc_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: <code>Percentage of Total Hemoglobin</code> in differentiating the <code>MetS</code> index. The red horizontal line corresponds to the median <code>MetS</code> index value of <code>58.67</code> which separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="u-shaped-relationship" class="level3">
+<h3 class="anchored" data-anchor-id="u-shaped-relationship"><strong>U-Shaped Relationship</strong></h3>
+<ul>
+<li>At <strong>lower hemoglobin levels</strong>, the MetS index is <strong>higher</strong>, indicating poorer metabolic health.</li>
+<li>As hemoglobin rises to a <strong>moderate range (~5.0–5.3 mg/dL)</strong>, the MetS index appears to <strong>reach a low point</strong>, reflecting better metabolic health.</li>
+<li>Beyond this point, as hemoglobin increases further, the <strong>MetS index rises again</strong>, suggesting worsening metabolic health.</li>
+</ul>
+<p>➡ <strong>This indicates that both <em>low</em> and <em>high</em> hemoglobin levels may be associated with increased cardiometabolic risk</strong>, while a mid-range value represents a healthier metabolic profile.</p>
+</section>
+<section id="physiological-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="physiological-interpretation">🧬 <strong>Physiological Interpretation</strong></h3>
+<ul>
+<li><p><strong>Low hemoglobin</strong> may reflect anemia, inflammation, nutrient deficiencies, or chronic illness—all linked to metabolic dysfunction.</p></li>
+<li><p><strong>High hemoglobin</strong> can reflect:</p>
+<ul>
+<li>Increased blood viscosity (thicker blood),</li>
+<li>Hypoxia or sleep apnea (common in obesity),</li>
+<li>Insulin resistance and oxidative stress,</li>
+<li>Elevated erythropoietin signaling due to metabolic stress.</li>
+</ul></li>
+</ul>
+<p><strong>The plot suggests a U-shaped relationship, where metabolic syndrome risk is lowest at mid-range hemoglobin levels and increases at both lower and higher extremes.</strong> This may point to hemoglobin as a marker of metabolic balance, inflammation, and oxidative stress.</p>
+<hr>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-TBIL_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-TBIL_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-TBIL_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TBIL_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: <code>Total Bilirubin</code> in differentiating the <code>MetS</code> index. The red horizontal line corresponds to the median <code>MetS</code> index value of <code>58.67</code> which separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="slight-inverse-trend" class="level4">
+<h4 class="anchored" data-anchor-id="slight-inverse-trend"><strong>Slight Inverse Trend</strong></h4>
+<ul>
+<li>At <strong>low bilirubin levels</strong>, the MetS index appears <em>slightly higher</em>.</li>
+<li>As bilirubin increases, the MetS index trends <em>slightly lower</em>, particularly beyond ~0.8 mg/dL.</li>
+</ul>
+<p>However, the effect is <strong>small and relatively flat overall</strong>, as shown by the <strong>non-linear curve (blue)</strong> being close to flat.</p>
+</section>
+</section>
+<section id="physiological-interpretation-1" class="level3">
+<h3 class="anchored" data-anchor-id="physiological-interpretation-1">🧪 <strong>Physiological Interpretation</strong></h3>
+<p>Bilirubin is both a waste product and an <strong>endogenous antioxidant</strong>.</p>
+<ul>
+<li><p><strong>Higher bilirubin levels (within normal range)</strong> are associated with:</p>
+<ul>
+<li>Lower oxidative stress</li>
+<li>Reduced inflammation</li>
+<li>Lower risk of cardiovascular disease, diabetes, and metabolic syndrome (supported by multiple epidemiological studies)</li>
+</ul></li>
+<li><p><strong>Low bilirubin</strong> may reflect reduced antioxidant capacity and increased oxidative stress, contributing to metabolic syndrome.</p></li>
+</ul>
+<blockquote class="blockquote">
+<p>The <strong>slight downward trend</strong> in this plot supports the idea that <strong>bilirubin may be protective</strong> against metabolic dysfunction.</p>
+</blockquote>
+<ul>
+<li><strong>There is a modest inverse association</strong> between bilirubin and metabolic syndrome risk.</li>
+<li><strong>Higher bilirubin levels (within physiological range) are associated with slightly better metabolic health.</strong></li>
+<li>The relationship is <strong>weak</strong> compared to other biochemical measurements examined here, indicating bilirubin is likely a <strong>secondary or supporting biomarker</strong>, not a primary driver.</li>
+</ul>
+</section>
+<section id="bilirubins-effect-seems-to-increase-when-included-in-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="bilirubins-effect-seems-to-increase-when-included-in-the-model">🔍 Bilirubin’s Effect Seems To <em>Increase</em> When Included in the Model</h3>
+<p>Even though the raw (unadjusted) relationship between bilirubin and the Metabolic Syndrome Index appears weak and slightly negative, <strong>bilirubin is likely correlated with other variables that mask its true protective effect in the unadjusted plot</strong>.</p>
+<p>Once it is included in a multivariable model that adjusts for those confounding factors, its <strong>true independent contribution</strong> becomes clearer and stronger.</p>
+</section>
+<section id="possible-explanations" class="level3">
+<h3 class="anchored" data-anchor-id="possible-explanations">✅ Possible Explanations:</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 78%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mechanism</th>
+<th>What it Means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Confounding suppression</strong></td>
+<td>Other markers (like inflammation, triglycerides, glucose) may be masking bilirubin’s protective effect in the raw scatterplot. Adjusting for them reveals bilirubin’s true signal.</td>
+</tr>
+<tr class="even">
+<td><strong>Negative correlation with harmful markers</strong></td>
+<td>Bilirubin may be inversely correlated with oxidative stress, insulin resistance, or liver fat — so once those factors are controlled, bilirubin’s protective role is more visible.</td>
+</tr>
+<tr class="odd">
+<td><strong>Nonlinear effects accounted for in the model</strong></td>
+<td>The model may capture subtle nonlinear relationships (e.g., U-shaped or threshold effects) that aren’t obvious from a simple scatter.</td>
+</tr>
+<tr class="even">
+<td><strong>Multimarker synergy</strong></td>
+<td>Bilirubin may act as part of a <em>protective metabolic signature</em> that only shows significance in combination with other variables.</td>
+</tr>
+</tbody>
+</table>
+<p>Bilirubin is a strong endogenous antioxidant. Numerous studies show that <strong>higher bilirubin (within physiological range) is protective against diabetes, cardiovascular disease, and metabolic syndrome</strong>. Its effect is often underestimated in unadjusted observations but becomes apparent when controlling for inflammation, obesity markers, or liver function.</p>
+<blockquote class="blockquote">
+<p><strong>Although total bilirubin appears only weakly associated with metabolic syndrome when viewed alone, the multivariable model reveals that it has a meaningful independent protective effect when controlling for other metabolic factors.</strong></p>
+</blockquote>
+<hr>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-SGPT_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-SGPT_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-SGPT_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SGPT_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: <code>Serum Glutamic-Pyruvic Transaminase</code> in differentiating the <code>MetS</code> index. The red horizontal line corresponds to the median <code>MetS</code> index value of <code>58.67</code> which separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="clear-positive-association" class="level4">
+<h4 class="anchored" data-anchor-id="clear-positive-association"><strong>Clear Positive Association</strong></h4>
+<ul>
+<li>As <strong>ALT levels increase (even modestly)</strong>, the <strong>MetS index rises</strong>.</li>
+<li>The <strong>log transform compresses the scale</strong>, meaning that each step along the x-axis represents a <em>multiplicative</em> increase in ALT (e.g., doubling or tripling), not a linear unit.</li>
+<li>Despite the compression, the <strong>blue trend line still shows a steady upward slope</strong>, suggesting that <em>even incremental log-transformed increases in ALT are associated with increased metabolic syndrome risk</em>.</li>
+</ul>
+<p>ALT is a biomarker of <strong>liver health</strong>. Elevated ALT is linked to:</p>
+<ul>
+<li><strong>Non-alcoholic fatty liver disease (NAFLD)</strong></li>
+<li><strong>Insulin resistance</strong></li>
+<li><strong>Visceral fat accumulation</strong></li>
+<li><strong>Chronic inflammation</strong></li>
+</ul>
+<p>These are <em>core drivers</em> of metabolic syndrome.</p>
+<p>➡ <strong>Thus, rising ALT—even in the subclinical range—reflects worsening metabolic dysfunction.</strong></p>
+<ul>
+<li><strong>Higher ALT levels (log-transformed) are strongly associated with increasing metabolic syndrome severity.</strong></li>
+<li>The relationship persists even after accounting for nonlinear scaling—suggesting ALT is a robust indicator of metabolic stress.</li>
+<li>This supports the role of <strong>liver dysfunction</strong> as a central mechanism in the development of metabolic syndrome.</li>
+</ul>
+</section>
 </section>
 </section>
 <section id="amino-acids-sugars-data" class="level2">
 <h2 class="anchored" data-anchor-id="amino-acids-sugars-data">Amino Acids &amp; Sugars Data</h2>
-<section id="redundancy-analysis-2" class="level3">
-<h3 class="anchored" data-anchor-id="redundancy-analysis-2">Redundancy Analysis</h3>
+<section id="redundancy-analysis-4" class="level3">
+<h3 class="anchored" data-anchor-id="redundancy-analysis-4">Redundancy Analysis</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -928,50 +1538,209 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 </div>
 </div>
 </section>
-<section id="lrt-2" class="level3">
-<h3 class="anchored" data-anchor-id="lrt-2">LRT</h3>
-<p>Model: <code>MetS ~ Gender + rcs(bfm,3) + rcs(whr,3) + rcs(bcm_t_score,3) + rcs(stress_index,3) + rcs(HbA1c_Perc,3) + rcs(ALP,3) + rcs(TBIL,3) + rcs(xAAS,3)</code> where <code>xAAS</code> is a predictor from the above list and <code>rcs</code> means that potential non-linear associations are taken into account.</p>
+<section id="rexvar-1" class="level3">
+<h3 class="anchored" data-anchor-id="rexvar-1">rexVar</h3>
+<p>The <code>Upper rexVar</code> threshold is changed here to <code>10%</code> from <code>20%</code> that was used with the biochemical data, in order to give a larger opportunity to metabolites to enter into the model.</p>
+<p>Model: <code>MetS ~ gender + rcs(MEDAS_Score,3) + Antihypertensives + Antidepressants + gender:rcs(MEDAS_Score,3) + rcs(bcm_t_score,3) + rcs(whr,3) + rcs(smm,3) + rcs(fatigue_index,3) + Site_Collection + gender:rcs(bcm_t_score,3) + gender:rcs(smm,3) + gender:Site_Collection + rcs(HbA1c_Perc,3) + rcs(SGPT,3) + rcs(TBIL,3) + rcs(xAAS,3) + rcs(xAAS,3):Site_Collection + rcs(xAAS,3):gender + rcs(xAAS,3):Antihypertensives + rcs(xAAS,3):Antidepressants + rcs(xAAS,3):rcs(MEDAS_Score,3) + rcs(xAAS,3):rcs(smm,3) + rcs(xAAS,3):rcs(bcm_t_score,3) + rcs(xAAS,3):rcs(whr,3) + rcs(xAAS,3):rcs(fatigue_index,3) + rcs(xAAS,3):rcs(HbA1c_Perc,3) + rcs(xAAS,3):rcs(SGPT,3) + rcs(xAAS,3):rcs(TBIL,3)</code> where <code>xAAS</code> is a predictor from the above list and <code>rcs</code> means that potential non-linear associations are taken into account, and <code>:</code> denotes interaction.</p>
 <p>Results:</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
+<col style="width: 3%">
+<col style="width: 25%">
 <col style="width: 6%">
-<col style="width: 46%">
+<col style="width: 12%">
 <col style="width: 10%">
-<col style="width: 5%">
-<col style="width: 16%">
-<col style="width: 13%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 15%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">row</th>
 <th style="text-align: center;">varName</th>
-<th style="text-align: center;">chisq</th>
 <th style="text-align: center;">df</th>
-<th style="text-align: center;">anova_pval</th>
-<th style="text-align: center;">FDR_pval</th>
+<th style="text-align: center;">pval_partialR2</th>
+<th style="text-align: center;">varTransform</th>
+<th style="text-align: center;">rowname</th>
+<th style="text-align: center;">REV</th>
+<th style="text-align: center;">Lower</th>
+<th style="text-align: center;">Upper</th>
+<th style="text-align: center;">FDR_pval_partialR2</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">1</td>
+<td style="text-align: center;">Anhydroglucitol</td>
+<td style="text-align: center;">28.2136</td>
+<td style="text-align: center;">0.0038</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xAAS</td>
+<td style="text-align: center;">0.0454</td>
+<td style="text-align: center;">0.0275</td>
+<td style="text-align: center;">0.1146</td>
+<td style="text-align: center;">0.0038</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Glucose</td>
+<td style="text-align: center;">30.1713</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xAAS</td>
+<td style="text-align: center;">0.0659</td>
+<td style="text-align: center;">0.0306</td>
+<td style="text-align: center;">0.1266</td>
+<td style="text-align: center;">0.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
 <td style="text-align: center;">Glutamine_To_Glutamic_Acid_Ratio</td>
-<td style="text-align: center;">93.668</td>
-<td style="text-align: center;">17</td>
-<td style="text-align: center;">0.003</td>
-<td style="text-align: center;">0.033</td>
+<td style="text-align: center;">24.5132</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xAAS</td>
+<td style="text-align: center;">0.0423</td>
+<td style="text-align: center;">0.0091</td>
+<td style="text-align: center;">0.1079</td>
+<td style="text-align: center;">NA</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+<p>&nbsp;</p>
+<p>Below is some information on <code>Anhydroglucitol</code>:</p>
+<p><strong>1,5-Anhydroglucitol (1,5-AG)</strong> is a naturally occurring carbohydrate (a polyol, or sugar alcohol) that circulates in the blood. It is derived mainly from dietary sources and is normally maintained at a stable level in the bloodstream.</p>
+</section>
+<section id="metabolic-role" class="level3">
+<h3 class="anchored" data-anchor-id="metabolic-role"><strong>Metabolic Role</strong></h3>
+<ul>
+<li>1,5-AG closely resembles glucose in structure.</li>
+<li>Under normal physiological conditions, the kidneys reabsorb it almost completely.</li>
+<li>When blood glucose levels become elevated (especially above the renal threshold ~180 mg/dL), glucose spills into the urine and <em>competes</em> with 1,5-AG for reabsorption.</li>
+<li>This leads to decreased levels of 1,5-AG in the blood.</li>
+</ul>
+</section>
+<section id="clinical-significance" class="level3">
+<h3 class="anchored" data-anchor-id="clinical-significance"><strong>Clinical Significance</strong></h3>
+<p>Because of this competition, <strong>1,5-AG acts as a biomarker for short-term glycemic control</strong> (reflecting glucose spikes over the previous 1–2 weeks). Low 1,5-AG levels indicate frequent hyperglycemic episodes.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 79%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Chemical class</td>
+<td>Monosaccharide derivative (polyol)</td>
+</tr>
+<tr class="even">
+<td>Source</td>
+<td>Primarily dietary; minimally produced by the body</td>
+</tr>
+<tr class="odd">
+<td>Metabolic behavior</td>
+<td>Reabsorbed by kidneys unless high glucose is present</td>
+</tr>
+<tr class="even">
+<td>Clinical use</td>
+<td>Marker for short-term glycemic control (postprandial glucose spikes)</td>
+</tr>
+<tr class="odd">
+<td>Test name</td>
+<td>GlycoMark® test in clinical practice</td>
+</tr>
+</tbody>
+</table>
+<p>1,5-Anhydroglucitol is useful in diabetes management as it helps detect hyperglycemia that may not be reflected in HbA1c values.</p>
+<p><strong>Anhydroglucitol</strong> is a glucose-like blood metabolite used as a sensitive indicator of recent high blood sugar excursions.</p>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Anhydroglucitol_Glucose_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Anhydroglucitol_Glucose_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-Anhydroglucitol_Glucose_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Anhydroglucitol_Glucose_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Relationship between <strong>1,5-Anhydroglucitol levels (x-axis)</strong> and <strong>blood glucose levels (y-axis)</strong>, separated by <strong>metabolic syndrome (MetS) risk groups</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions. <strong>Red</strong> = Higher MetS risk and * <strong>Green</strong> = Lower MetS risk.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="inverse-relationship-overall" class="level4">
+<h4 class="anchored" data-anchor-id="inverse-relationship-overall"><strong>1. Inverse relationship overall</strong></h4>
+<ul>
+<li>As <strong>Anhydroglucitol increases</strong>, <strong>glucose levels tend to decrease</strong>, especially in the <em>lower-risk group</em> (green line).</li>
+<li>This aligns with clinical understanding: <strong>higher 1,5-AG indicates better short-term glycemic control</strong>.</li>
+</ul>
+</section>
+<section id="stronger-association-in-the-lower-risk-group" class="level4">
+<h4 class="anchored" data-anchor-id="stronger-association-in-the-lower-risk-group"><strong>2. Stronger association in the lower-risk group</strong></h4>
+<ul>
+<li>The <strong>green curve</strong> (lower MetS risk) shows a clear drop in glucose as Anhydroglucitol rises.</li>
+<li>Individuals with good metabolic health maintain both <strong>higher Anhydroglucitol</strong> and <strong>lower glucose</strong>.</li>
+</ul>
+</section>
+<section id="higher-risk-group-shows-less-benefit" class="level4">
+<h4 class="anchored" data-anchor-id="higher-risk-group-shows-less-benefit"><strong>3. Higher-risk group shows less benefit</strong></h4>
+<ul>
+<li><p>The <strong>red curve</strong> (higher MetS risk) shows a flatter or even U-shaped pattern: even when Anhydroglucitol rises, glucose eventually increases again.</p></li>
+<li><p>This suggests metabolic dysregulation: <strong>1,5-AG loses its protective correlation</strong> in those at higher risk.</p></li>
+<li><p><strong>Low Anhydroglucitol = poor glycemic control and likely metabolic dysfunction.</strong></p></li>
+<li><p><strong>High Anhydroglucitol is protective</strong>, but only in those <em>without advanced metabolic syndrome</em>.</p></li>
+<li><p>In those at higher risk, the regulatory relationship between 1,5-AG and glucose appears impaired—possibly due to renal threshold changes or chronic hyperglycemia.</p></li>
+</ul>
+<hr>
+<p><strong>Higher 1,5-Anhydroglucitol is associated with lower glucose levels and better metabolic health.</strong> However, <strong>in people with higher metabolic syndrome risk, this relationship weakens</strong>, suggesting underlying metabolic damage that interferes with normal glucose buffering and renal reabsorption mechanisms.</p>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Glutamine_To_Glutamic_Acid_Ratio_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Glutamine_To_Glutamic_Acid_Ratio_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-Glutamine_To_Glutamic_Acid_Ratio_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Glutamine_To_Glutamic_Acid_Ratio_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Relationship between <strong>Glutamine To Glutamic Acid Ratio</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>U-Shaped Relationship</strong></p>
+<ul>
+<li>At <strong>low ratios</strong> (closer to 1.0), the MetS index is <strong>high</strong>, indicating poor metabolic health.</li>
+<li>As the ratio increases toward approximately <strong>2.5–3.0</strong>, the MetS index <strong>declines</strong>, suggesting improved metabolic health.</li>
+<li>Beyond ~3.0, the trend <strong>curves upward slightly</strong>, suggesting that extremely high ratios <strong>may be associated with increasing metabolic risk again</strong>.</li>
+</ul>
+<p>▶ <strong>Optimal metabolic health appears around a glutamine/glutamic acid ratio of ~2.5–3.0.</strong></p>
+<ul>
+<li><strong>Glutamine is anti-inflammatory</strong> and associated with better insulin sensitivity.</li>
+<li><strong>Glutamic acid (glutamate)</strong> is linked to oxidative stress, inflammation, and metabolic dysfunction.</li>
+<li>Therefore, a <strong>higher ratio generally reflects a healthier metabolic state</strong>—up to a point.</li>
+</ul>
+<p>🔸 <strong>Low ratio = high glutamic acid = metabolic stress and insulin resistance.</strong> 🔸 <strong>Moderate ratio = optimal balance = better metabolic health.</strong> 🔸 <strong>Very high ratio = possibly reflects abnormal amino acid metabolism or compensatory stress response.</strong></p>
+<p><strong>The optimal metabolic profile occurs at a balanced glutamine-to-glutamic acid ratio (around 2.5–3.0). Very low or very high ratios are associated with higher metabolic syndrome risk.</strong></p>
+</section>
 </section>
 </section>
 <section id="acylcarnitines-data" class="level2">
 <h2 class="anchored" data-anchor-id="acylcarnitines-data">AcylCarnitines Data</h2>
-<section id="redundancy-analysis-3" class="level3">
-<h3 class="anchored" data-anchor-id="redundancy-analysis-3">Redundancy Analysis</h3>
+<section id="redundancy-analysis-5" class="level3">
+<h3 class="anchored" data-anchor-id="redundancy-analysis-5">Redundancy Analysis</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1019,16 +1788,171 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 </div>
 </div>
 </section>
-<section id="lrt-3" class="level3">
-<h3 class="anchored" data-anchor-id="lrt-3">LRT</h3>
-<p>Model: <code>MetS ~ Gender + rcs(bfm,3) + rcs(whr,3) + rcs(bcm_t_score,3) + rcs(stress_index,3) + rcs(HbA1c_Perc,3) + rcs(ALP,3) + rcs(TBIL,3) + rcs(Glutamine_To_Glutamic_Acid_Ratio,3) + rcs(xAcylCar,3)</code> where <code>xAcylCar</code> is a predictor from the above list and <code>rcs</code> means that potential non-linear associations are taken into account.</p>
-<p>Results: <strong><em>No significant cases</em></strong></p>
+<section id="rexvar-2" class="level3">
+<h3 class="anchored" data-anchor-id="rexvar-2">rexVar</h3>
+<p>The <code>Upper rexVar</code> threshold is changed here to <code>10%</code> from <code>20%</code> that was used with the biochemical data, in order to give a larger opportunity to metabolites to enter into the model.</p>
+<p>Model: <code>MetS ~ gender + rcs(MEDAS_Score,3) + Antihypertensives + Antidepressants + gender:rcs(MEDAS_Score,3) + rcs(bcm_t_score,3) + rcs(whr,3) + rcs(smm,3) + rcs(fatigue_index,3) + Site_Collection + gender:rcs(bcm_t_score,3) + gender:rcs(smm,3) + gender:Site_Collection + rcs(HbA1c_Perc,3) + rcs(log(SGPT),3) + rcs(log(TBIL),3) + rcs(Anhydroglucitol,3) + rcs(Glucose,3) + rcs(log(Glutamine_To_Glutamic_Acid_Ratio),3) + rcs(xAcylCar,3) + rcs(xAcylCar,3):gender + rcs(xAcylCar,3):rcs(MEDAS_Score,3) + rcs(xAcylCar,3):Antihypertensives + rcs(xAcylCar,3):Antidepressants + rcs(xAcylCar,3):rcs(bcm_t_score,3) + rcs(xAcylCar,3):rcs(whr,3) + rcs(xAcylCar,3):rcs(smm,3) + rcs(xAcylCar,3):rcs(fatigue_index,3) + rcs(xAcylCar,3):Site_Collection + rcs(xAcylCar,3):rcs(HbA1c_Perc,3) + rcs(xAcylCar,3):rcs(log(SGPT),3) + rcs(xAcylCar,3):rcs(log(TBIL),3) + rcs(xAcylCar,3):rcs(Anhydroglucitol,3) + rcs(xAcylCar,3):rcs(Glucose,3) + rcs(xAcylCar,3):rcs(log(Glutamine_To_Glutamic_Acid_Ratio),3)</code> where <code>xAAS</code> is a predictor from the above list and <code>rcs</code> means that potential non-linear associations are taken into account, and <code>:</code> denotes interaction.</p>
+<p>Results:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 16%">
+<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 8%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">row</th>
+<th style="text-align: center;">varName</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">pval_partialR2</th>
+<th style="text-align: center;">varTransform</th>
+<th style="text-align: center;">rowname</th>
+<th style="text-align: center;">REV</th>
+<th style="text-align: center;">Lower</th>
+<th style="text-align: center;">Upper</th>
+<th style="text-align: center;">FDR_pval_partialR2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">Propionylcarnitine</td>
+<td style="text-align: center;">25.1347</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xAcylCar</td>
+<td style="text-align: center;">0.0468</td>
+<td style="text-align: center;">0.0125</td>
+<td style="text-align: center;">0.1004</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Lauroylcarnitine</td>
+<td style="text-align: center;">20.9980</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xAcylCar</td>
+<td style="text-align: center;">0.0085</td>
+<td style="text-align: center;">0.0038</td>
+<td style="text-align: center;">0.1204</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Propionylcarnitine_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Propionylcarnitine_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-Propionylcarnitine_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Propionylcarnitine_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Relationship between <strong>Propionylcarnitine (μΜ)</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="u-shaped-curvilinear-relationship" class="level3">
+<h3 class="anchored" data-anchor-id="u-shaped-curvilinear-relationship">1. U-Shaped (Curvilinear) Relationship</h3>
+<p>The fitted blue line exhibits a slight <strong>U-shaped curve</strong>, suggesting a non-linear association between Propionylcarnitine and the MetS Index:</p>
+<ul>
+<li><p><strong>Low Concentrations:</strong> At very low concentrations of Propionylcarnitine (left side, e.g., <span class="math inline">\(\text{log}(\mu\text{M}) \approx 0.2\)</span> to <span class="math inline">\(0.5\)</span>), the MetS Index is relatively <strong>high</strong>.</p></li>
+<li><p><strong>Intermediate Concentrations:</strong> The MetS Index reaches its <strong>lowest point</strong> (the bottom of the “U”) around the intermediate Propionylcarnitine concentration (<span class="math inline">\(\text{log}(\mu\text{M}) \approx 0.6\)</span> to <span class="math inline">\(0.8\)</span>).</p></li>
+<li><p><strong>High Concentrations:</strong> At very high concentrations of Propionylcarnitine (right side, e.g., <span class="math inline">\(\text{log}(\mu\text{M}) \approx 1.2\)</span> to <span class="math inline">\(1.6\)</span>), the MetS Index <strong>rises again</strong>.</p></li>
+</ul>
+</section>
+<section id="risk-regions-defined-by-the-red-line" class="level3">
+<h3 class="anchored" data-anchor-id="risk-regions-defined-by-the-red-line">2. Risk Regions Defined by the Red Line</h3>
+<p>The <strong>red line</strong> is at the median MetS Index value of <strong><span class="math inline">\(58.67\)</span></strong>, separating the risk regions:</p>
+<ul>
+<li><p><strong>MetS Index <span class="math inline">\(&gt;\)</span> 58.67 (Higher Risk):</strong> This area is above the red line.</p></li>
+<li><p><strong>MetS Index <span class="math inline">\(&lt;\)</span> 58.67 (Lower Risk):</strong> This area is below the red line.</p></li>
+</ul>
+<p>The fitted blue curve is mostly <strong>below</strong> the red line in the intermediate concentration range, indicating that individuals with <strong>intermediate Propionylcarnitine levels</strong> generally have a MetS Index <strong>below the median risk threshold</strong>. Conversely, individuals at the <strong>lowest and highest extremes</strong> of Propionylcarnitine concentration have fitted MetS Index values that approach or cross above the risk threshold (red line), suggesting a potential <strong>increase in Metabolic Syndrome risk</strong> at these extremes.</p>
+<p>The plot suggests that the <strong>lowest risk for Metabolic Syndrome (lowest MetS Index)</strong> is found at <strong>intermediate levels of Propionylcarnitine</strong>, with risk potentially <strong>increasing</strong> at both very low and very high concentrations, following a <strong>slight U-shaped pattern</strong>.</p>
+<p>Propionylcarnitine (C3) is a <strong>short-chain acylcarnitine</strong> derived from the breakdown of certain amino acids (specifically <strong>valine, methionine, threonine, and isoleucine</strong>), as well as odd-chain fatty acids.</p>
+</section>
+<section id="marker-of-impaired-amino-acid-catabolism" class="level3">
+<h3 class="anchored" data-anchor-id="marker-of-impaired-amino-acid-catabolism">3. Marker of Impaired Amino Acid Catabolism</h3>
+<p>The primary biological inferred context of elevated Propionylcarnitine (C3) in the context of MetS and related conditions (like insulin resistance) is that it signals a potential <strong>bottleneck in the mitochondrial catabolism of Branched-Chain Amino Acids (BCAAs)</strong> and other amino acids.</p>
+<ul>
+<li><p>Propionyl-CoA, an intermediate in the BCAA breakdown pathway, is esterified with carnitine to form Propionylcarnitine (C3) to prevent the accumulation of Propionyl-CoA, which would otherwise inhibit the Krebs cycle.</p></li>
+<li><p>High levels of C3, often alongside other acylcarnitines, suggest that the capacity of the mitochondria to handle this metabolic load is overwhelmed, a classic sign of <strong>mitochondrial dysfunction</strong> and <strong>insulin resistance</strong>.</p></li>
+</ul>
+</section>
+<section id="association-with-insulin-resistance-and-mets-risk" class="level3">
+<h3 class="anchored" data-anchor-id="association-with-insulin-resistance-and-mets-risk">4. Association with Insulin Resistance and MetS Risk</h3>
+<p>Numerous studies have found that <strong>higher serum Propionylcarnitine concentrations are positively correlated with an increased risk of MetS</strong> and its components, including:</p>
+<ul>
+<li><p>Increased body fat and BMI.</p></li>
+<li><p>Dyslipidemia (high triglycerides, low HDL).</p></li>
+<li><p>Higher risk of insulin resistance and cardiovascular disease.</p></li>
+</ul>
+</section>
+<section id="contrast-with-long-chain-acylcarnitines" class="level3">
+<h3 class="anchored" data-anchor-id="contrast-with-long-chain-acylcarnitines">5. Contrast with Long-Chain Acylcarnitines</h3>
+<p>While long-chain acylcarnitines (like Palmitoylcarnitine) primarily reflect impaired fatty acid oxidation, Propionylcarnitine (C3) specifically highlights a disorder in <strong>amino acid-derived carbon flux</strong> into the Krebs cycle, making it a distinct and important biomarker for the metabolic stress underlying MetS.</p>
+<hr>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Lauroylcarnitine_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Lauroylcarnitine_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-Lauroylcarnitine_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Lauroylcarnitine_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: Relationship between <strong>Lauroylcarnitine (μΜ)</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="inverted-u-shaped-curvilinear-relationship" class="level3">
+<h3 class="anchored" data-anchor-id="inverted-u-shaped-curvilinear-relationship">1. Inverted U-Shaped (Curvilinear) Relationship</h3>
+<p>The fitted blue line shows a slightly <strong>inverted U-shaped curve</strong>, indicating that risk is lower at extreme concentrations:</p>
+<ul>
+<li><p><strong>Low Concentrations (Left Side):</strong> At the lowest Lauroylcarnitine concentrations (e.g., <span class="math inline">\(\text{log10}(\mu\text{M}) \approx 0.003\)</span> to <span class="math inline">\(0.01\)</span>), the MetS Index is relatively <strong>low</strong>.</p></li>
+<li><p><strong>Intermediate Concentrations (Peak):</strong> The MetS Index reaches its <strong>highest predicted value</strong> (the peak of the inverted “U”) around the intermediate Lauroylcarnitine concentration (<span class="math inline">\(\text{log10}(\mu\text{M}) \approx 0.03\)</span> to <span class="math inline">\(0.1\)</span>).</p></li>
+<li><p><strong>High Concentrations (Right Side):</strong> At the highest concentrations of Lauroylcarnitine (e.g., <span class="math inline">\(\text{log10}(\mu\text{M}) \approx 0.3\)</span> to <span class="math inline">\(1.0\)</span>), the MetS Index <strong>decreases again</strong>.</p></li>
+</ul>
+</section>
+<section id="risk-regions-defined-by-the-red-line-1" class="level3">
+<h3 class="anchored" data-anchor-id="risk-regions-defined-by-the-red-line-1">2. Risk Regions Defined by the Red Line</h3>
+<p>The <strong>red line</strong> is at the median MetS Index value of <strong><span class="math inline">\(58.67\)</span></strong>, separating the risk regions:</p>
+<ul>
+<li><p><strong>MetS Index <span class="math inline">\(\ge\)</span> 58.67 (Higher Risk):</strong> This area is above the red line.</p></li>
+<li><p><strong>MetS Index <span class="math inline">\(&lt;\)</span> 58.67 (Lower Risk):</strong> This area is below the red line.</p></li>
+</ul>
+<p>The fitted blue curve is <strong>close but not above</strong> the red line for a significant range of the intermediate concentration (roughly <span class="math inline">\(\text{log10}(\mu\text{M}) \approx 0.01\)</span> to <span class="math inline">\(0.3\)</span>), indicating that individuals with <strong>intermediate Lauroylcarnitine levels</strong> generally have a MetS risk. Conversely, individuals at the <strong>lowest and highest extremes</strong> of Lauroylcarnitine concentration have fitted MetS Index values that drop to or are below the risk threshold, suggesting a potential <strong>decrease in Metabolic Syndrome risk</strong> at these extremes.</p>
+</section>
+<section id="biological-context-inferred" class="level3">
+<h3 class="anchored" data-anchor-id="biological-context-inferred">3. Biological Context (Inferred)</h3>
+<p>Lauroylcarnitine is an acylcarnitine involved in fatty acid <span class="math inline">\(\beta\)</span>-oxidation. Elevated acylcarnitines, particularly medium- and long-chain forms, are often observed when fatty acid oxidation is incomplete, typically due to <strong>mitochondrial dysfunction and insulin resistance</strong>, which are central to Metabolic Syndrome.</p>
+<p>The inverted U-shape suggests that <strong>MetS risk is highest when Lauroylcarnitine is at a moderate concentration</strong>, which could represent a state of significant but compensated metabolic stress. Risk decreases at the extremes (very low or very high), potentially due to different underlying physiological states.</p>
+<p>The previous two plots, the inverted U-shaped curve of <strong>Lauroylcarnitine</strong>, and the likely positive or U-shaped curve for <strong>Propionylcarnitine</strong>, both relate to <strong>Metabolic Syndrome (MetS)</strong> through the lens of <strong>mitochondrial dysfunction</strong> and <strong>impaired substrate metabolism</strong>.</p>
 </section>
 </section>
 <section id="urine-hydrophilic-interaction-liquid-chromatography-hilic-data" class="level2">
 <h2 class="anchored" data-anchor-id="urine-hydrophilic-interaction-liquid-chromatography-hilic-data">Urine Hydrophilic Interaction Liquid Chromatography (HILIC) Data</h2>
-<section id="redundancy-analysis-4" class="level3">
-<h3 class="anchored" data-anchor-id="redundancy-analysis-4">Redundancy Analysis</h3>
+<section id="redundancy-analysis-6" class="level3">
+<h3 class="anchored" data-anchor-id="redundancy-analysis-6">Redundancy Analysis</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1041,15 +1965,15 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">Hydroxyisovalericacid</td>
+<td style="text-align: center;">Methylhistidine</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">Methylhistidine</td>
+<td style="text-align: center;">Acetylcarnitine</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">Acetylcarnitine</td>
+<td style="text-align: center;">Adenine</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">4</td>
@@ -1061,153 +1985,252 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 </tr>
 <tr class="even">
 <td style="text-align: center;">6</td>
-<td style="text-align: center;">Betaine</td>
+<td style="text-align: center;">Benzoic_Acid</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">7</td>
-<td style="text-align: center;">Caffeine</td>
+<td style="text-align: center;">Betaine</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">8</td>
-<td style="text-align: center;">Cotinine</td>
+<td style="text-align: center;">Caffeine</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">9</td>
-<td style="text-align: center;">Creatine</td>
+<td style="text-align: center;">Cotinine</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">Cytosine</td>
+<td style="text-align: center;">Creatine</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">11</td>
-<td style="text-align: center;">Guanine</td>
+<td style="text-align: center;">Cytosine</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">12</td>
-<td style="text-align: center;">Hippuric_Acid</td>
+<td style="text-align: center;">Guanine</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">13</td>
-<td style="text-align: center;">Histamine</td>
+<td style="text-align: center;">Hippuric_Acid</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">14</td>
-<td style="text-align: center;">Hypoxanthine</td>
+<td style="text-align: center;">Histamine</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">15</td>
-<td style="text-align: center;">Inosine</td>
+<td style="text-align: center;">Hypoxanthine</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">16</td>
-<td style="text-align: center;">Kynurenate</td>
+<td style="text-align: center;">Inosine</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">17</td>
-<td style="text-align: center;">Lactose</td>
+<td style="text-align: center;">Kynurenate</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">18</td>
-<td style="text-align: center;">Lysine</td>
+<td style="text-align: center;">Lactose</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">19</td>
-<td style="text-align: center;">Methylamine</td>
+<td style="text-align: center;">Lysine</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">20</td>
-<td style="text-align: center;">Nicotinamide</td>
+<td style="text-align: center;">Methylamine</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">21</td>
-<td style="text-align: center;">Pantothenate</td>
+<td style="text-align: center;">Nicotinamide</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">22</td>
-<td style="text-align: center;">Rivoflavine</td>
+<td style="text-align: center;">Pantothenate</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">23</td>
-<td style="text-align: center;">Sorbitol</td>
+<td style="text-align: center;">Pyridoxine</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">24</td>
-<td style="text-align: center;">Taurine</td>
+<td style="text-align: center;">Riboflavine</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">25</td>
-<td style="text-align: center;">Theobromine</td>
+<td style="text-align: center;">Sorbitol</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">26</td>
-<td style="text-align: center;">Thiamine</td>
+<td style="text-align: center;">Sucrose</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">27</td>
-<td style="text-align: center;">Trimethylamine</td>
+<td style="text-align: center;">Taurine</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">28</td>
-<td style="text-align: center;">Trimethylamine_N_Oxide</td>
+<td style="text-align: center;">Theobromine</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">29</td>
-<td style="text-align: center;">Tryptamine</td>
+<td style="text-align: center;">Thiamine</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">30</td>
-<td style="text-align: center;">Uracil</td>
+<td style="text-align: center;">Trimethylamine</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">31</td>
-<td style="text-align: center;">Xanthine</td>
+<td style="text-align: center;">Trimethylamine_N_Oxide</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">32</td>
+<td style="text-align: center;">Tryptamine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">33</td>
+<td style="text-align: center;">Uracil</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">34</td>
+<td style="text-align: center;">Xanthine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">35</td>
 <td style="text-align: center;">A_Ketoglutaric_Acid</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">36</td>
+<td style="text-align: center;">G_Aminobutyric</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </section>
-<section id="lrt-4" class="level3">
-<h3 class="anchored" data-anchor-id="lrt-4">LRT</h3>
-<p>Model: <code>MetS ~ Gender + rcs(bfm,3) + rcs(whr,3) + rcs(bcm_t_score,3) + rcs(stress_index,3) + rcs(HbA1c_Perc,3) + rcs(ALP,3) + rcs(TBIL,3) + rcs(Glutamine_To_Glutamic_Acid_Ratio,3) + rcs(log(xHILIC),3)</code> where <code>xHILIC</code> is a predictor from the above list and <code>rcs</code> means that potential non-linear associations are taken into account.</p>
+<section id="rexvar-3" class="level3">
+<h3 class="anchored" data-anchor-id="rexvar-3">rexVar</h3>
+<p>The <code>Upper rexVar</code> threshold is changed here to <code>10%</code> from <code>20%</code> that was used with the biochemical data, in order to give a larger opportunity to metabolites to enter into the model.</p>
+<p>Model: <code>MetS ~ gender + rcs(MEDAS_Score,3) + Antihypertensives + Antidepressants + gender:rcs(MEDAS_Score,3) + rcs(bcm_t_score,3) + rcs(whr,3) + rcs(smm,3) + rcs(fatigue_index,3) + Site_Collection + gender:rcs(bcm_t_score,3) + gender:rcs(smm,3) + gender:Site_Collection + rcs(HbA1c_Perc,3) + rcs(log(SGPT),3) + rcs(log(TBIL),3) + rcs(Anhydroglucitol,3) + rcs(Glucose,3) + rcs(log(Glutamine_To_Glutamic_Acid_Ratio),3) + rcs(Propionylcarnitine,3) + rcs(log(Lauroylcarnitine),3) + rcs(log(xHilic),3) + rcs(log(xHilic),3):gender + rcs(log(xHilic),3):rcs(MEDAS_Score,3) + rcs(log(xHilic),3):Antihypertensives + rcs(log(xHilic),3):Antidepressants + rcs(log(xHilic),3):rcs(bcm_t_score,3) + rcs(log(xHilic),3):rcs(whr,3) + rcs(log(xHilic),3):rcs(smm,3) + rcs(log(xHilic),3):rcs(fatigue_index,3) + rcs(log(xHilic),3):Site_Collection + rcs(log(xHilic),3):rcs(HbA1c_Perc,3) + rcs(log(xHilic),3):rcs(log(SGPT),3) + rcs(log(xHilic),3):rcs(log(TBIL),3) + rcs(log(xHilic),3):rcs(Anhydroglucitol,3) + rcs(log(xHilic),3):rcs(Glucose,3) + rcs(log(xHilic),3):rcs(log(Glutamine_To_Glutamic_Acid_Ratio),3) + rcs(log(xHilic),3):rcs(Propionylcarnitine,3) + rcs(log(xHilic),3):rcs(log(Lauroylcarnitine),3)</code> where <code>xHilic</code> is a predictor from the above list and <code>rcs</code> means that potential non-linear associations are taken into account, and <code>:</code> denotes interaction.</p>
 <p>Results:</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 11%">
+<col style="width: 8%">
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 18%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">row</th>
 <th style="text-align: center;">varName</th>
-<th style="text-align: center;">chisq</th>
 <th style="text-align: center;">df</th>
-<th style="text-align: center;">anova_pval</th>
-<th style="text-align: center;">FDR_pval</th>
+<th style="text-align: center;">pval_partialR2</th>
+<th style="text-align: center;">varTransform</th>
+<th style="text-align: center;">rowname</th>
+<th style="text-align: center;">REV</th>
+<th style="text-align: center;">Lower</th>
+<th style="text-align: center;">Upper</th>
+<th style="text-align: center;">FDR_pval_partialR2</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">Inosine</td>
-<td style="text-align: center;">106.281</td>
-<td style="text-align: center;">19</td>
-<td style="text-align: center;">7e-04</td>
-<td style="text-align: center;">0.0224</td>
+<td style="text-align: center;">Riboflavine</td>
+<td style="text-align: center;">26.9323</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xHilic</td>
+<td style="text-align: center;">0.0381</td>
+<td style="text-align: center;">0.0179</td>
+<td style="text-align: center;">0.1069</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Uracil</td>
+<td style="text-align: center;">28.0276</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xHilic</td>
+<td style="text-align: center;">0.0282</td>
+<td style="text-align: center;">0.0139</td>
+<td style="text-align: center;">0.1089</td>
+<td style="text-align: center;">0</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Riboflavine_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Riboflavine_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-Riboflavine_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Riboflavine_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15: Relationship between <strong>Riboflavine (peak area)</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Connection to metabolic syndrome (MetS)</strong></p>
+<ul>
+<li><p>Connection suggested by various studies, largely focusing on the role of <strong>Riboflavin (Vitamin <span class="math inline">\(B_2\)</span>)</strong> and its coenzymes in metabolic pathways implicated in MetS:</p></li>
+<li><p><strong>Energy Metabolism and Insulin Resistance:</strong> Riboflavin and its flavocoenzymes are central to mitochondrial function and energy production. Dysfunction in these pathways is a hallmark of insulin resistance, a core component of Metabolic Syndrome.</p></li>
+<li><p><strong>Inflammation:</strong> Some research suggests that riboflavin supplementation may help reduce obesity-related inflammation, which is a major contributor to insulin resistance and the development of MetS and type 2 diabetes.</p></li>
+<li><p><strong>Association with MetS Risk:</strong> Studies have explored the correlation between riboflavin levels (e.g., in serum) and the risk of developing Metabolic Syndrome, with some finding an association.</p></li>
+<li><p><strong>Fat Metabolism:</strong> Riboflavin is essential for enzymes involved in fatty acid oxidation. Impairment in riboflavin-dependent enzymes can lead to a MADD (Multiple Acyl-CoA Dehydrogenase Deficiency) profile, reflecting disturbed fatty acid metabolism.</p></li>
+</ul>
+<p><strong>Riboflavin</strong> (or its metabolites) is a major polar molecule in urine, often analyzed by HILIC, and its metabolism is strongly linked to the fundamental biological processes (like energy production and redox status) that are dysfunctional in Metabolic Syndrome.</p>
+<p><strong>References</strong></p>
+<p><a href="https://www.mdpi.com/1422-0067/21/11/3847#:~:text=B%2Dvitamins%20are%20an%20important,flavin%20adenine%20dinucleotide%20(FAD).">1</a>, <a href="https://www.oaepublish.com/articles/jtgg.2020.34#:~:text=Abstract,adequate%20dietary%20intake%20is%20imperative.">2</a>, <a href="https://www.researchgate.net/publication/306255706_Therapeutic_Approaches_Using_Riboflavin_in_Mitochondrial_Energy_Metabolism_Disorders#:~:text=Abstract,structure%20and%20function%20of%20flavoproteins.">3</a>, <a href="https://www.oaepublish.com/articles/jtgg.2020.34#:~:text=These%20flavocoenzymes%20ensure%20the%20functionality,branched%2Dchain%20amino%20acid%20catabolism%2C">4</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/21142126/#:~:text=Abstract,%2Dphase%20(RP)%20chromatography.">5</a>, <a href="https://www.oaepublish.com/articles/jtgg.2020.34#:~:text=There%20is%20little%20or%20no,lumiflavin%5B5%2C11%5D.">6</a>, <a href="https://www.oaepublish.com/articles/jtgg.2020.34#:~:text=Riboflavin%20is%20a%20key%20component,sustaining%20energy%2Ddependent%20cellular%20functions.">7</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/27983705/#:~:text=In%20conclusion%2C%20riboflavin%20effectively%20inhibits,mild%20inflammation%20linked%20to%20obesity.">8</a>, <a href="https://www.researchgate.net/publication/306255706_Therapeutic_Approaches_Using_Riboflavin_in_Mitochondrial_Energy_Metabolism_Disorders#:~:text=A%20correlation%20analysis%20was%20performed,mass%2C%20and%20percent%20body%20fat.">9</a>,<a href="https://informnetwork.org/riboflavin-responsive-disorders-an-overview/#:~:text=In%20terms%20of%20biochemistry%2C%20inborn,profile%20on%20the%20acylcarnitine%20profile.">10</a></p>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Uracil_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Uracil_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-Uracil_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Uracil_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16: Relationship between <strong>Uracil (peak area)</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Connection to metabolic syndrome (MetS)</strong></p>
+<p>While Uracil itself isn’t a widely recognized primary biomarker for MetS like blood glucose or lipids, alterations in its related metabolic pathway (pyrimidine metabolism) are relevant to the underlying pathology of MetS:</p>
+<ul>
+<li><p><strong>Nucleic Acid Metabolism:</strong> Uracil and pyrimidine metabolites are essential for cell proliferation and repair. Dysregulation of nucleotide synthesis is often observed in conditions of metabolic stress or disease.</p></li>
+<li><p><strong>Uric Acid Precursor:</strong> Although Uracil is a pyrimidine, its metabolism can be related to purine metabolism, which leads to <strong>uric acid</strong> production. <strong>High uric acid levels (hyperuricemia)</strong> are a recognized component and risk factor associated with MetS and insulin resistance.</p></li>
+<li><p><strong>Biomarker Potential:</strong> In the context of large-scale metabolomic screening, Uracil, along with a panel of other metabolites (including amino acids and lipids), may contribute to a <strong>“molecular signature”</strong> in urine that can help discriminate between healthy individuals and those with MetS. Changes in these polar metabolites are used to gain insight into system-wide metabolic disruptions caused by the syndrome.</p></li>
+</ul>
+<p><strong>References</strong></p>
+<p><a href="https://www.hmdb.ca/metabolites/HMDB0000300#:~:text=Uracil%20is%20a%20common%20naturally,Methylation%20of%20uracil%20produces%20thymine.">1</a>, <a href="https://opendentistryjournal.com/VOLUME/19/ELOCATOR/e18742106360500/FULLTEXT/#:~:text=In%20particular%2C%20the%20metabolism%20of,(TME)%20%5B5%5D.">2</a></p>
 </section>
 </section>
 <section id="urine-tyrosinetryptophan-pathway-data" class="level2">
 <h2 class="anchored" data-anchor-id="urine-tyrosinetryptophan-pathway-data">Urine Tyrosine–Tryptophan Pathway Data</h2>
-<section id="redundancy-analysis-5" class="level3">
-<h3 class="anchored" data-anchor-id="redundancy-analysis-5">Redundancy Analysis</h3>
+<section id="redundancy-analysis-7" class="level3">
+<h3 class="anchored" data-anchor-id="redundancy-analysis-7">Redundancy Analysis</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1220,31 +2243,31 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">Hippuric_Acid</td>
+<td style="text-align: center;">HIAA</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">P_Cresol_Sulfate</td>
+<td style="text-align: center;">HIAA_Sulfate</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">3</td>
-<td style="text-align: center;">HIAA_Sulfate</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">HIAA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">5</td>
 <td style="text-align: center;">Dopamine</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">6</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">Hippuric_Acid</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
 <td style="text-align: center;">Homovanilic_Acid</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">Indole</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">7</td>
-<td style="text-align: center;">Indole</td>
+<td style="text-align: center;">Indole3Acetic_Acid</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">8</td>
@@ -1252,11 +2275,11 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 </tr>
 <tr class="odd">
 <td style="text-align: center;">9</td>
-<td style="text-align: center;">Indole3Acetic_Acid</td>
+<td style="text-align: center;">Kynurenic_Acid</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">P_Coumaric_Acid_Sulfate</td>
+<td style="text-align: center;">Kynurenine</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">11</td>
@@ -1264,96 +2287,458 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 </tr>
 <tr class="even">
 <td style="text-align: center;">12</td>
-<td style="text-align: center;">P_Ethylphenol_Sulfate</td>
+<td style="text-align: center;">P_Coumaric_Acid_Sulfate</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">13</td>
-<td style="text-align: center;">P_HBA</td>
+<td style="text-align: center;">P_Cresol_Sulfate</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">14</td>
-<td style="text-align: center;">P_HBA_Sulfate</td>
+<td style="text-align: center;">P_Ethylphenol_Sulfate</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">15</td>
-<td style="text-align: center;">Phenylalanine</td>
+<td style="text-align: center;">P_HBA</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">16</td>
-<td style="text-align: center;">P_Hydroxyphenyl_Acetic_Acid_Sulfate</td>
+<td style="text-align: center;">P_HBA_Sulfate</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">17</td>
-<td style="text-align: center;">P_Hydroxyphenylpropionic_Acid_Sulfate</td>
+<td style="text-align: center;">P_Hydroxyphenyl_Acetic_Acid</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">18</td>
-<td style="text-align: center;">P_Hydroxyphenyllactic_Acid_Sulfate</td>
+<td style="text-align: center;">P_Hydroxyphenyl_Acetic_Acid_Sulfate</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">19</td>
-<td style="text-align: center;">Tyramine</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">20</td>
-<td style="text-align: center;">Kynurenine</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">21</td>
-<td style="text-align: center;">Indole3Lactic_Acid</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">22</td>
-<td style="text-align: center;">Kynurenic_Acid</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">23</td>
 <td style="text-align: center;">P_Hydroxyphenyllactic_Acid</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">24</td>
-<td style="text-align: center;">P_Hydroxyphenyl_Acetic_Acid</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">P_Hydroxyphenyllactic_Acid_Sulfate</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">25</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">P_Hydroxyphenylpropionic_Acid_Sulfate</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">22</td>
 <td style="text-align: center;">Phenol_Sulfate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">Phenylalanine</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">Tyramine</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </section>
-<section id="lrt-5" class="level3">
-<h3 class="anchored" data-anchor-id="lrt-5">LRT</h3>
-<p>A more liberal value for the <code>FDR_pval</code> threshold is used here: <code>15%</code></p>
-<p>Model: <code>MetS ~ Gender + rcs(bfm,3) + rcs(whr,3) + rcs(bcm_t_score,3) + rcs(stress_index,3) + rcs(HbA1c_Perc,3) + rcs(ALP,3) + rcs(TBIL,3) + rcs(Glutamine_To_Glutamic_Acid_Ratio,3) + rcs(log(Inosine),3) + rcs(xTyroTrypto,3)</code> where <code>xTyroTrypto</code> is a predictor from the above list and <code>rcs</code> means that potential non-linear associations are taken into account.</p>
+<section id="rexvar-4" class="level3">
+<h3 class="anchored" data-anchor-id="rexvar-4">rexVar</h3>
+<p>The <code>Upper rexVar</code> threshold is changed here to <code>10%</code> from <code>20%</code> that was used with the biochemical data, in order to give a larger opportunity to metabolites to enter into the model.</p>
+<p>Model: <code>MetS ~ gender + rcs(MEDAS_Score,3) + Antihypertensives + Antidepressants + gender:rcs(MEDAS_Score,3) + rcs(bcm_t_score,3) + rcs(whr,3) + rcs(smm,3) + rcs(fatigue_index,3) + Site_Collection + gender:rcs(bcm_t_score,3) + gender:rcs(smm,3) + gender:Site_Collection + rcs(HbA1c_Perc,3) + rcs(log(SGPT),3) + rcs(log(TBIL),3) + rcs(Anhydroglucitol,3) + rcs(Glucose,3) + rcs(log(Glutamine_To_Glutamic_Acid_Ratio),3) + rcs(Propionylcarnitine,3) + rcs(log(Lauroylcarnitine),3) + rcs(log(Riboflavine),3) + rcs(log(Uracil),3) + rcs(log(xTyroTrypto),3) + xTyroTrypto_Detected + rcs(log(xTyroTrypto),3):xTyroTrypto_Detected + rcs(log(xTyroTrypto),3):gender + rcs(log(xTyroTrypto),3):rcs(MEDAS_Score,3) + rcs(log(xTyroTrypto),3):Antihypertensives + rcs(log(xTyroTrypto),3):Antidepressants + rcs(log(xTyroTrypto),3):rcs(bcm_t_score,3) + rcs(log(xTyroTrypto),3):rcs(whr,3) + rcs(log(xTyroTrypto),3):rcs(smm,3) + rcs(log(xTyroTrypto),3):rcs(fatigue_index,3) + rcs(log(xTyroTrypto),3):Site_Collection + rcs(log(xTyroTrypto),3):rcs(HbA1c_Perc,3) + rcs(log(xTyroTrypto),3):rcs(log(SGPT),3) + rcs(log(xTyroTrypto),3):rcs(log(TBIL),3) + rcs(log(xTyroTrypto),3):rcs(Anhydroglucitol,3) + rcs(log(xTyroTrypto),3):rcs(log(Glutamine_To_Glutamic_Acid_Ratio),3) + rcs(log(xTyroTrypto),3):rcs(Propionylcarnitine,3) + rcs(log(xTyroTrypto),3):rcs(log(Lauroylcarnitine),3) + rcs(log(xTyroTrypto),3):rcs(Glucose,3) + rcs(log(xTyroTrypto),3):rcs(log(Riboflavine),3) + rcs(log(xTyroTrypto),3):rcs(log(Uracil),3)</code> where <code>xTyroTrypto</code> is a predictor from the above list, <code>rcs</code> means that potential non-linear associations are taken into account and <code>:</code> denotes interaction.</p>
 <p>Results:</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 22%">
+<col style="width: 6%">
+<col style="width: 12%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 15%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">row</th>
 <th style="text-align: center;">varName</th>
-<th style="text-align: center;">chisq</th>
 <th style="text-align: center;">df</th>
-<th style="text-align: center;">anova_pval</th>
-<th style="text-align: center;">FDR_pval</th>
+<th style="text-align: center;">pval_partialR2</th>
+<th style="text-align: center;">varTransform</th>
+<th style="text-align: center;">rowname</th>
+<th style="text-align: center;">REV</th>
+<th style="text-align: center;">Lower</th>
+<th style="text-align: center;">Upper</th>
+<th style="text-align: center;">FDR_pval_partialR2</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">1</td>
+<td style="text-align: center;">HIAA</td>
+<td style="text-align: center;">32.0768</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xTyroTrypto</td>
+<td style="text-align: center;">0.0995</td>
+<td style="text-align: center;">0.0492</td>
+<td style="text-align: center;">0.1604</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
 <td style="text-align: center;">Indole3Lactic_Acid</td>
-<td style="text-align: center;">116.5835</td>
-<td style="text-align: center;">21</td>
-<td style="text-align: center;">0.0051</td>
-<td style="text-align: center;">0.1275</td>
+<td style="text-align: center;">29.5786</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xTyroTrypto</td>
+<td style="text-align: center;">0.0940</td>
+<td style="text-align: center;">0.0403</td>
+<td style="text-align: center;">0.1652</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">Indole3Acetic_Acid</td>
+<td style="text-align: center;">29.8645</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xTyroTrypto</td>
+<td style="text-align: center;">0.0822</td>
+<td style="text-align: center;">0.0378</td>
+<td style="text-align: center;">0.1683</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">Indole</td>
+<td style="text-align: center;">30.7003</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xTyroTrypto</td>
+<td style="text-align: center;">0.0779</td>
+<td style="text-align: center;">0.0290</td>
+<td style="text-align: center;">0.1698</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">Hippuric_Acid</td>
+<td style="text-align: center;">28.9300</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xTyroTrypto</td>
+<td style="text-align: center;">0.0559</td>
+<td style="text-align: center;">0.0154</td>
+<td style="text-align: center;">0.1188</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">P_Coumaric_Acid_Sulfate</td>
+<td style="text-align: center;">28.8463</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xTyroTrypto</td>
+<td style="text-align: center;">0.0475</td>
+<td style="text-align: center;">0.0088</td>
+<td style="text-align: center;">0.1058</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Dopamine</td>
+<td style="text-align: center;">24.9307</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xTyroTrypto</td>
+<td style="text-align: center;">0.0464</td>
+<td style="text-align: center;">0.0089</td>
+<td style="text-align: center;">0.1267</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">Kynurenic_Acid</td>
+<td style="text-align: center;">27.1583</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xTyroTrypto</td>
+<td style="text-align: center;">0.0438</td>
+<td style="text-align: center;">0.0184</td>
+<td style="text-align: center;">0.1170</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">P_Coumaric_Acid</td>
+<td style="text-align: center;">22.7229</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xTyroTrypto</td>
+<td style="text-align: center;">0.0376</td>
+<td style="text-align: center;">0.0090</td>
+<td style="text-align: center;">0.1029</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">P_HBA_Sulfate</td>
+<td style="text-align: center;">29.0542</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xTyroTrypto</td>
+<td style="text-align: center;">0.0334</td>
+<td style="text-align: center;">0.0177</td>
+<td style="text-align: center;">0.1005</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">P_Hydroxyphenyl_Acetic_Acid</td>
+<td style="text-align: center;">30.9906</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">rcs</td>
+<td style="text-align: center;">xTyroTrypto</td>
+<td style="text-align: center;">0.0154</td>
+<td style="text-align: center;">0.0078</td>
+<td style="text-align: center;">0.1073</td>
+<td style="text-align: center;">0</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-HIAA_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-HIAA_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-HIAA_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-HIAA_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17: Relationship between <strong>5HIAA (μg/mmol of creatinine)</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Hippuric_Acid_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Hippuric_Acid_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-Hippuric_Acid_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Hippuric_Acid_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;18: Relationship between <strong>Hippuric Acid (μg/mmol of creatinine)</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Indole_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Indole_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-Indole_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Indole_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;19: Relationship between <strong>Indole (μg/mmol of creatinine)</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Indole3Lactic_Acid_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Indole3Lactic_Acid_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-Indole3Lactic_Acid_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Indole3Lactic_Acid_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;20: Relationship between <strong>Indole3Lactic Acid (μg/mmol of creatinine)</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-P_Coumaric_Acid_Sulfate_vs_MetS_plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-P_Coumaric_Acid_Sulfate_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-P_Coumaric_Acid_Sulfate_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-P_Coumaric_Acid_Sulfate_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;21: Relationship between <strong>P-Coumaric Acid Sulfate (μg/mmol of creatinine)</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>These urine metabolites indicate some strength on key disruptions in two major interconnected pathways: the <strong>Tryptophan Metabolism (Kynurenine and Indole Pathways)</strong> and <strong>Gut Microbiota Metabolism</strong>.</p>
+<p>MetS seems to be associated with a systemic change in how the body and its resident bacteria process the amino acid <strong>Tryptophan</strong> and other dietary compounds, leading to altered levels of neuroactive, anti-inflammatory, and pro-inflammatory molecules.</p>
+</section>
+</section>
+<section id="tryptophan-metabolism-inflammation" class="level2">
+<h2 class="anchored" data-anchor-id="tryptophan-metabolism-inflammation">1. Tryptophan Metabolism &amp; Inflammation</h2>
+<p>The essential amino acid <strong>Tryptophan</strong> is metabolized down three main pathways in the body. The metabolites listed reflect imbalances in two of these pathways, which are often dysregulated in MetS due to chronic <strong>low-grade inflammation</strong> and <strong>immune activation</strong>—hallmarks of the condition.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metabolite</th>
+<th style="text-align: left;">Pathway</th>
+<th style="text-align: left;">Role &amp; Link to MetS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>5-HIAA</strong> (5-Hydroxyindoleacetic Acid)</td>
+<td style="text-align: left;"><strong>Serotonin Pathway</strong></td>
+<td style="text-align: left;">The main breakdown product of the neurotransmitter <strong>Serotonin</strong>. Serotonin is largely produced in the gut. Altered 5-HIAA levels can indicate changes in serotonin turnover, which impacts gut motility, mood, and appetite regulation—all factors relevant to MetS development.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Kynurenic Acid</strong></td>
+<td style="text-align: left;"><strong>Kynurenine Pathway</strong></td>
+<td style="text-align: left;">This is the major route for Tryptophan catabolism. An overactive Kynurenine pathway, often driven by <strong>inflammation</strong> (e.g., from inflammatory cytokines), can deplete Tryptophan available for the Serotonin pathway. Kynurenic Acid is often considered <strong>neuroprotective</strong> and its levels relative to other metabolites can serve as a marker of the body’s inflammatory status.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Dopamine</strong></td>
+<td style="text-align: left;"><strong>Catecholamine Metabolism</strong></td>
+<td style="text-align: left;">While not a Tryptophan metabolite, Dopamine is a crucial neurotransmitter. Changes in urinary Dopamine levels can reflect alterations in the <strong>autonomic nervous system</strong> and <strong>neuroendocrine regulation</strong>, which are closely tied to blood pressure (hypertension) and energy balance—core components of MetS.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gut-microbiota-derived-metabolites" class="level2">
+<h2 class="anchored" data-anchor-id="gut-microbiota-derived-metabolites">2. Gut Microbiota-Derived Metabolites</h2>
+<p>A large portion of the listed metabolites are produced directly or indirectly by the <strong>gut microbiota</strong> (the bacteria living in your intestines) from undigested dietary compounds, especially <strong>Tryptophan</strong> and <strong>polyphenols</strong>. An altered gut bacterial community, known as <strong>dysbiosis</strong>, is strongly linked to MetS.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metabolite</th>
+<th style="text-align: left;">Primary Source</th>
+<th style="text-align: left;">Link to MetS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Indole</strong> &amp; <strong>Indole-3-Acetic Acid (IAA)</strong>, <strong>Indole-3-Lactic Acid</strong></td>
+<td style="text-align: left;"><strong>Tryptophan</strong> breakdown by gut bacteria</td>
+<td style="text-align: left;">These <strong>Indole derivatives</strong> are powerful signaling molecules. They activate host receptors (like the Aryl Hydrocarbon Receptor, <strong>AhR</strong>) which are essential for maintaining the <strong>gut barrier integrity</strong> and regulating the <strong>immune system</strong>. Low levels of beneficial indoles (often seen in dysbiosis) are linked to a “leaky gut,” systemic inflammation, and insulin resistance.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Hippuric Acid</strong></td>
+<td style="text-align: left;"><strong>Polyphenols</strong> (from fruits, vegetables, coffee) breakdown by gut bacteria</td>
+<td style="text-align: left;">A major marker of the health and diversity of the <strong>gut microbiome</strong>. It’s the final host-processed form of compounds produced by bacteria. A low level can be an indicator of poor gut bacterial function or low dietary intake of polyphenols, both associated with poor metabolic health.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>P-Coumaric Acid, P-Coumaric Acid Sulfate, P-HBA Sulfate, P-Hydroxyphenyl Acetic Acid</strong></td>
+<td style="text-align: left;"><strong>Tyrosine</strong> and <strong>Polyphenol</strong> breakdown by gut bacteria</td>
+<td style="text-align: left;">These are common products of microbial degradation of aromatic amino acids (like Tyrosine) and dietary polyphenols. Their altered urinary levels reflect a change in the efficiency or type of <strong>microbial fermentation</strong> occurring in the gut, another sign of dysbiosis in MetS patients.</td>
+</tr>
+</tbody>
+</table>
+<p>The combined changes in these urinary metabolites provide a <strong>non-invasive “fingerprint”</strong> of metabolic health that points to systemic inflammation, dysregulation of neurotransmitter precursors, and, most importantly, <strong>dysfunctional gut microbiota activity</strong> as central features of Metabolic Syndrome.</p>
+<p>The plots display the relationship between the <strong>Metabolic Syndrome (MetS) Index</strong> (Y-axis) and the urinary concentration of five metabolites (X-axis, <span class="math inline">\(\text{log}\)</span> scale). The <strong>blue line</strong> represents the trend (Local Polynomial Regression, or LOESS), and the <strong>red line</strong> represents the median MetS Index.</p>
+<p>By analyzing the trend line we can determine the correlation.</p>
+<section id="metabolites-showing-a-negative-correlation" class="level3">
+<h3 class="anchored" data-anchor-id="metabolites-showing-a-negative-correlation">1. Metabolites Showing a <strong>Negative Correlation</strong></h3>
+<p>A negative correlation means that <strong>as the metabolite level increases, the MetS Index decreases</strong> (i.e., a better metabolic state). This <strong>supports</strong> the idea that these metabolites are important in <em>differentiating</em> MetS, as a high concentration suggests a healthy metabolic profile.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metabolite</th>
+<th style="text-align: left;">Trend (Blue Line)</th>
+<th style="text-align: left;">Support for Differentiation?</th>
+<th style="text-align: left;">Interpretation in MetS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Hippuric Acid</strong></td>
+<td style="text-align: left;">Decreases steadily as the X-value increases.</td>
+<td style="text-align: left;"><strong>YES</strong></td>
+<td style="text-align: left;">High levels are associated with high <strong>gut microbiota diversity/activity</strong> (polyphenol breakdown), suggesting a healthy gut-host interaction. Low levels are linked to MetS.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>P-Coumaric Acid Sulfate</strong></td>
+<td style="text-align: left;">Decreases steadily as the X-value increases.</td>
+<td style="text-align: left;"><strong>YES</strong></td>
+<td style="text-align: left;">High levels reflect robust <strong>gut microbiota processing of dietary phenolics</strong>. Low levels suggest dysbiosis or poor diet/absorption.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Indole3Lactic Acid</strong></td>
+<td style="text-align: left;">Decreases steadily as the X-value increases.</td>
+<td style="text-align: left;"><strong>YES</strong></td>
+<td style="text-align: left;">A product of <strong>Tryptophan metabolism by gut bacteria</strong>. High levels may indicate a healthy Tryptophan-microbiota axis and beneficial signaling.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="metabolites-showing-a-non-linear-or-inverse-relationship" class="level3">
+<h3 class="anchored" data-anchor-id="metabolites-showing-a-non-linear-or-inverse-relationship">2. Metabolites Showing a <strong>Non-Linear or Inverse Relationship</strong></h3>
+<p>These metabolites show a more complex or non-linear relationship with the MetS Index.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metabolite</th>
+<th style="text-align: left;">Trend (Blue Line)</th>
+<th style="text-align: left;">Support for Differentiation?</th>
+<th style="text-align: left;">Interpretation in MetS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>5HIAA</strong></td>
+<td style="text-align: left;">Starts high, peaks around the median <span class="math inline">\(\text{log}\)</span> value, then decreases.</td>
+<td style="text-align: left;"><strong>PARTIALLY</strong></td>
+<td style="text-align: left;">The flat or slightly decreasing portion at lower concentrations and the subsequent decrease suggest that a <strong>moderate to high level</strong> is associated with a lower MetS Index. The initial increase might reflect complex feedback in <strong>Serotonin metabolism</strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Indole</strong></td>
+<td style="text-align: left;">Forms a “U” shape (concave up). The lowest MetS Index occurs at <strong>moderate</strong> Indole levels (around <span class="math inline">\(1.00 - 2.00\)</span> <span class="math inline">\(\text{log}\)</span> scale).</td>
+<td style="text-align: left;"><strong>PARTIALLY</strong></td>
+<td style="text-align: left;">This indicates a non-linear effect: <strong>very low</strong> and <strong>very high</strong> levels of Indole are associated with a <strong>higher</strong> MetS Index (worse MetS state). This suggests that <strong>homeostasis</strong> (a moderate level) of this Tryptophan-derived gut metabolite is optimal for metabolic health.</td>
+</tr>
+</tbody>
+</table>
+<p>The plots <strong>support</strong> the functional importance of <strong>Hippuric Acid, P-Coumaric Acid Sulfate, and Indole3Lactic Acid</strong> in differentiating the metabolic state, as a direct inverse relationship is observed: <strong>higher concentration of these gut-derived metabolites correlates with a lower MetS Index.</strong></p>
+<p>The relationships for <strong>5HIAA</strong> and <strong>Indole</strong> are more complex (non-linear or moderate inverse), suggesting that their role is governed by a regulatory optimum rather than a simple dose-response curve. Nonetheless, they still differentiate the extremes of the MetS Index, supporting their inclusion as relevant potential biomarkers.</p>
 </section>
 </section>
 <section id="untargeted-metabolomics" class="level2">
@@ -1362,9 +2747,174 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 </section>
 <section id="selected-predictors" class="level2">
 <h2 class="anchored" data-anchor-id="selected-predictors">Selected Predictors</h2>
-<p>The final model formula is as follows:</p>
-<p><code>MetS ~ Gender + rcs(bfm,3) + rcs(whr,3) + rcs(bcm_t_score,3) + rcs(stress_index,3) + rcs(HbA1c_Perc,3) + rcs(ALP,3) + rcs(TBIL,3) + rcs(Glutamine_To_Glutamic_Acid_Ratio,3) + rcs(log(Inosine),3) + rcs(Indole3Lactic_Acid,3)</code> where <code>rcs</code> means that potential non-linear associations are taken into account.</p>
-<p>The predictors selected also show univariate differentiation ability of the <code>MetS</code> score as seen in the page. The only exception is the predictor <code>bcm_t_score</code> which in isolation does not show differentiation whereas when included in the model is does. This seems to occur due to a <code>suppresion effect</code> of the <code>Gender</code> predictor, which effectively increases the predictive validity of <code>bcm_t_score</code> by improving its relationship with the outcome.</p>
+<p>List:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;">row</th>
+<th style="text-align: center;">predictor</th>
+<th style="text-align: center;">type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">gender</td>
+<td style="text-align: center;">demographic</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">MEDAS_Score</td>
+<td style="text-align: center;">dietary</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">Antihypertensives</td>
+<td style="text-align: center;">medication</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">Antidepressants</td>
+<td style="text-align: center;">medication</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">smm</td>
+<td style="text-align: center;">device</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">bcm_t_score</td>
+<td style="text-align: center;">device</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">whr</td>
+<td style="text-align: center;">device</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">fatigue_index</td>
+<td style="text-align: center;">device</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">Site_Collection</td>
+<td style="text-align: center;">demographic</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">HbA1c_Perc</td>
+<td style="text-align: center;">biochemical</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">TBIL</td>
+<td style="text-align: center;">biochemical</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">SGPT</td>
+<td style="text-align: center;">biochemical</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">Anhydroglucitol</td>
+<td style="text-align: center;">amino acid &amp; sugar</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">Glucose</td>
+<td style="text-align: center;">amino acid &amp; sugar</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">Glutamine_To_Glutamic_Acid_Ratio</td>
+<td style="text-align: center;">amino acid &amp; sugar</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">Propionylcarnitine</td>
+<td style="text-align: center;">carnitines</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">Lauroylcarnitine</td>
+<td style="text-align: center;">carnitines</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">Riboflavine</td>
+<td style="text-align: center;">hilic urine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">Uracil</td>
+<td style="text-align: center;">hilic urine</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">HIAA</td>
+<td style="text-align: center;">tryptophan-tyrosine urine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">Dopamine</td>
+<td style="text-align: center;">tryptophan-tyrosine urine</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">Hippuric_Acid</td>
+<td style="text-align: center;">tryptophan-tyrosine urine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">Indole</td>
+<td style="text-align: center;">tryptophan-tyrosine urine</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">Indole3Acetic_Acid</td>
+<td style="text-align: center;">tryptophan-tyrosine urine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">Indole3Lactic_Acid</td>
+<td style="text-align: center;">tryptophan-tyrosine urine</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">Kynurenic_Acid</td>
+<td style="text-align: center;">tryptophan-tyrosine urine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">P_Coumaric_Acid</td>
+<td style="text-align: center;">tryptophan-tyrosine urine</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">28</td>
+<td style="text-align: center;">P_Coumaric_Acid_Sulfate</td>
+<td style="text-align: center;">tryptophan-tyrosine urine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">29</td>
+<td style="text-align: center;">P_HBA_Sulfate</td>
+<td style="text-align: center;">tryptophan-tyrosine urine</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">P_Hydroxyphenyl_Acetic_Acid</td>
+<td style="text-align: center;">tryptophan-tyrosine urine</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>&nbsp;</p>
+<p>The predictors selected also show univariate differentiation ability of the <code>MetS</code> score as seen in the <code>Data Processing &amp; EDA</code> page. The only exception is the predictor <code>bcm_t_score</code> which in isolation does not show differentiation whereas when included in the model is does. This seems to occur due to a <code>suppresion effect</code> of the <code>Gender</code> predictor, which effectively increases the predictive validity of <code>bcm_t_score</code> by improving its relationship with the outcome.</p>
 <p><code>bcm_t_score</code> and the related predictor <code>bcm</code> are associated with <code>Gender</code> as witnessed in the redundancy analysis of the <code>device</code> data. For instance the cumulative <code>R-squared</code> values when modeling <code>Gender</code> using these two related predictors is seen below in parentheses:</p>
 <p><em>gender ~ bcm (0.573) + bcm_t_score (0.931)</em></p>
 <div class="cell" data-layout-align="center">
@@ -1375,7 +2925,7 @@ Figure&nbsp;1: Gender differentiation of the metabolic syndrome index at first d
 <img src="modeling2_files/figure-html/fig-bcm_vs_gender_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bcm_vs_gender_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: <code>Gender</code> differentiation of the <code>bcm</code> at first data collection time.
+Figure&nbsp;22: <code>Gender</code> differentiation of the <code>bcm</code> at first data collection time.
 </figcaption>
 </figure>
 </div>
@@ -1389,7 +2939,7 @@ Figure&nbsp;2: <code>Gender</code> differentiation of the <code>bcm</code> at fi
 <img src="modeling2_files/figure-html/fig-bcm_t_score_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bcm_t_score_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: <code>bcm_t_score</code> differentiation of the <code>MetS</code> index at first data collection time. With a flat regression line the association is weak.
+Figure&nbsp;23: <code>bcm_t_score</code> differentiation of the <code>MetS</code> index at first data collection time. The relationship is weaker i.e.&nbsp;smaller slope, when compared to the <code>bcm_t_score</code> being split by <code>Gender</code> as below.
 </figcaption>
 </figure>
 </div>
@@ -1426,7 +2976,7 @@ Figure&nbsp;3: <code>bcm_t_score</code> differentiation of the <code>MetS</code>
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bcm_t_score_vs_MetS_by_gender_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: <code>bcm_t_score</code> differentiation of the <code>MetS</code> index when grouped by <code>Gender</code> and at first data collection time. Conditional on <code>Gender</code> the association of <code>bcm_t_score</code> with the <code>MetS</code> index becomes stronger as seen by the upward trending regression lines.
+Figure&nbsp;24: <code>bcm_t_score</code> differentiation of the <code>MetS</code> index when grouped by <code>Gender</code> and at first data collection time. Conditional on <code>Gender</code> the association of <code>bcm_t_score</code> with the <code>MetS</code> index becomes stronger as seen by the upward trending regression lines.
 </figcaption>
 </figure>
 </div>
@@ -1443,7 +2993,7 @@ Figure&nbsp;4: <code>bcm_t_score</code> differentiation of the <code>MetS</code>
 <img src="modeling2_files/figure-html/fig-device_predictors_vs_bmi_plots-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-ref-parent="fig-device_predictors_vs_bmi_plots" width="384">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-device_predictors_vs_bmi_plots-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) bfm
+(a) Skeletal Muscle Mass
 </figcaption>
 </figure>
 </div>
@@ -1455,7 +3005,7 @@ Figure&nbsp;4: <code>bcm_t_score</code> differentiation of the <code>MetS</code>
 <img src="modeling2_files/figure-html/fig-device_predictors_vs_bmi_plots-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-ref-parent="fig-device_predictors_vs_bmi_plots" width="384">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-device_predictors_vs_bmi_plots-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) whr
+(b) Waist-to-Hip Ratio
 </figcaption>
 </figure>
 </div>
@@ -1469,7 +3019,7 @@ Figure&nbsp;4: <code>bcm_t_score</code> differentiation of the <code>MetS</code>
 <img src="modeling2_files/figure-html/fig-device_predictors_vs_bmi_plots-3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-ref-parent="fig-device_predictors_vs_bmi_plots" width="384">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-device_predictors_vs_bmi_plots-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(c) bcm_t_score
+(c) Body Cell Mass t-score
 </figcaption>
 </figure>
 </div>
@@ -1481,7 +3031,7 @@ Figure&nbsp;4: <code>bcm_t_score</code> differentiation of the <code>MetS</code>
 <img src="modeling2_files/figure-html/fig-device_predictors_vs_bmi_plots-4.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-ref-parent="fig-device_predictors_vs_bmi_plots" width="384">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-device_predictors_vs_bmi_plots-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(d) stress_index
+(d) Fatigue Index
 </figcaption>
 </figure>
 </div>
@@ -1489,24 +3039,16 @@ Figure&nbsp;4: <code>bcm_t_score</code> differentiation of the <code>MetS</code>
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-device_predictors_vs_bmi_plots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Device predictors in relation to <code>BMI</code>. With exception of the <code>stress_index</code>, the other predictors seem to be associated with <code>BMI</code>. The outlier value corresponds to a <code>BMI = 68.4</code> value.
+Figure&nbsp;25: Device predictors in relation to <code>BMI</code>.
 </figcaption>
 </figure>
 </div>
-<p><em>Outlier based on large <code>BMI</code> value</em></p>
-<div class="cell">
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["ID"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Site_Collection"],"name":[2],"type":["chr"],"align":["left"]},{"label":["ai"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["ae"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["pe"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["ans_activity"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["ans_balance"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["stress_resilience"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["stress_index"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["fatigue_index"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["gender"],"name":[11],"type":["fct"],"align":["left"]},{"label":["risk_group_cardiovascular"],"name":[12],"type":["ord"],"align":["right"]},{"label":["age"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["bfm"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["slm"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["ffm"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["smm"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["bmi"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["pbf"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["ecw_tbw_ratio"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["ecw_tbw_ratio_of_trunk"],"name":[21],"type":["dbl"],"align":["right"]},{"label":["bfm_of_trunk"],"name":[22],"type":["dbl"],"align":["right"]},{"label":["bmr"],"name":[23],"type":["dbl"],"align":["right"]},{"label":["whr"],"name":[24],"type":["dbl"],"align":["right"]},{"label":["vfa"],"name":[25],"type":["dbl"],"align":["right"]},{"label":["obesity_degree"],"name":[26],"type":["dbl"],"align":["right"]},{"label":["bcm"],"name":[27],"type":["dbl"],"align":["right"]},{"label":["tbw_ffm_ratio"],"name":[28],"type":["dbl"],"align":["right"]},{"label":["Khz_50_whole_body_phase_angle"],"name":[29],"type":["dbl"],"align":["right"]},{"label":["smi"],"name":[30],"type":["dbl"],"align":["right"]},{"label":["smi_t_score"],"name":[31],"type":["dbl"],"align":["right"]},{"label":["smi_z_score"],"name":[32],"type":["dbl"],"align":["right"]},{"label":["whole_body_ecw_tbw_ratio_t_score"],"name":[33],"type":["dbl"],"align":["right"]},{"label":["whole_body_ecw_tbw_ratio_z_score"],"name":[34],"type":["dbl"],"align":["right"]},{"label":["vfa_t_score"],"name":[35],"type":["dbl"],"align":["right"]},{"label":["vfa_z_score"],"name":[36],"type":["dbl"],"align":["right"]},{"label":["bmi_t_score"],"name":[37],"type":["dbl"],"align":["right"]},{"label":["bmi_z_score"],"name":[38],"type":["dbl"],"align":["right"]},{"label":["whtr"],"name":[39],"type":["dbl"],"align":["right"]},{"label":["smm_wt_ratio"],"name":[40],"type":["dbl"],"align":["right"]},{"label":["bfm_percent_of_whole_body"],"name":[41],"type":["dbl"],"align":["right"]},{"label":["ecm_bcm_ratio"],"name":[42],"type":["dbl"],"align":["right"]},{"label":["tbw_wt_ratio"],"name":[43],"type":["dbl"],"align":["right"]},{"label":["bcm_t_score"],"name":[44],"type":["dbl"],"align":["right"]},{"label":["bcm_z_score"],"name":[45],"type":["dbl"],"align":["right"]},{"label":["fmi_t_score"],"name":[46],"type":["dbl"],"align":["right"]},{"label":["fmi_z_score"],"name":[47],"type":["dbl"],"align":["right"]},{"label":["pbf_t_score"],"name":[48],"type":["dbl"],"align":["right"]},{"label":["pbf_z_score"],"name":[49],"type":["dbl"],"align":["right"]},{"label":["khz_whole_body_phase_angle_t_score"],"name":[50],"type":["dbl"],"align":["right"]},{"label":["khz_whole_body_phase_angle_z_score"],"name":[51],"type":["dbl"],"align":["right"]},{"label":["tbw_wt_ratio_t_score"],"name":[52],"type":["dbl"],"align":["right"]},{"label":["tbw_wt_ratio_z_score"],"name":[53],"type":["dbl"],"align":["right"]},{"label":["smm_wt_ratio_t_score"],"name":[54],"type":["dbl"],"align":["right"]},{"label":["ecm_bcm_ratio_t_score"],"name":[55],"type":["dbl"],"align":["right"]},{"label":["ecm_bcm_ratio_z_score"],"name":[56],"type":["dbl"],"align":["right"]},{"label":["r_ht_ratio"],"name":[57],"type":["dbl"],"align":["right"]},{"label":["xc_ht_ratio"],"name":[58],"type":["dbl"],"align":["right"]}],"data":[{"1":"293","2":"TEAGASC","3":"-89.61","4":"-86.37","5":"-34.55","6":"85.9","7":"67.4","8":"84","9":"113","10":"108.9","11":"Female","12":"Normal","13":"33","14":"32.7","15":"38.2","16":"38.5","17":"22.4","18":"68.4","19":"46","20":"0.368","21":"0.365","22":"17.9","23":"1201","24":"0.67","25":"97.8","26":"326","27":"26.7","28":"76.9","29":"6.4","30":"8.5","31":"2.1","32":"1.9","33":"-1.6","34":"-1.8","35":"0.5","36":"0.2","37":"9.5","38":"8.5","39":"0.96","40":"31.5","41":"945","42":"0.442","43":"41.5","44":"-0.9","45":"-0.9","46":"6.3","47":"5.6","48":"1.7","49":"1.5","50":"1.3","51":"1.4","52":"-1.4","53":"-1.2","54":"-1.3","55":"-7.3","56":"-7.5","57":"611.1","58":"68.4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
-</div>
 </section>
 </section>
-<section id="model-implementation" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Model Implementation</h1>
+<section id="model-implementation" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Model Implementation</h1>
+<p>The final model formula incorporates <code>30</code> measurements as predictors of the <code>MetS</code>, and is as follows:</p>
+<p>Model: <code>MetS ~ gender + rcs(MEDAS_Score,3) + Antihypertensives + Antidepressants + gender:rcs(MEDAS_Score,3) + rcs(bcm_t_score,3) + rcs(whr,3) + rcs(smm,3) + rcs(fatigue_index,3) + Site_Collection + gender:rcs(bcm_t_score,3) + gender:rcs(smm,3) + gender:Site_Collection + rcs(HbA1c_Perc,3) + rcs(log(SGPT),3) + rcs(log(TBIL),3) + rcs(Anhydroglucitol,3) + rcs(Glucose,3) + rcs(log(Glutamine_To_Glutamic_Acid_Ratio),3) + rcs(Propionylcarnitine,3) + rcs(log(Lauroylcarnitine),3) + rcs(log(Riboflavine),3) + rcs(log(Uracil),3) + rcs(log(5HIAA),3) + rcs(log(Indole3Lactic_Acid),3) + rcs(log(Indole3Lactic_Acid),3) + rcs(log(Indole),3) + rcs(log(Hippuric_Acid),3) + rcs(log(P_Coumaric_Acid_Sulfate),3) + rcs(log(Dopamine),3) + rcs(log(Kynurenic_Acid),3) + rcs(log(P_Coumaric_Acid),3) + rcs(log(P_HBA_Sulfate),3) + rcs(log(P_Hydroxyphenyl_Acetic_Acid),3)</code> where <code>rcs</code> means that potential non-linear associations are taken into account, <code>log</code> denotes the logarithmic transformation and <code>:</code> denotes the interaction between two predictor variables.</p>
 
 
 </section>
@@ -1599,6 +3141,13 @@ Figure&nbsp;5: Device predictors in relation to <code>BMI</code>. With exception
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {

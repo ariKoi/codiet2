@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-10-23">
+
+<title>Metabolic Syndrome Index Construction – Codiet Project</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-97ab976c72e96dae3ffd24d1231727f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Codiet Project</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">Metabolite Biomarkers &amp; Clinical Prediction For Metabolic Syndrome</span>
+    </span>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./eda2.html">Sections</a></li><li class="breadcrumb-item"><a href="./metSyn_index_construction.html">Metabolic Syndrome Index Construction</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Sections</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./eda2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Processing &amp; EDA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modeling2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modeling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Data Dictionary</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hei_total_score.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HEI Total Score</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./metSyn_index_construction.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Metabolic Syndrome Index Construction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Data</h2>
+   
+  <ul>
+  <li><a href="#a-framework-for-multiparameter-optimization" id="toc-a-framework-for-multiparameter-optimization" class="nav-link active" data-scroll-target="#a-framework-for-multiparameter-optimization"><span class="header-section-number">1</span> A Framework for Multiparameter Optimization</a>
+  <ul class="collapse">
+  <li><a href="#i.-introduction-to-multi-response-optimization-and-the-desirability-framework" id="toc-i.-introduction-to-multi-response-optimization-and-the-desirability-framework" class="nav-link" data-scroll-target="#i.-introduction-to-multi-response-optimization-and-the-desirability-framework">I. Introduction to Multi-Response Optimization and the Desirability Framework</a>
+  <ul class="collapse">
+  <li><a href="#the-challenge-of-multivariate-optimization-mro" id="toc-the-challenge-of-multivariate-optimization-mro" class="nav-link" data-scroll-target="#the-challenge-of-multivariate-optimization-mro">1.1 The Challenge of Multivariate Optimization (MRO)</a></li>
+  <li><a href="#historical-context-the-derringer-and-suich-contribution" id="toc-historical-context-the-derringer-and-suich-contribution" class="nav-link" data-scroll-target="#historical-context-the-derringer-and-suich-contribution">1.2 Historical Context: The Derringer and Suich Contribution</a></li>
+  <li><a href="#overview-of-the-desirability2-package-architecture" id="toc-overview-of-the-desirability2-package-architecture" class="nav-link" data-scroll-target="#overview-of-the-desirability2-package-architecture">1.3 Overview of the desirability2 Package Architecture</a></li>
+  </ul></li>
+  <li><a href="#ii.-the-theoretical-framework-of-individual-desirability-d_i" id="toc-ii.-the-theoretical-framework-of-individual-desirability-d_i" class="nav-link" data-scroll-target="#ii.-the-theoretical-framework-of-individual-desirability-d_i">II. The Theoretical Framework of Individual Desirability (<span class="math inline">\(d_i\)</span>)</a>
+  <ul class="collapse">
+  <li><a href="#maximizing-a-response-the-d_max-case" id="toc-maximizing-a-response-the-d_max-case" class="nav-link" data-scroll-target="#maximizing-a-response-the-d_max-case">2.1 Maximizing a Response (The <span class="math inline">\(d_{\max}\)</span> Case)</a></li>
+  <li><a href="#minimizing-a-response-the-d_min-case" id="toc-minimizing-a-response-the-d_min-case" class="nav-link" data-scroll-target="#minimizing-a-response-the-d_min-case">2.2 Minimizing a Response (The <span class="math inline">\(d_{\min}\)</span> Case)</a></li>
+  <li><a href="#achieving-a-target-value-the-d_texttarget-case" id="toc-achieving-a-target-value-the-d_texttarget-case" class="nav-link" data-scroll-target="#achieving-a-target-value-the-d_texttarget-case">2.3 Achieving a Target Value (The <span class="math inline">\(d_{\text{target}}\)</span> Case)</a></li>
+  <li><a href="#the-role-of-strictness-exponents-s-and-t" id="toc-the-role-of-strictness-exponents-s-and-t" class="nav-link" data-scroll-target="#the-role-of-strictness-exponents-s-and-t">2.4 The Role of Strictness Exponents (<span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span>)</a></li>
+  </ul></li>
+  <li><a href="#iii.-aggregation-and-the-overall-desirability-index-d" id="toc-iii.-aggregation-and-the-overall-desirability-index-d" class="nav-link" data-scroll-target="#iii.-aggregation-and-the-overall-desirability-index-d">III. Aggregation and the Overall Desirability Index (<span class="math inline">\(D\)</span>)</a>
+  <ul class="collapse">
+  <li><a href="#definition-of-the-overall-desirability-index" id="toc-definition-of-the-overall-desirability-index" class="nav-link" data-scroll-target="#definition-of-the-overall-desirability-index">3.1 Definition of the Overall Desirability Index</a></li>
+  <li><a href="#mathematical-and-practical-implications-of-the-geometric-mean" id="toc-mathematical-and-practical-implications-of-the-geometric-mean" class="nav-link" data-scroll-target="#mathematical-and-practical-implications-of-the-geometric-mean">3.2 Mathematical and Practical Implications of the Geometric Mean</a></li>
+  <li><a href="#incorporating-objective-importance-weights" id="toc-incorporating-objective-importance-weights" class="nav-link" data-scroll-target="#incorporating-objective-importance-weights">3.3 Incorporating Objective Importance Weights</a></li>
+  </ul></li>
+  <li><a href="#iv.-computational-implementation-the-desirability2-r-package-architecture" id="toc-iv.-computational-implementation-the-desirability2-r-package-architecture" class="nav-link" data-scroll-target="#iv.-computational-implementation-the-desirability2-r-package-architecture">IV. Computational Implementation: The desirability2 R Package Architecture</a>
+  <ul class="collapse">
+  <li><a href="#software-architecture-and-dependencies" id="toc-software-architecture-and-dependencies" class="nav-link" data-scroll-target="#software-architecture-and-dependencies">4.1 Software Architecture and Dependencies</a></li>
+  <li><a href="#in-line-computation-via-dplyr-pipelines" id="toc-in-line-computation-via-dplyr-pipelines" class="nav-link" data-scroll-target="#in-line-computation-via-dplyr-pipelines">4.2 In-Line Computation via dplyr Pipelines</a></li>
+  <li><a href="#handling-complex-responses" id="toc-handling-complex-responses" class="nav-link" data-scroll-target="#handling-complex-responses">4.3 Handling Complex Responses</a></li>
+  </ul></li>
+  <li><a href="#v.-case-studies-and-applications-in-optimization" id="toc-v.-case-studies-and-applications-in-optimization" class="nav-link" data-scroll-target="#v.-case-studies-and-applications-in-optimization">V. Case Studies and Applications in Optimization</a>
+  <ul class="collapse">
+  <li><a href="#application-in-predictive-modeling-and-hyperparameter-tuning" id="toc-application-in-predictive-modeling-and-hyperparameter-tuning" class="nav-link" data-scroll-target="#application-in-predictive-modeling-and-hyperparameter-tuning">5.1 Application in Predictive Modeling and Hyperparameter Tuning</a></li>
+  <li><a href="#application-in-experimental-design-response-surface-methodology" id="toc-application-in-experimental-design-response-surface-methodology" class="nav-link" data-scroll-target="#application-in-experimental-design-response-surface-methodology">5.2 Application in Experimental Design (Response Surface Methodology)</a></li>
+  </ul></li>
+  <li><a href="#vi.-discussion-of-limitations-and-advanced-considerations" id="toc-vi.-discussion-of-limitations-and-advanced-considerations" class="nav-link" data-scroll-target="#vi.-discussion-of-limitations-and-advanced-considerations">VI. Discussion of Limitations and Advanced Considerations</a>
+  <ul class="collapse">
+  <li><a href="#sensitivity-analysis-and-the-subjectivity-of-parameters" id="toc-sensitivity-analysis-and-the-subjectivity-of-parameters" class="nav-link" data-scroll-target="#sensitivity-analysis-and-the-subjectivity-of-parameters">6.1 Sensitivity Analysis and the Subjectivity of Parameters</a></li>
+  <li><a href="#challenges-in-statistical-inference-and-response-covariance" id="toc-challenges-in-statistical-inference-and-response-covariance" class="nav-link" data-scroll-target="#challenges-in-statistical-inference-and-response-covariance">6.2 Challenges in Statistical Inference and Response Covariance</a></li>
+  <li><a href="#alternatives-to-the-derringer-and-suich-formulation" id="toc-alternatives-to-the-derringer-and-suich-formulation" class="nav-link" data-scroll-target="#alternatives-to-the-derringer-and-suich-formulation">6.3 Alternatives to the Derringer and Suich Formulation</a></li>
+  </ul></li>
+  <li><a href="#vii.-conclusions-and-future-work" id="toc-vii.-conclusions-and-future-work" class="nav-link" data-scroll-target="#vii.-conclusions-and-future-work">VII. Conclusions and Future Work</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./eda2.html">Sections</a></li><li class="breadcrumb-item"><a href="./metSyn_index_construction.html">Metabolic Syndrome Index Construction</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Metabolic Syndrome Index Construction</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 23, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="a-framework-for-multiparameter-optimization" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> A Framework for Multiparameter Optimization</h1>
+<section id="i.-introduction-to-multi-response-optimization-and-the-desirability-framework" class="level2">
+<h2 class="anchored" data-anchor-id="i.-introduction-to-multi-response-optimization-and-the-desirability-framework">I. Introduction to Multi-Response Optimization and the Desirability Framework</h2>
+<section id="the-challenge-of-multivariate-optimization-mro" class="level3">
+<h3 class="anchored" data-anchor-id="the-challenge-of-multivariate-optimization-mro">1.1 The Challenge of Multivariate Optimization (MRO)</h3>
+<p>The optimization of complex systems, ranging from industrial manufacturing processes to advanced machine learning models and biotechnological experiments, frequently involves multiple performance metrics, referred to as responses (<span class="math inline">\(Y_i\)</span>). These Multi-Response Optimization (MRO) problems present two primary challenges: the metrics are often non-commensurable (measured on different scales, such as minimizing cost and maximizing purity), and they are frequently antagonistic or conflicting (an improvement in one response often degrades at least one other response).<span class="citation" data-cites="ref1">(<a href="#ref-ref1" role="doc-biblioref">1</a>)</span> In such complex environments, it is impractical and often detrimental to optimize each response variable in isolation. Instead, the objective is to locate a compromise solution—a specific setting of input factors <span class="math inline">\(X\)</span> that yields the ‘most desirable’ combined outcome across all responses.<span class="citation" data-cites="ref1">(<a href="#ref-ref1" role="doc-biblioref">1</a>)</span> The desirability function (DF) methodology, initially introduced by Harrington (1965) and formalized by Derringer and Suich (DS) in 1980, provides a widely accepted framework for solving this problem.<span class="citation" data-cites="ref2">(<a href="#ref-ref2" role="doc-biblioref">2</a>)</span> This methodology functions as a dimensionality reduction strategy, transforming the complex multi-objective optimization problem into a simpler, single-objective problem: the maximization of a unified aggregate measure, the Overall Desirability Index (<span class="math inline">\(D\)</span>).<span class="citation" data-cites="ref2">(<a href="#ref-ref2" role="doc-biblioref">2</a>)</span></p>
+</section>
+<section id="historical-context-the-derringer-and-suich-contribution" class="level3">
+<h3 class="anchored" data-anchor-id="historical-context-the-derringer-and-suich-contribution">1.2 Historical Context: The Derringer and Suich Contribution</h3>
+<p>The conceptual foundation of desirability is based on transforming a measured or predicted response (<span class="math inline">\(\hat{Y}_i\)</span>) into a uniform, scale-free desirability score (<span class="math inline">\(d_i\)</span>) confined within the interval $$.3 Here, <span class="math inline">\(d_i = 0\)</span> signifies a completely unacceptable response, and <span class="math inline">\(d_i = 1\)</span> represents an ideal or perfectly desirable outcome.<span class="citation" data-cites="ref4">(<a href="#ref-ref4" role="doc-biblioref">3</a>)</span> The R package desirability2 explicitly implements the functional forms proposed by Derringer and Suich (1980).5 The DS contribution was critical as it formalized the use of piecewise functions with adjustable exponents (<span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span>) to model the specific utility requirements for maximization, minimization, and target achievement.<span class="citation" data-cites="ref3">(<a href="#ref-ref3" role="doc-biblioref">4</a>)</span> The DS methodology remains highly popular due to its intuitive nature and effectiveness in domains such as quality control, engineering, and chemical technology.<span class="citation" data-cites="ref1">(<a href="#ref-ref1" role="doc-biblioref">1</a>)</span></p>
+</section>
+<section id="overview-of-the-desirability2-package-architecture" class="level3">
+<h3 class="anchored" data-anchor-id="overview-of-the-desirability2-package-architecture">1.3 Overview of the desirability2 Package Architecture</h3>
+<p>The desirability2 package, authored by Max Kuhn and part of the tidymodels ecosystem, represents a modern architectural update to implementing the DS framework in R.6 Published on August 22, 2025 (Version 0.2.0), the package focuses on enhanced usability and integration with modern R workflows.<span class="citation" data-cites="ref6">(<a href="#ref-ref6" role="doc-biblioref">5</a>)</span> The key innovation of desirability2 over predecessor packages lies in its provision of in-line functions that facilitate “easy use within dplyr pipelines”.<span class="citation" data-cites="ref6">(<a href="#ref-ref6" role="doc-biblioref">5</a>)</span> This architectural alignment with the Tidyverse philosophy means that the multi-response optimization step is no longer treated as a separate, procedural analysis but rather as a routine, seamless data transformation step.<span class="citation" data-cites="ref8">(<a href="#ref-ref8" role="doc-biblioref">6</a>)</span> For computational statisticians, this enables the desirability calculation to be integrated directly into data cleaning, feature engineering, and model tuning workflows, which significantly enhances the efficiency and reproducibility of the overall analysis.<span class="citation" data-cites="ref8">(<a href="#ref-ref8" role="doc-biblioref">6</a>)</span> The package supplies the core functions required for analysis, specifically d_max(), d_min() (and the implied target function), and the critical aggregation function d_overall().<span class="citation" data-cites="ref5">(<a href="#ref-ref5" role="doc-biblioref">7</a>)</span></p>
+</section>
+</section>
+<section id="ii.-the-theoretical-framework-of-individual-desirability-d_i" class="level2">
+<h2 class="anchored" data-anchor-id="ii.-the-theoretical-framework-of-individual-desirability-d_i">II. The Theoretical Framework of Individual Desirability (<span class="math inline">\(d_i\)</span>)</h2>
+<p>The individual desirability function, <span class="math inline">\(d_i(\hat{Y}_i)\)</span>, maps the predicted or observed response value <span class="math inline">\(\hat{Y}_i\)</span> to the unit interval $$. The functional form depends entirely on the required optimization criterion for that specific response.</p>
+<section id="maximizing-a-response-the-d_max-case" class="level3">
+<h3 class="anchored" data-anchor-id="maximizing-a-response-the-d_max-case">2.1 Maximizing a Response (The <span class="math inline">\(d_{\max}\)</span> Case)</h3>
+<p>The maximization function is employed when higher values of the response variable are inherently more desirable, such as maximizing product yield, profit, or predictive performance metrics like the Area Under the ROC Curve (AUC).<span class="citation" data-cites="ref4">(<a href="#ref-ref4" role="doc-biblioref">3</a>)</span> This function requires two parameters defined by the decision-maker (DM): a lower acceptable limit (<span class="math inline">\(L_i\)</span>) below which the response is completely undesirable (<span class="math inline">\(d_i=0\)</span>), and an upper ideal limit (<span class="math inline">\(U_i\)</span>) at which desirability reaches its maximum (<span class="math inline">\(d_i=1\)</span>). The individual desirability function for maximization is defined as:</p>
+<p><span class="math display">\[ d_{\max}(\hat{Y}_i) = \begin{cases} 0 &amp; \text{if } \hat{Y}_i &lt; L_i \ \left(\frac{\hat{Y}_i - L_i}{U_i - L_i}\right)^s &amp; \text{if } L_i \le \hat{Y}_i \le U_i \ 1 &amp; \text{if } \hat{Y}_i &gt; U_i \end{cases} \]</span></p>
+<p>Within the desirability2 package, the function d_max() implements this transformation, where desirability scales non-linearly from 0 at <span class="math inline">\(L_i\)</span> to 1 at <span class="math inline">\(U_i\)</span> and remains 1 for all values exceeding <span class="math inline">\(U_i\)</span>.<span class="citation" data-cites="ref7">(<a href="#ref-ref7" role="doc-biblioref">8</a>)</span></p>
+</section>
+<section id="minimizing-a-response-the-d_min-case" class="level3">
+<h3 class="anchored" data-anchor-id="minimizing-a-response-the-d_min-case">2.2 Minimizing a Response (The <span class="math inline">\(d_{\min}\)</span> Case)</h3>
+<p>The minimization function is utilized when lower values of the response variable are preferable, such as minimizing cost, error rate (e.g., multinomial log-loss), or the number of components used in a model.<span class="citation" data-cites="ref4">(<a href="#ref-ref4" role="doc-biblioref">3</a>)</span> Similar to the maximization case, the function requires a lower ideal limit (<span class="math inline">\(L_i\)</span>), where <span class="math inline">\(d_i=1\)</span>, and an upper acceptable limit (<span class="math inline">\(U_i\)</span>), above which the response is entirely unacceptable (<span class="math inline">\(d_i=0\)</span>). The individual desirability function for minimization is defined as: <span class="math display">\[ d_{\min}(\hat{Y}_i) = \begin{cases} 1 &amp; \text{if } \hat{Y}_i &lt; L_i \ \left(\frac{U_i - \hat{Y}_i}{U_i - L_i}\right)^t &amp; \text{if } L_i \le \hat{Y}_i \le U_i \ 0 &amp; \text{if } \hat{Y}_i &gt; U_i \end{cases} \]</span></p>
+<p>The d_min() function in the package handles this transformation, where desirability decreases from 1 towards 0 as the response value approaches the upper limit <span class="math inline">\(U_i\)</span>.<span class="citation" data-cites="ref5">(<a href="#ref-ref5" role="doc-biblioref">7</a>)</span></p>
+</section>
+<section id="achieving-a-target-value-the-d_texttarget-case" class="level3">
+<h3 class="anchored" data-anchor-id="achieving-a-target-value-the-d_texttarget-case">2.3 Achieving a Target Value (The <span class="math inline">\(d_{\text{target}}\)</span> Case)</h3>
+<p>When the ideal scenario involves achieving a specific value (<span class="math inline">\(T_i\)</span>) within a defined range, a two-sided transformation is required. This applies when deviations in either direction from the target (e.g., product strength or purity) reduce desirability.<span class="citation" data-cites="ref3">(<a href="#ref-ref3" role="doc-biblioref">4</a>)</span> The target value (<span class="math inline">\(T_i\)</span>) must fall between the lower (<span class="math inline">\(L_i\)</span>) and upper (<span class="math inline">\(U_i\)</span>) acceptable limits (<span class="math inline">\(L_i \le T_i \le U_i\)</span>). This function combines aspects of minimization for values above the target and maximization for values below the target, often using two potentially different strictness parameters, <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span>. The two-sided desirability function is defined as: <span class="math display">\[ d_{\text{target}}(\hat{Y}_i) = \begin{cases} 0 &amp; \text{if } \hat{Y}_i &lt; L_i \text{ or } \hat{Y}_i &gt; U_i \ \left(\frac{\hat{Y}_i - L_i}{T_i - L_i}\right)^s &amp; \text{if } L_i \le \hat{Y}_i &lt; T_i \ \left(\frac{U_i - \hat{Y}_i}{U_i - T_i}\right)^t &amp; \text{if } T_i &lt; \hat{Y}_i \le U_i \ 1 &amp; \text{if } \hat{Y}_i = T_i \end{cases} \]</span></p>
+<p>Values outside of [Li​,Ui​] result in di​=0.7</p>
+</section>
+<section id="the-role-of-strictness-exponents-s-and-t" class="level3">
+<h3 class="anchored" data-anchor-id="the-role-of-strictness-exponents-s-and-t">2.4 The Role of Strictness Exponents (<span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span>)</h3>
+<p>The parameters <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span>, which must be non-negative, are known as the strictness exponents. They are essential components of the DS methodology, as they define the shape of the desirability curve within the acceptable interval <span class="math inline">\([L_i, U_i]\)</span> and, consequently, determine how rapidly the desirability score transitions between 0 and 1.<span class="citation" data-cites="ref7">(<a href="#ref-ref7" role="doc-biblioref">8</a>)</span> By adjusting these exponents, the decision-maker (DM) can embed non-linear utility preferences into the optimization process, moving beyond a simple linear penalty assessment. If <span class="math inline">\(s=1\)</span> or <span class="math inline">\(t=1\)</span>, the function is linear, meaning the desirability score changes proportionally with the response value. If the exponent is greater than one (<span class="math inline">\(s&gt;1\)</span> or <span class="math inline">\(t&gt;1\)</span>), the resulting curve is concave. This shape signifies that desirability scores near 1 are only achieved very close to the ideal boundary (<span class="math inline">\(U_i\)</span> or <span class="math inline">\(T_i\)</span>), heavily penalizing minor deviations and indicating a strong preference for near-ideal results. Conversely, if the exponent is less than one (<span class="math inline">\(s&lt;1\)</span> or <span class="math inline">\(t&lt;1\)</span>), the function is convex. In this case, desirability increases quickly, meaning that even moderately performing values retain a high <span class="math inline">\(d_i\)</span> score, reflecting greater tolerance for variability.<span class="citation" data-cites="ref7">(<a href="#ref-ref7" role="doc-biblioref">8</a>)</span> The specific choice of these exponents is critical, as the resulting overall optimum is sensitive to the defined utility curve.</p>
+<p>Table 1: Interpretation of Strictness Exponents in Derringer and Suich Desirability Functions Exponent Value Curve Shape Implication for Penalty Assessment DM Preference <span class="math inline">\(s=1\)</span> or <span class="math inline">\(t=1\)</span> Linear Proportional change in desirability with response value. Neutral or standard compromise. <span class="math inline">\(s &gt; 1\)</span> or <span class="math inline">\(t &gt; 1\)</span> Concave High desirability (near 1) is achieved only very close to the ideal point. Extreme sensitivity; heavily penalizes minor deviations from the ideal. <span class="math inline">\(s &lt; 1\)</span> or <span class="math inline">\(t &lt; 1\)</span> Convex Desirability increases quickly, allowing moderate performance to retain high <span class="math inline">\(d_i\)</span>. Tolerance for variability; allows slight penalty for small deviations.</p>
+</section>
+</section>
+<section id="iii.-aggregation-and-the-overall-desirability-index-d" class="level2">
+<h2 class="anchored" data-anchor-id="iii.-aggregation-and-the-overall-desirability-index-d">III. Aggregation and the Overall Desirability Index (<span class="math inline">\(D\)</span>)</h2>
+<section id="definition-of-the-overall-desirability-index" class="level3">
+<h3 class="anchored" data-anchor-id="definition-of-the-overall-desirability-index">3.1 Definition of the Overall Desirability Index</h3>
+<p>The ultimate goal of the desirability function approach is to aggregate the individual desirability scores (<span class="math inline">\(d_i\)</span>) into a single, unified metric known as the Overall Desirability Index, <span class="math inline">\(D\)</span>. This index is the objective function that the optimization seeks to maximize, effectively reducing the MRO problem to a single-objective maximization task.<span class="citation" data-cites="ref2">(<a href="#ref-ref2" role="doc-biblioref">2</a>)</span> Following the framework established by Harrington and utilized by Derringer and Suich, <span class="math inline">\(D\)</span> is defined as the geometric mean of the <span class="math inline">\(k\)</span> individual desirability functions.<span class="citation" data-cites="ref1">(<a href="#ref-ref1" role="doc-biblioref">1</a>)</span> <span class="math display">\[D = \left( d_{1} ( Y_{1} ) \cdot d_{2} ( Y_{2} ) \cdots d_{k} ( Y_{k} )\right) ^{1/k}\]</span></p>
+<p>Here, <span class="math inline">\(k\)</span> denotes the total number of responses being optimized simultaneously.<span class="citation" data-cites="ref4">(<a href="#ref-ref4" role="doc-biblioref">3</a>)</span></p>
+</section>
+<section id="mathematical-and-practical-implications-of-the-geometric-mean" class="level3">
+<h3 class="anchored" data-anchor-id="mathematical-and-practical-implications-of-the-geometric-mean">3.2 Mathematical and Practical Implications of the Geometric Mean</h3>
+<p>The use of the geometric mean (multiplicative form) is a defining characteristic of the DS methodology and carries a profound implication for optimization results: the enforcement of the non-compensatory principle.<span class="citation" data-cites="ref11">(<a href="#ref-ref11" role="doc-biblioref">9</a>)</span> Since <span class="math inline">\(D\)</span> is calculated as the product of all <span class="math inline">\(d_i\)</span> values raised to the <span class="math inline">\(1/k\)</span> power, the entire geometric mean collapses if any single individual desirability score is zero. Mathematically, if <span class="math inline">\(d_i = 0\)</span> for any <span class="math inline">\(i\)</span>, then <span class="math inline">\(D=0\)</span>.<span class="citation" data-cites="ref4">(<a href="#ref-ref4" role="doc-biblioref">3</a>)</span> This strictly non-compensatory approach reflects the idea, common in industry and quality control, that the “quality” of a product or process with multiple characteristics is considered “completely unacceptable” if even one characteristic falls outside defined desirable limits. In practical terms, this ensures that the final optimal solution represents a true compromise where all responses achieve at least a minimally acceptable level (i.e., <span class="math inline">\(d_i &gt; 0\)</span>). Superior performance in one area cannot compensate for a failure (i.e., <span class="math inline">\(d_i=0\)</span>) in another.12 This is a key distinction from alternative additive scoring methods, which often allow high scores on a few variables to mask poor performance on others.<span class="citation" data-cites="ref11">(<a href="#ref-ref11" role="doc-biblioref">9</a>)</span> The calculation relies on the individual desirability values being non-negative 11, which is structurally guaranteed by the DS functional definitions.</p>
+</section>
+<section id="incorporating-objective-importance-weights" class="level3">
+<h3 class="anchored" data-anchor-id="incorporating-objective-importance-weights">3.3 Incorporating Objective Importance Weights</h3>
+<p>In the standard geometric mean formula, all <span class="math inline">\(k\)</span> responses are treated equally. However, in many MRO scenarios, the Decision Maker requires certain responses to carry more importance than others. This is accommodated by incorporating objective importance weights (<span class="math inline">\(w_i\)</span>) into the geometric mean calculation.<span class="citation" data-cites="ref11">(<a href="#ref-ref11" role="doc-biblioref">9</a>)</span> The generalized, weighted geometric mean formula is defined as: <span class="math display">\[ D_w = \left( d_{1}^{w_1} ( Y_{1} ) \cdot d_{2}^{w_2} ( Y_{2} ) \cdots d_{k}^{w_k} ( Y_{k} )\right) ^{1/\sum w_i} \]</span></p>
+<p>The use of weights provides crucial flexibility, allowing the DM to subjectively define which criteria are “worth more than others”.<span class="citation" data-cites="ref12">(<a href="#ref-ref12" role="doc-biblioref">10</a>)</span> For example, in optimizing a classification model, the computational budget might dictate that minimizing the number of features (<span class="math inline">\(Y_{\text{features}}\)</span>) is twice as important as minimizing the prediction error (<span class="math inline">\(Y_{\text{error}}\)</span>). This priority setting is directly encoded by assigning <span class="math inline">\(w_{\text{features}}=2\)</span> and <span class="math inline">\(w_{\text{error}}=1\)</span>. The weighted formula maintains the non-compensatory nature of the DF approach while providing control over the relative influence of each response on the overall index <span class="math inline">\(D\)</span>.</p>
+</section>
+</section>
+<section id="iv.-computational-implementation-the-desirability2-r-package-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="iv.-computational-implementation-the-desirability2-r-package-architecture">IV. Computational Implementation: The desirability2 R Package Architecture</h2>
+<p>The desirability2 package is designed to modernize the application of the DS methodology, making it accessible and efficient for users familiar with the Tidyverse computational environment in R.</p>
+<section id="software-architecture-and-dependencies" class="level3">
+<h3 class="anchored" data-anchor-id="software-architecture-and-dependencies">4.1 Software Architecture and Dependencies</h3>
+<p>desirability2 is architecturally aligned with the tidymodels framework, requiring R version 4.1.0 or newer and relying heavily on core Tidyverse packages.<span class="citation" data-cites="ref6">(<a href="#ref-ref6" role="doc-biblioref">5</a>)</span> Key dependencies include cli, stats, and tibble, but most critically, dplyr and purrr for streamlined data manipulation and functional programming, along with rlang for handling non-standard evaluation.<span class="citation" data-cites="ref6">(<a href="#ref-ref6" role="doc-biblioref">5</a>)</span> This architecture provides a substantial improvement over the original R package implementations of desirability functions.<span class="citation" data-cites="ref14">(<a href="#ref-ref14" role="doc-biblioref">11</a>)</span> The design prioritizes user experience, transforming a typically procedural multi-step analysis into a concise, chainable set of data transformation operations.<span class="citation" data-cites="ref8">(<a href="#ref-ref8" role="doc-biblioref">6</a>)</span></p>
+</section>
+<section id="in-line-computation-via-dplyr-pipelines" class="level3">
+<h3 class="anchored" data-anchor-id="in-line-computation-via-dplyr-pipelines">4.2 In-Line Computation via dplyr Pipelines</h3>
+<p>The defining feature of desirability2 is its support for in-line computation, which is central to its utility within dplyr pipelines.<span class="citation" data-cites="ref6">(<a href="#ref-ref6" role="doc-biblioref">5</a>)</span> This approach fundamentally changes how MRO is executed within R environments. Instead of requiring external function calls or the management of temporary objects, the calculation and assignment of individual desirability scores (<span class="math inline">\(d_i\)</span>) occur directly within a data manipulation pipe, typically using the mutate() verb. For instance, if a researcher has a table of tuning results (classification_results) containing ROC AUC values, the calculation of its desirability score (roc_d) is seamless: classification_results |&gt; mutate(roc_d = d_max(roc_auc, low = 0.5, high = 1.0)).<span class="citation" data-cites="ref8">(<a href="#ref-ref8" role="doc-biblioref">6</a>)</span> Once all individual scores are calculated, the overall desirability <span class="math inline">\(D\)</span> is aggregated in the same pipeline using the d_overall() function in conjunction with the dplyr::across() selector. This permits the calculation of the geometric mean across multiple columns defined by a pattern (e.g., all columns ending with _d).8 The final step, ranking the results, is then accomplished immediately within the same pipe using slice_max(D, n = 1), resulting in a concise, readable, and highly auditable workflow that flows logically from raw data to the optimal result.<span class="citation" data-cites="ref8">(<a href="#ref-ref8" role="doc-biblioref">6</a>)</span> This cohesion dramatically increases the efficiency of managing complex optimization problems and reduces potential coding errors related to intermediate steps.</p>
+</section>
+<section id="handling-complex-responses" class="level3">
+<h3 class="anchored" data-anchor-id="handling-complex-responses">4.3 Handling Complex Responses</h3>
+<p>The package is engineered to support modern data analysis challenges, including those involving responses that change over time. For instance, when analyzing predictive metrics derived from time-dependent data (e.g., the time-dependent ROC curve often used in survival analysis), the function definitions accommodate an eval_time parameter.<span class="citation" data-cites="ref5">(<a href="#ref-ref5" role="doc-biblioref">7</a>)</span> This parameter allows the user to specify a single numeric time point at which the dynamic metrics should be selected for desirability calculation, ensuring consistency with the original data creation process.<span class="citation" data-cites="ref6">(<a href="#ref-ref6" role="doc-biblioref">5</a>)</span> This adaptability demonstrates that desirability2 is designed to support not just classical experimental design but also advanced computational problems common in machine learning and data science.</p>
+<p>Table 2 highlights the architectural shift achieved by desirability2 compared to legacy implementations.</p>
+<p>Table 2: Comparison of desirability2 Workflow with Traditional R Implementations</p>
+<p>Feature Traditional DF Packages (e.g., original desirability) desirability2 R Package Significance Computation Style Procedural; required multiple external function calls or custom wrappers. Functional and In-line.<span class="citation" data-cites="ref10">(<a href="#ref-ref10" role="doc-biblioref">12</a>)</span> Direct integration into data transformation pipelines. Data Structure Focus Vector or matrix input; less emphasis on data frame workflow. Optimized for tibble and dplyr.<span class="citation" data-cites="ref8">(<a href="#ref-ref8" role="doc-biblioref">6</a>)</span> Maximized compatibility with the tidymodels ecosystem for model tuning. Aggregation Method Separate function call applied to pre-calculated score vectors. Seamless aggregation via d_overall(across(…)).<span class="citation" data-cites="ref8">(<a href="#ref-ref8" role="doc-biblioref">6</a>)</span> Single, readable step from individual score calculation to overall ranking. Design Philosophy Focus on mathematical implementation of core functions. Focus on user experience (UX) and modern computational efficiency.<span class="citation" data-cites="ref8">(<a href="#ref-ref8" role="doc-biblioref">6</a>)</span> Reduces cognitive load and streamlines iterative optimization tasks.</p>
+</section>
+</section>
+<section id="v.-case-studies-and-applications-in-optimization" class="level2">
+<h2 class="anchored" data-anchor-id="v.-case-studies-and-applications-in-optimization">V. Case Studies and Applications in Optimization</h2>
+<p>The desirability function methodology is highly versatile, finding utility in diverse fields that require the negotiation of trade-offs between competing performance indicators.</p>
+<section id="application-in-predictive-modeling-and-hyperparameter-tuning" class="level3">
+<h3 class="anchored" data-anchor-id="application-in-predictive-modeling-and-hyperparameter-tuning">5.1 Application in Predictive Modeling and Hyperparameter Tuning</h3>
+<p>In computational statistics, particularly within machine learning, desirability functions provide a clear mechanism for balancing model complexity against predictive performance.<span class="citation" data-cites="ref8">(<a href="#ref-ref8" role="doc-biblioref">6</a>)</span> Optimization often requires selecting hyperparameters that simultaneously maximize a positive metric (e.g., ROC AUC) and minimize negative metrics (e.g., log-loss, model size). For instance, in genetic algorithms used for feature selection, DFs can be used to guide the search process.<span class="citation" data-cites="ref10">(<a href="#ref-ref10" role="doc-biblioref">12</a>)</span> Kuhn and Johnson (2019) utilized these functions to help select predictors that improved model performance while actively reducing the number of predictors used, effectively balancing the objective of predictive power with the objective of model parsimony.<span class="citation" data-cites="ref10">(<a href="#ref-ref10" role="doc-biblioref">12</a>)</span> The practical demonstration within the package shows how classification results, including metrics such as multinomial log-loss, ROC AUC, and the number of features, can be ranked. This involves applying d_max() to ROC AUC and d_min() to both log-loss and feature count, and then aggregating these three scale-free scores using the d_overall() function to identify the optimal compromise setting among hundreds of possible model configurations.<span class="citation" data-cites="ref8">(<a href="#ref-ref8" role="doc-biblioref">6</a>)</span></p>
+</section>
+<section id="application-in-experimental-design-response-surface-methodology" class="level3">
+<h3 class="anchored" data-anchor-id="application-in-experimental-design-response-surface-methodology">5.2 Application in Experimental Design (Response Surface Methodology)</h3>
+<p>In industrial and biological sciences, the Desirability Optimization Methodology (DOM) frequently combines desirability functions with Response Surface Methodology (RSM), where the response values (<span class="math inline">\(Y_i\)</span>) are derived from fitted predictive models (<span class="math inline">\(\hat{Y}_i\)</span>).<span class="citation" data-cites="ref3">(<a href="#ref-ref3" role="doc-biblioref">4</a>)</span> A compelling example arises in biotechnological systems, specifically the optimization of secondary metabolite production in plants. Research involving Datura stramonium hairy roots required determining optimal elicitation conditions (jasmonate treatments) to maximize the valuable tropane alkaloid, hyoscyamine, while minimizing the inhibition of overall biomass growth.3 These are inherently antagonist responses. The application of DOM successfully addressed this conflict. By maximizing the overall desirability index <span class="math inline">\(D\)</span>, the methodology identified an optimal compromise: the application of 0.06 mM jasmonic acid for 24 hours.<span class="citation" data-cites="ref3">(<a href="#ref-ref3" role="doc-biblioref">4</a>)</span> This treatment resulted in hyoscyamine levels increasing by up to 290% after 24 hours, while biomass growth was only slightly affected (Growth Index, GI = 0.9) 120 hours after elicitation.<span class="citation" data-cites="ref3">(<a href="#ref-ref3" role="doc-biblioref">4</a>)</span> The efficacy of the geometric mean aggregation is demonstrated here; if the treatment had led to high alkaloid production but completely unacceptable biomass growth (<span class="math inline">\(d_{\text{growth}}=0\)</span>), the overall index <span class="math inline">\(D\)</span> would have immediately dropped to zero, signaling that the trade-off was a failure. The DF approach guarantees that the selected optimum is a satisfactory compromise across all critical responses.<span class="citation" data-cites="ref3">(<a href="#ref-ref3" role="doc-biblioref">4</a>)</span></p>
+</section>
+</section>
+<section id="vi.-discussion-of-limitations-and-advanced-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="vi.-discussion-of-limitations-and-advanced-considerations">VI. Discussion of Limitations and Advanced Considerations</h2>
+<p>While the DS desirability function is a robust and highly utilized tool for MRO, its application in rigorous scientific contexts necessitates an understanding of its inherent limitations, particularly concerning subjectivity and statistical inference.</p>
+<section id="sensitivity-analysis-and-the-subjectivity-of-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="sensitivity-analysis-and-the-subjectivity-of-parameters">6.1 Sensitivity Analysis and the Subjectivity of Parameters</h3>
+<p>A principal challenge in applying the DS methodology is the sensitivity of the final optimized solution (the maximum <span class="math inline">\(D\)</span> value) to the initial parameters chosen by the decision-maker. The boundaries (<span class="math inline">\(L_i, U_i, T_i\)</span>) and the shape parameters (<span class="math inline">\(s, t\)</span>) define the DM’s utility function and risk tolerance regarding the variability of the response.<span class="citation" data-cites="ref7">(<a href="#ref-ref7" role="doc-biblioref">8</a>)</span> The determination of these parameters is inherently subjective.<span class="citation" data-cites="ref1">(<a href="#ref-ref1" role="doc-biblioref">1</a>)</span> For instance, setting <span class="math inline">\(L_i\)</span> slightly higher for a minimization objective can significantly reduce the overall desirability of numerous acceptable process points. If the chosen exponents reflect an overly strict utility function (e.g., <span class="math inline">\(s, t &gt; 1\)</span>), minor deviations from the ideal target will be heavily penalized, potentially excluding viable operating conditions. Therefore, in any formal research or industrial application, thorough sensitivity analysis across a reasonable range of <span class="math inline">\(L_i, U_i\)</span>, and exponents is mandatory to ensure the robustness of the identified optimal solution.</p>
+</section>
+<section id="challenges-in-statistical-inference-and-response-covariance" class="level3">
+<h3 class="anchored" data-anchor-id="challenges-in-statistical-inference-and-response-covariance">6.2 Challenges in Statistical Inference and Response Covariance</h3>
+<p>The conventional framework of the DS method maximizes the point estimate <span class="math inline">\(D\)</span>. When attempting to conduct statistical inference—such as constructing confidence or prediction intervals around the estimated optimal <span class="math inline">\(D\)</span> value—a significant methodological gap emerges.<span class="citation" data-cites="ref11">(<a href="#ref-ref11" role="doc-biblioref">9</a>)</span> The underlying response models (<span class="math inline">\(\hat{Y}_i\)</span>) in MRO problems are typically derived from experimental designs (e.g., RSM) and exhibit a complex structure of covariance. The responses are often significantly correlated, and frequently exhibit the antagonism that initially necessitated the MRO analysis.<span class="citation" data-cites="ref1">(<a href="#ref-ref1" role="doc-biblioref">1</a>)</span> However, traditional, simple methods for calculating intervals around the optimal <span class="math inline">\(D\)</span> often rely on the assumption that the response variables are independent, which is fundamentally antithetical to the nature of the problem.<span class="citation" data-cites="ref11">(<a href="#ref-ref11" role="doc-biblioref">9</a>)</span> Methods that construct simple confidence intervals by examining the best and worst cases for individual responses fail to incorporate this crucial covariance component.<span class="citation" data-cites="ref11">(<a href="#ref-ref11" role="doc-biblioref">9</a>)</span> This exclusion means that the resulting intervals for the optimal desirability index <span class="math inline">\(D\)</span> are statistically inadequate and may provide misleading estimates of confidence or uncertainty. The literature recognizes this need for novel inference methods that explicitly account for the complex covariance structure among the fitted response variables to ensure statistically rigorous confidence regions are established around the optimum <span class="math inline">\(D\)</span>.<span class="citation" data-cites="ref11">(<a href="#ref-ref11" role="doc-biblioref">9</a>)</span></p>
+</section>
+<section id="alternatives-to-the-derringer-and-suich-formulation" class="level3">
+<h3 class="anchored" data-anchor-id="alternatives-to-the-derringer-and-suich-formulation">6.3 Alternatives to the Derringer and Suich Formulation</h3>
+<p>The piecewise and potentially non-smooth nature of the DS functions, combined with the aforementioned inference challenges, has spurred the development of alternative desirability frameworks. Other optimization strategies, such as those based on minimizing the estimated distance from an ideal design point (Khuri and Conlon, 1981), offer different theoretical bases.2 Furthermore, alternative functional forms, such as exponential desirability functions, have been proposed to offer different mechanisms for assessing penalty and utility.2 More recently, researchers have focused on proposing novel desirability functions that are smooth, nonlinear, and fully differentiable. These characteristics are desirable because they make the objective function <span class="math inline">\(D\)</span> more suitable for application within highly efficient, modern gradient-based optimization algorithms, particularly when searching large, complex response surfaces.1</p>
+</section>
+</section>
+<section id="vii.-conclusions-and-future-work" class="level2">
+<h2 class="anchored" data-anchor-id="vii.-conclusions-and-future-work">VII. Conclusions and Future Work</h2>
+<p>The desirability2 R package successfully translates the influential Derringer and Suich (1980) framework for Multi-Response Optimization into a modern, computationally efficient software architecture. The core function of the package is to provide highly flexible, exponent-controlled transformations that map multi-scale responses (<span class="math inline">\(\hat{Y}_i\)</span>) to a uniform desirability score (<span class="math inline">\(d_i\)</span>). The subsequent aggregation via the geometric mean, implemented through the d_overall() function, enforces the essential non-compensatory principle, guaranteeing that any chosen optimal solution satisfies a minimum acceptability criterion for every objective simultaneously. The package’s primary architectural contribution is the seamless integration of these desirability calculations into dplyr pipelines via in-line functions. This enables researchers, especially those working within the tidymodels ecosystem, to treat MRO as a routine and auditable data transformation step, significantly streamlining tasks such as hyperparameter tuning and model ranking. Moving forward, future methodological research must focus on overcoming the known limitations of statistical inference within the DS framework. Specifically, effort should be directed toward integrating advanced inference techniques that can accurately account for the covariance structure among the antagonistic response variables.11 Additionally, the incorporation of smooth and fully differentiable desirability functions into the desirability2 architecture would enhance the package’s compatibility with cutting-edge gradient-based optimization methods, thereby extending its utility to handle even larger and more complex optimization challenges.1</p>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="list">
+<div id="ref-ref1" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Some applications of a novel desirability function in simultaneous optimization of multiple responses - semantic scholar [Internet]. Available from: <a href="https://pdfs.semanticscholar.org/2417/63c876e263b4a901c7ab77b84210be74a8a1.pdf">https://pdfs.semanticscholar.org/2417/63c876e263b4a901c7ab77b84210be74a8a1.pdf</a></div>
+</div>
+<div id="ref-ref2" class="csl-entry" role="listitem">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Simultaneous optimization of mechanical properties of steel by maximizing exponential desirability functions - purdue department of statistics [Internet]. Available from: <a href="https://www.stat.purdue.edu/~dkjlin/documents/publications/2000/2000_AppStat1.pdf">https://www.stat.purdue.edu/~dkjlin/documents/publications/2000/2000_AppStat1.pdf</a></div>
+</div>
+<div id="ref-ref4" class="csl-entry" role="listitem">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">5.5.3.2.2. Multiple responses: The desirability approach - information technology laboratory [Internet]. Available from: <a href="https://www.itl.nist.gov/div898/handbook/pri/section5/pri5322.htm">https://www.itl.nist.gov/div898/handbook/pri/section5/pri5322.htm</a></div>
+</div>
+<div id="ref-ref3" class="csl-entry" role="listitem">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">The desirability optimization methodology; a tool to predict two antagonist responses in biotechnological systems: Case of biomass growth and hyoscyamine content in elicited datura starmonium hairy roots [Internet]. PubMed Central. Available from: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6217265/">https://pmc.ncbi.nlm.nih.gov/articles/PMC6217265/</a></div>
+</div>
+<div id="ref-ref6" class="csl-entry" role="listitem">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">desirability2: Desirability functions for multiparameter ... - CRAN [Internet]. Available from: <a href="https://cran.r-project.org/web/packages/desirability2/desirability2.pdf">https://cran.r-project.org/web/packages/desirability2/desirability2.pdf</a></div>
+</div>
+<div id="ref-ref8" class="csl-entry" role="listitem">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">desirability2 - tidyverse [Internet]. Available from: <a href="https://www.tidyverse.org/blog/2023/05/desirability2/">https://www.tidyverse.org/blog/2023/05/desirability2/</a></div>
+</div>
+<div id="ref-ref5" class="csl-entry" role="listitem">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Package ’desirability2’ reference manual - cran [Internet]. Available from: <a href="https://cran.r-universe.dev/desirability2/doc/manual.html">https://cran.r-universe.dev/desirability2/doc/manual.html</a></div>
+</div>
+<div id="ref-ref7" class="csl-entry" role="listitem">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">5.5.5.2.2. Multiple response: The desirability approach - information technology laboratory [Internet]. Available from: <a href="https://www.itl.nist.gov/div898/handbook/pri/section5/pri5522.htm">https://www.itl.nist.gov/div898/handbook/pri/section5/pri5522.htm</a></div>
+</div>
+<div id="ref-ref11" class="csl-entry" role="listitem">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Statistical inference on desirability function optimal points to evaluate multi-objective response surfaces - AFIT scholar [Internet]. Available from: <a href="https://scholar.afit.edu/cgi/viewcontent.cgi?article=6547&amp;context=etd">https://scholar.afit.edu/cgi/viewcontent.cgi?article=6547&amp;context=etd</a></div>
+</div>
+<div id="ref-ref12" class="csl-entry" role="listitem">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Statistics for analysts who hate statistics, part VI: Derringer desirability functions [Internet]. Available from: <a href="https://www.chromatographyonline.com/viewstatistics-analysts-who-hate-statistics-part-vi-derringer-desirability-functions">https://www.chromatographyonline.com/viewstatistics-analysts-who-hate-statistics-part-vi-derringer-desirability-functions</a></div>
+</div>
+<div id="ref-ref14" class="csl-entry" role="listitem">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Tidymodels/desirability2: Desirability functions for multiparameter optimization - GitHub [Internet]. Available from: <a href="https://github.com/tidymodels/desirability2">https://github.com/tidymodels/desirability2</a></div>
+</div>
+<div id="ref-ref10" class="csl-entry" role="listitem">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Desirability functions for multiparameter optimization • desirability2 [Internet]. Available from: <a href="https://desirability2.tidymodels.org">https://desirability2.tidymodels.org</a></div>
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
