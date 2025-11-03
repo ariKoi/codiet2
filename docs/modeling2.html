@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-10-24">
+<meta name="dcterms.date" content="2025-11-03">
 
 <title>Modeling &amp; Assessing Metabolite Added Value – Codiet Project</title>
 <style>
@@ -322,7 +322,29 @@ window.Quarto = {
   <li><a href="#untargeted-metabolomics" id="toc-untargeted-metabolomics" class="nav-link" data-scroll-target="#untargeted-metabolomics">Untargeted metabolomics</a></li>
   <li><a href="#selected-predictors" id="toc-selected-predictors" class="nav-link" data-scroll-target="#selected-predictors">Selected Predictors</a></li>
   </ul></li>
-  <li><a href="#model-implementation" id="toc-model-implementation" class="nav-link" data-scroll-target="#model-implementation"><span class="header-section-number">4</span> Model Implementation</a></li>
+  <li><a href="#model-implementation" id="toc-model-implementation" class="nav-link" data-scroll-target="#model-implementation"><span class="header-section-number">4</span> Model Implementation</a>
+  <ul class="collapse">
+  <li><a href="#key-elements-of-the-plot" id="toc-key-elements-of-the-plot" class="nav-link" data-scroll-target="#key-elements-of-the-plot">Key Elements of the Plot</a></li>
+  <li><a href="#model-performance-assessment" id="toc-model-performance-assessment" class="nav-link" data-scroll-target="#model-performance-assessment">🔍 Model Performance Assessment</a>
+  <ul class="collapse">
+  <li><a href="#bias-corrected-calibration-solid-line" id="toc-bias-corrected-calibration-solid-line" class="nav-link" data-scroll-target="#bias-corrected-calibration-solid-line">1. Bias Corrected Calibration (Solid Line)</a></li>
+  <li><a href="#quantitative-performance-metrics" id="toc-quantitative-performance-metrics" class="nav-link" data-scroll-target="#quantitative-performance-metrics">2. Quantitative Performance Metrics</a></li>
+  <li><a href="#top-predictors-and-interpretation" id="toc-top-predictors-and-interpretation" class="nav-link" data-scroll-target="#top-predictors-and-interpretation">Top Predictors and Interpretation</a></li>
+  <li><a href="#key-metabolic-and-clinical-findings" id="toc-key-metabolic-and-clinical-findings" class="nav-link" data-scroll-target="#key-metabolic-and-clinical-findings">Key Metabolic and Clinical Findings</a></li>
+  </ul></li>
+  <li><a href="#some-aspects-of-the-forest-plot" id="toc-some-aspects-of-the-forest-plot" class="nav-link" data-scroll-target="#some-aspects-of-the-forest-plot">Some Aspects Of The Forest Plot</a>
+  <ul class="collapse">
+  <li><a href="#goal-and-structure" id="toc-goal-and-structure" class="nav-link" data-scroll-target="#goal-and-structure">Goal and Structure</a></li>
+  <li><a href="#key-risk-increasing-predictors-or-1" id="toc-key-risk-increasing-predictors-or-1" class="nav-link" data-scroll-target="#key-risk-increasing-predictors-or-1">Key Risk-Increasing Predictors (OR &gt; 1)</a></li>
+  <li><a href="#key-protective-predictors-or-1" id="toc-key-protective-predictors-or-1" class="nav-link" data-scroll-target="#key-protective-predictors-or-1">Key Protective Predictors (OR &lt; 1)</a></li>
+  <li><a href="#acylcarnitine-interpretation" id="toc-acylcarnitine-interpretation" class="nav-link" data-scroll-target="#acylcarnitine-interpretation">Acylcarnitine Interpretation</a></li>
+  </ul></li>
+  <li><a href="#propionylcarnitine-textor-0.81" id="toc-propionylcarnitine-textor-0.81" class="nav-link" data-scroll-target="#propionylcarnitine-textor-0.81">Propionylcarnitine (<span class="math inline">\(\text{OR} = 0.81\)</span>)</a></li>
+  <li><a href="#lauroylcarnitine-textor-0.99" id="toc-lauroylcarnitine-textor-0.99" class="nav-link" data-scroll-target="#lauroylcarnitine-textor-0.99">Lauroylcarnitine (<span class="math inline">\(\text{OR} = 0.99\)</span>)</a></li>
+  <li><a href="#partial-dependence-plots-pdps" id="toc-partial-dependence-plots-pdps" class="nav-link" data-scroll-target="#partial-dependence-plots-pdps">Partial Dependence Plots (PDPs)</a></li>
+  <li><a href="#added-value-of-metabolites" id="toc-added-value-of-metabolites" class="nav-link" data-scroll-target="#added-value-of-metabolites">Added Value Of Metabolites</a></li>
+  <li><a href="#model-changes-based-on-po-assumption" id="toc-model-changes-based-on-po-assumption" class="nav-link" data-scroll-target="#model-changes-based-on-po-assumption">Model Changes Based On PO Assumption</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -342,7 +364,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 24, 2025</p>
+      <p class="date">November 3, 2025</p>
     </div>
   </div>
   
@@ -1098,7 +1120,7 @@ Figure&nbsp;5: Interaction of <code>Gender</code> and <code>Site Collection</cod
 <img src="modeling2_files/figure-html/fig-gender_smm_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gender_smm_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Interaction of <code>Gender</code> and <code>Skeletal Muscle Mass</code> for differentiating the <code>MetS</code> index.
+Figure&nbsp;6: Interaction of <code>Gender</code> and <code>Skeletal Muscle Mass</code> for differentiating the <code>MetS</code> index. See <a href="#fig-model1_pdp_smm_vs_MetS" class="quarto-xref">Figure&nbsp;34</a> for comparison to the adjusted case without <code>Gender</code> differentiation.
 </figcaption>
 </figure>
 </div>
@@ -1321,7 +1343,7 @@ Figure&nbsp;7: Interaction of <code>Gender</code> and <code>Body Cell Mass (t-sc
 <img src="modeling2_files/figure-html/fig-HbA1c_Perc_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-HbA1c_Perc_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: <code>Percentage of Total Hemoglobin</code> in differentiating the <code>MetS</code> index. The red horizontal line corresponds to the median <code>MetS</code> index value of <code>58.67</code> which separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+Figure&nbsp;8: <code>Percentage of Total Hemoglobin</code> in differentiating the <code>MetS</code> index. The red horizontal line corresponds to the median <code>MetS</code> index value of <code>58.67</code> which separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions. See <a href="#fig-model1_pdp_HbA1c_Perc_vs_MetS" class="quarto-xref">Figure&nbsp;31</a> for comparison to the adjusted case.
 </figcaption>
 </figure>
 </div>
@@ -1674,7 +1696,7 @@ Figure&nbsp;10: <code>Serum Glutamic-Pyruvic Transaminase</code> in differentiat
 <img src="modeling2_files/figure-html/fig-Anhydroglucitol_Glucose_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Anhydroglucitol_Glucose_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: Relationship between <strong>1,5-Anhydroglucitol levels (x-axis)</strong> and <strong>blood glucose levels (y-axis)</strong>, separated by <strong>metabolic syndrome (MetS) risk groups</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions. <strong>Red</strong> = Higher MetS risk and * <strong>Green</strong> = Lower MetS risk.
+Figure&nbsp;11: Relationship between <strong>1,5-Anhydroglucitol levels (x-axis)</strong> and <strong>blood glucose levels (y-axis)</strong>, separated by <strong>metabolic syndrome (MetS) risk groups</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions. <strong>Red</strong> = Higher MetS risk and * <strong>Green</strong> = Lower MetS risk. See <a href="#fig-model1_pdp_Anhydroglucitol_vs_MetS" class="quarto-xref">Figure&nbsp;32</a> for comparison to the adjusted case for <code>Anhydroglucitol</code>.
 </figcaption>
 </figure>
 </div>
@@ -2537,7 +2559,7 @@ Figure&nbsp;17: Relationship between <strong>5HIAA (μg/mmol of creatinine)</str
 <img src="modeling2_files/figure-html/fig-Hippuric_Acid_vs_MetS_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Hippuric_Acid_vs_MetS_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;18: Relationship between <strong>Hippuric Acid (μg/mmol of creatinine)</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions.
+Figure&nbsp;18: Relationship between <strong>Hippuric Acid (μg/mmol of creatinine)</strong> and <strong>Metabolic Syndrome (MetS) Risk</strong>. The median <code>MetS</code> index value of <code>58.67</code> separates the index into higher (&gt;58.67) and lower (&lt;58.67) risk regions. See <a href="#fig-model1_pdp_Hippuric_Acid_vs_MetS" class="quarto-xref">Figure&nbsp;33</a> for comparison to the adjusted case.
 </figcaption>
 </figure>
 </div>
@@ -3049,8 +3071,1924 @@ Figure&nbsp;25: Device predictors in relation to <code>BMI</code>.
 <h1 data-number="4"><span class="header-section-number">4</span> Model Implementation</h1>
 <p>The final model formula incorporates <code>30</code> measurements as predictors of the <code>MetS</code>, and is as follows:</p>
 <p>Model: <code>MetS ~ gender + rcs(MEDAS_Score,3) + Antihypertensives + Antidepressants + gender:rcs(MEDAS_Score,3) + rcs(bcm_t_score,3) + rcs(whr,3) + rcs(smm,3) + rcs(fatigue_index,3) + Site_Collection + gender:rcs(bcm_t_score,3) + gender:rcs(smm,3) + gender:Site_Collection + rcs(HbA1c_Perc,3) + rcs(log(SGPT),3) + rcs(log(TBIL),3) + rcs(Anhydroglucitol,3) + rcs(Glucose,3) + rcs(log(Glutamine_To_Glutamic_Acid_Ratio),3) + rcs(Propionylcarnitine,3) + rcs(log(Lauroylcarnitine),3) + rcs(log(Riboflavine),3) + rcs(log(Uracil),3) + rcs(log(5HIAA),3) + rcs(log(Indole3Lactic_Acid),3) + rcs(log(Indole3Lactic_Acid),3) + rcs(log(Indole),3) + rcs(log(Hippuric_Acid),3) + rcs(log(P_Coumaric_Acid_Sulfate),3) + rcs(log(Dopamine),3) + rcs(log(Kynurenic_Acid),3) + rcs(log(P_Coumaric_Acid),3) + rcs(log(P_HBA_Sulfate),3) + rcs(log(P_Hydroxyphenyl_Acetic_Acid),3)</code> where <code>rcs</code> means that potential non-linear associations are taken into account, <code>log</code> denotes the logarithmic transformation and <code>:</code> denotes the interaction between two predictor variables.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-mod1_pentrace" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mod1_pentrace-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-mod1_pentrace-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod1_pentrace-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;26: The plot suggests that the most appropriate, generalized model is one with approximately <strong>21.5 degrees of freedom</strong>, as it maximizes the <span class="math inline">\(-AIC_c\)</span> and represents the best compromise between bias (underfitting) and variance (overfitting).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The above plot shows the results of a <strong>trace of the penalized likelihood criterion</strong> (y-axis) as a function of the <strong>degrees of freedom</strong> (<span class="math inline">\(df\)</span>) of the model (x-axis).</p>
+<p>We find the optimal amount of <strong>shrinkage</strong> (or penalty) to apply to model coefficients. Shrinkage is a technique that penalizes large coefficients, which helps prevent overfitting, stabilize parameter estimates, and improve model generalizability, especially in non-linear models built using <strong>Restricted Cubic Splines (RCS)</strong>.</p>
+<ul>
+<li><p><strong>X-axis (<span class="math inline">\(df\)</span>):</strong> Represents the <strong>degrees of freedom</strong> of the model. This is an approximate measure of the model’s complexity. A smaller <span class="math inline">\(df\)</span> means a heavier penalty, resulting in a simpler, smoother model (more restricted). A larger <span class="math inline">\(df\)</span> means a lighter penalty, resulting in a more complex model (less restricted).</p></li>
+<li><p><strong>Y-axis (<span class="math inline">\(aic.c\)</span>):</strong> Represents the value of the <strong>Akaike Information Criterion (AIC) corrected for finite samples (<span class="math inline">\(AIC_c\)</span>)</strong>. The AIC is a measure of the model’s quality, which trades off goodness of fit (likelihood) against model complexity (<span class="math inline">\(df\)</span>).</p></li>
+</ul>
+<p><span class="math display">\[AIC_c = [\text{Model L.R.}] - 2 \cdot \text{df} \cdot \left(1 + \frac{\text{df} + 1}{n - \text{df} - 1}\right)\]</span> where [Model L.R.] is the model’s likelihood ratio statistic, <span class="math inline">\(df\)</span> is the number of degrees of freedom in the model (related to the number of parameters) and <span class="math inline">\(n\)</span> is the sample size. The highest value of <span class="math inline">\(AIC_c\)</span> (the largest point on the y-axis) corresponds to the <strong>best-performing</strong> or <strong>most optimal</strong> model.</p>
+<p>Each dot represents a specific model fit corresponding to a different value of the penalty term, which in turn results in a different degrees of freedom (<span class="math inline">\(df\)</span>) and a different <span class="math inline">\(AIC_c\)</span> score. The numerous dots show the “trace” of the penalty selection process.</p>
+<p><strong>Blue Dot and Dotted Line:</strong> This marks the <strong>optimal model</strong>. The blue dot indicates the <span class="math inline">\((df, AIC_c)\)</span> pair that yields the <strong>minimum <span class="math inline">\(AIC_c\)</span> value</strong> observed during the trace.</p>
+<p>The overall shape of the points and the optimal point (blue dot) illustrate the model complexity versus fit tradeoff:</p>
+<ul>
+<li><p><strong>Low <span class="math inline">\(df\)</span> (Left Side, e.g., <span class="math inline">\(df &lt; 18\)</span>):</strong> The penalty is too strong. The model is too simple (underfitted), which results in a poor fit to the data, hence a <strong>higher <span class="math inline">\(AIC_c\)</span></strong> value.</p></li>
+<li><p><strong>Optimal <span class="math inline">\(df\)</span> (Blue Dotted Line, <span class="math inline">\(df \approx 21.5\)</span>):</strong> This is the <strong>sweet spot</strong>. The model achieves the best balance between fit and complexity, resulting in the <strong>minimum <span class="math inline">\(AIC_c\)</span></strong> value (highest point on the curve, which is the lowest <span class="math inline">\(AIC_c\)</span> value). In your plot, the optimal <span class="math inline">\(AIC_c\)</span> is around <span class="math inline">\(78.1\)</span> at <span class="math inline">\(df \approx 21.5\)</span>.</p></li>
+<li><p><strong>High <span class="math inline">\(df\)</span> (Right Side, e.g., <span class="math inline">\(df &gt; 25\)</span>):</strong> The penalty is too weak or non-existent. The model is overly complex (approaching overfitting), resulting in a slight increase in <span class="math inline">\(AIC_c\)</span> (a drop in the curve).</p></li>
+</ul>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-mod1_cal" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mod1_cal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-mod1_cal-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod1_cal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;27: Assessing the agreement between the <strong>predicted probability</strong> of the event <code>MetS Index ≥ 58.67</code> and the <strong>actual observed frequency</strong> of that event.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A perfectly calibrated model is one where, for any predicted probability <span class="math inline">\(P\)</span>, the event actually occurs in approximately <span class="math inline">\(P\)</span> fraction of the subjects. The calibration plot visually compares the predicted probability (x-axis) to the actual probability (y-axis).</p>
+<section id="key-elements-of-the-plot" class="level3">
+<h3 class="anchored" data-anchor-id="key-elements-of-the-plot">Key Elements of the Plot</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Element</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>X-axis (Predicted Probability)</strong></td>
+<td style="text-align: left;">The probability of the event (MetS Index <span class="math inline">\(\ge 58.67\)</span>) as estimated by the model.</td>
+<td style="text-align: left;">Ranges from <span class="math inline">\(0.0\)</span> to <span class="math inline">\(1.0\)</span>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Y-axis (Actual Probability)</strong></td>
+<td style="text-align: left;">The actual observed proportion of subjects who experienced the event within a given range of predicted probabilities.</td>
+<td style="text-align: left;">Ranges from <span class="math inline">\(0.0\)</span> to <span class="math inline">\(1.0\)</span>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Ideal Line (Dashed Black)</strong></td>
+<td style="text-align: left;">The <span class="math inline">\(45^\circ\)</span> dashed line represents a <strong>perfectly calibrated model</strong> (Actual Probability = Predicted Probability).</td>
+<td style="text-align: left;">This is the target line.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Apparent Curve (Dotted Grey)</strong></td>
+<td style="text-align: left;">The calibration curve derived directly from the entire training dataset.</td>
+<td style="text-align: left;">Shows initial performance before adjusting for optimism.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Bias Corrected Curve (Solid Black)</strong></td>
+<td style="text-align: left;">The calibration curve adjusted to account for <strong>optimism</strong> (the tendency of a model to perform unrealistically well on the data it was trained on). This is typically estimated using techniques like bootstrapping.</td>
+<td style="text-align: left;">This curve is the most trustworthy indicator of the model’s future performance on new data.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Rug Plots (Top and Bottom)</strong></td>
+<td style="text-align: left;">The vertical tick marks at the top and bottom show the distribution of the predicted probabilities across the <strong>150 subjects</strong> (<span class="math inline">\(n=150\)</span>).</td>
+<td style="text-align: left;">A dense cluster of marks indicates where most predictions fall (e.g.&nbsp;well spread over the unit interval).</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="model-performance-assessment" class="level2">
+<h2 class="anchored" data-anchor-id="model-performance-assessment">🔍 Model Performance Assessment</h2>
+<section id="bias-corrected-calibration-solid-line" class="level3">
+<h3 class="anchored" data-anchor-id="bias-corrected-calibration-solid-line">1. Bias Corrected Calibration (Solid Line)</h3>
+<p>The solid black line indicates the corrected calibration performance:</p>
+<ul>
+<li><p><strong>Low Probability (<span class="math inline">\(&lt; 0.4\)</span>):</strong> The solid line is <strong>below</strong> the ideal line. For example, where the model predicts a probability of <span class="math inline">\(0.3\)</span>, the actual probability is only about <span class="math inline">\(0.2\)</span>. This means the model <strong>overestimates the risk</strong> in subjects predicted to have a low likelihood of the event.</p></li>
+<li><p><strong>Intermediate Probability (<span class="math inline">\(0.4 - 0.7\)</span>):</strong> The solid line closely tracks the ideal line, indicating <strong>good calibration</strong> in this range.</p></li>
+<li><p><strong>High Probability (<span class="math inline">\(&gt; 0.7\)</span>):</strong> The solid line tends to be <strong>above</strong> the ideal line (though the curve is sparse here). This suggests the model may <strong>underestimate the risk</strong> for individuals predicted to have a very high likelihood of the event.</p></li>
+</ul>
+</section>
+<section id="quantitative-performance-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="quantitative-performance-metrics">2. Quantitative Performance Metrics</h3>
+<p>The error metrics provided at the bottom of the plot quantify the calibration quality:</p>
+<ul>
+<li><p><strong><span class="math inline">\(\mathbf{n=150}\)</span></strong>: The sample size used for the model and calibration.</p></li>
+<li><p><strong>Mean absolute error (MAE) <span class="math inline">\(\mathbf{= 0.055}\)</span></strong>: On average, the absolute difference between the predicted and actual probability is <span class="math inline">\(5.5\%\)</span>. This is generally considered a <strong>good error rate</strong>, suggesting strong calibration overall.</p></li>
+<li><p><strong>Mean squared error (MSE) <span class="math inline">\(\mathbf{= 0.00351}\)</span></strong>: The squared difference between predictions and outcomes. A small value confirms the predictions are close to the actual observations.</p></li>
+<li><p><strong><span class="math inline">\(\mathbf{0.9}\)</span> Quantile of absolute error <span class="math inline">\(\mathbf{= 0.083}\)</span></strong>: For <span class="math inline">\(90\%\)</span> of the predictions, the absolute error is <span class="math inline">\(8.3\%\)</span> or less. This reinforces the view that the model is well-calibrated for the majority of the population.</p></li>
+</ul>
+<p>The model is generally <strong>well-calibrated</strong> (low MAE and MSE), especially in the moderate risk range. However, it shows a tendency to be slightly <strong>overly pessimistic (overestimate risk)</strong> for subjects in the lowest probability range.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-mod1_rexVar" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mod1_rexVar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-mod1_rexVar-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod1_rexVar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;28: Quantifying the relative contribution of the various predictors to the total explained variation in <code>MetS</code>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>X-axis: Relative Explained Variation:</strong> This represents the independent contribution of each predictor (or term) to the total variance explained by the model. Higher values mean the variable is a stronger predictor. <strong>Right Y-axis: Percent of Total:</strong> This shows the percentage contribution of each variable to the sum of explained variations across all listed variables.</p>
+</section>
+<section id="top-predictors-and-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="top-predictors-and-interpretation">Top Predictors and Interpretation</h3>
+<p>The plot clearly shows a distinct hierarchy of importance, with a few variables dominating the explained variation:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Rank</th>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Relative Explained Variation</th>
+<th style="text-align: left;">% of Total</th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>1</strong></td>
+<td style="text-align: left;"><strong>HbA1c_c_Perc</strong></td>
+<td style="text-align: left;"><strong>0.0429</strong></td>
+<td style="text-align: left;"><strong>~23%</strong></td>
+<td style="text-align: left;"><strong>Hemoglobin A1c (HbA1c)</strong> is the single most important predictor, explaining over a fifth of the total variation. This strongly links the response variable <code>MetS Index</code> to <strong>long-term blood sugar control</strong> and <strong>diabetes status</strong>, which is central to metabolic disease.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>2</strong></td>
+<td style="text-align: left;"><strong>Anhydroglucitol</strong></td>
+<td style="text-align: left;"><strong>0.0197</strong></td>
+<td style="text-align: left;"><strong>~10%</strong></td>
+<td style="text-align: left;">This is the second strongest predictor, explaining about half the variation of HbA1c. Anhydroglucitol is another marker of <strong>recent hyperglycemia/glycemic control</strong>, further emphasizing the importance of glucose metabolism.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>3</strong></td>
+<td style="text-align: left;"><strong>Hippuric_Acid</strong></td>
+<td style="text-align: left;"><strong>0.016</strong></td>
+<td style="text-align: left;"><strong>~8%</strong></td>
+<td style="text-align: left;">Hippuric acid is a metabolite derived from the gut microbiome and diet. Its high ranking suggests that <strong>microbiome-related or dietary factors</strong> are significant contributors to the explained variation.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="key-metabolic-and-clinical-findings" class="level3">
+<h3 class="anchored" data-anchor-id="key-metabolic-and-clinical-findings">Key Metabolic and Clinical Findings</h3>
+<ul>
+<li><strong>Metabolic Syndrome Markers:</strong> Variables directly related to glucose control (<strong>HbA1c</strong> and <strong>Anhydroglucitol</strong>) are the top contributors, followed by a liver enzyme (<strong>SGPT</strong>), which is also linked to metabolic health and non-alcoholic fatty liver disease (NAFLD).</li>
+<li><strong>Amino Acid and Carnitine Metabolism:</strong>
+<ul>
+<li>The <strong>Glutamine_To_Glutamic_Acid_Ratio</strong> and <strong>Kynurenic_Acid</strong> are moderately important (around 5% each), highlighting the role of <strong>amino acid metabolism</strong> and the kynurenine pathway.</li>
+<li><strong>Propionylcarnitine</strong> (a short-chain acylcarnitine) is present but further down the list, contributing <strong>0.0065</strong> to the variation (about 3%). This is notable because acylcarnitines often serve as markers of <strong>mitochondrial dysfunction</strong>, but its predictive power is lower than that of the glucose markers.</li>
+<li><strong>Lauroylcarnitine</strong> (a medium-chain acylcarnitine) has a <strong>zero (0)</strong> contribution, suggesting that its non-linear relationship (inverted U-shape) is not strong enough to be an important independent predictor in this specific overall model when compared to the other variables.</li>
+</ul></li>
+<li><strong>Clinical Interventions:</strong> The use of <strong>Antihypertensives</strong> is also a meaningful predictor (<span class="math inline">\(0.0069\)</span>, or 3%), which aligns with the previously seen boxplot showing a higher median <code>MetS Index</code> in the “≥58.67” group, confirming the clinical relevance of hypertension/treatment as a feature of the outcome.</li>
+<li><strong>Least Important Predictors:</strong> Most of the interaction terms (e.g., <code>gender • smm</code>) and certain metabolites (e.g., <code>Dopamine</code>, <code>P_HBA_Sulfate</code>) explain virtually none of the variation (close to <span class="math inline">\(0\)</span>).</li>
+</ul>
+<p>In summary, this plot identifies that <strong>glycemic control (HbA1c and Anhydroglucitol) is the dominant factor</strong> explaining the variation in the response, overshadowing the contributions of lipid and amino acid metabolites like the acylcarnitines in this particular model.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-mod1_effects" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mod1_effects-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-mod1_effects-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod1_effects-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;29: Forest plots of odds ratios of the variables involved in modeling the <code>MetS</code> index.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The above plot is like a <strong>Forest Plot</strong> which displays the results of the <strong>penalized ordinal regression model</strong> used to predict the risk of the metabolic event: <strong>MetS Index <span class="math inline">\(\ge 58.67\)</span></strong> (the median or the clinical cut-off for Metabolic Syndrome Index).</p>
+<p>This plot visually summarizes the <strong>Odds Ratios (ORs)</strong> for each predictor variable, illustrating their direction and strength of association with the event risk.</p>
+</section>
+</section>
+<section id="some-aspects-of-the-forest-plot" class="level2">
+<h2 class="anchored" data-anchor-id="some-aspects-of-the-forest-plot">Some Aspects Of The Forest Plot</h2>
+<section id="goal-and-structure" class="level3">
+<h3 class="anchored" data-anchor-id="goal-and-structure">Goal and Structure</h3>
+<ul>
+<li><p><strong>Goal:</strong> To determine how the change in a predictor variable’s value affects the odds of having a MetS Index <span class="math inline">\(\ge 58.67\)</span>.</p></li>
+<li><p><strong>Odds Ratio (OR):</strong> This is the key metric on the X-axis. An OR is a ratio of two odds: the odds of the event occurring at one level of the predictor versus the odds of the event occurring at a reference level.</p>
+<ul>
+<li><p><strong>OR &gt; 1 (Red Bar):</strong> The variable <strong>increases</strong> the odds (risk) of the event.</p></li>
+<li><p><strong>OR &lt; 1 (Green Bar):</strong> The variable <strong>decreases</strong> the odds (risk) of the event.</p></li>
+<li><p><strong>OR = 1 (Vertical Line):</strong> The variable has <strong>no association</strong> with the odds of the event.</p></li>
+</ul></li>
+<li><p><strong><span class="math inline">\(90\%\)</span> Confidence Intervals (CI):</strong> The horizontal lines extending from the OR box represent the <span class="math inline">\(90\%\)</span> CI. If this interval <strong>does not cross the vertical line at <span class="math inline">\(\text{OR}=1\)</span></strong>, the association is considered statistically significant (at <span class="math inline">\(\alpha = 0.10\)</span>).</p></li>
+</ul>
+</section>
+<section id="key-risk-increasing-predictors-or-1" class="level3">
+<h3 class="anchored" data-anchor-id="key-risk-increasing-predictors-or-1">Key Risk-Increasing Predictors (OR &gt; 1)</h3>
+<p>Variables that <strong>significantly increase</strong> the odds of having a high MetS Index (red bars crossing the <span class="math inline">\(\text{OR}=1\)</span> line and extending to the right):</p>
+<ul>
+<li><p><strong>HbA1c_Perc (<span class="math inline">\(\text{OR} = 2.01\)</span>)</strong>: The strongest predictor, showing that higher long-term blood sugar control dramatically increases the odds of high MetS Index.</p></li>
+<li><p><strong>SGPT (<span class="math inline">\(\text{OR} = 1.35\)</span>)</strong>: Elevated levels of this liver enzyme (a marker of liver function/NAFLD) significantly increase the odds.</p></li>
+<li><p><strong>Skeletal Muscle Mass (<span class="math inline">\(\text{OR} = 1.91\)</span>)</strong> and <strong>Glucose (<span class="math inline">\(\text{OR} = 1.43\)</span>)</strong>: Consistent with HbA1c, higher levels of these measurements significantly increase the odds.</p></li>
+<li><p><strong>whr (<span class="math inline">\(\text{OR} = 1.33\)</span>)</strong>: A higher Waist-to-Hip Ratio, a key measure of central obesity, strongly increases the odds.</p></li>
+<li><p><strong>Antihypertensives (<span class="math inline">\(\text{OR} = 1.58\)</span>)</strong>: Taking antihypertensive medication significantly increases the odds of a high MetS Index. This is a marker for the underlying condition of <strong>hypertension</strong>, a major component of Metabolic Syndrome, as illustrated in the box plot where the median MetS Index is higher for the “Yes” group.</p></li>
+<li><p><strong>Gender (Male) (<span class="math inline">\(\text{OR} = 1.47\)</span>)</strong>: Being male significantly increases the odds of a high MetS Index compared to the reference gender (Female).</p></li>
+</ul>
+</section>
+<section id="key-protective-predictors-or-1" class="level3">
+<h3 class="anchored" data-anchor-id="key-protective-predictors-or-1">Key Protective Predictors (OR &lt; 1)</h3>
+<p>Variables that <strong>significantly decrease</strong> the odds of having a high MetS Index (green bars not crossing the <span class="math inline">\(\text{OR}=1\)</span> line):</p>
+<ul>
+<li><p><strong>MEDAS_Score (<span class="math inline">\(\text{OR} = 0.86\)</span>)</strong>: A higher Mediterranean Diet Adherence Score is associated with lower odds of a high MetS Index, highlighting a protective lifestyle factor.</p></li>
+<li><p><strong>TBIL (<span class="math inline">\(\text{OR} = 0.77\)</span>)</strong>: Total Bilirubin (TBIL) is associated with a protective effect, as it is a known antioxidant.</p></li>
+<li><p><strong>Riboflavine (<span class="math inline">\(\text{OR} = 0.79\)</span>)</strong>: Riboflavin (Vitamin B2) is significantly associated with lower odds.</p></li>
+<li><p><strong>Anhydroglucitol (<span class="math inline">\(\text{OR} = 0.63\)</span>)</strong>: A higher Anhydroglucitol concentration (i.e., less glucose competition in the kidneys) is protective against high MetS risk. Good glycemic control (high Anhydroglucitol) is associated with significantly lower odds of MetS risk.</p></li>
+</ul>
+</section>
+<section id="acylcarnitine-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="acylcarnitine-interpretation">Acylcarnitine Interpretation</h3>
+<p>Acylcarnitines which are biomarkers often linked to <strong>mitochondrial dysfunction</strong> in metabolic syndrome (MetS).</p>
+<p>Here is an explanation of their individual effects on the odds of having a high MetS Index (<span class="math inline">\(\text{MetS} \ge 58.67\)</span>), based on the model’s OR estimates.</p>
+</section>
+</section>
+<section id="propionylcarnitine-textor-0.81" class="level2">
+<h2 class="anchored" data-anchor-id="propionylcarnitine-textor-0.81">Propionylcarnitine (<span class="math inline">\(\text{OR} = 0.81\)</span>)</h2>
+<ul>
+<li><p><strong>Direction of Effect (Green Bar):</strong> The model shows a <strong>significant decrease</strong> in risk, as the OR bar is green and its confidence interval does not cross <span class="math inline">\(\text{OR}=1\)</span>.</p></li>
+<li><p><strong>Interpretation:</strong> An increase in Propionylcarnitine (C3) by its reference unit is associated with a <strong><span class="math inline">\(19\%\)</span> lower odds</strong> (<span class="math inline">\(1 - 0.81 = 0.19\)</span>) of having a MetS Index <span class="math inline">\(\ge 58.67\)</span>.</p></li>
+</ul>
+<p>This <span class="math inline">\(\text{OR} = 0.81\)</span> suggests a <strong>protective effect</strong> for Propionylcarnitine, which is somewhat counter-intuitive because elevated short-chain acylcarnitines are often associated with mitochondrial stress and disease. However, there are a few possible explanations for this protective finding in the multivariable model:</p>
+<ol type="1">
+<li><p><strong>Detoxification Effect:</strong> Propionylcarnitine is formed to remove excess Propionyl-CoA, which arises from the breakdown of certain amino acids. In a stressed metabolic state, the <em>ability</em> to generate C3 for detoxification and subsequent excretion might reflect a <strong>preserved buffering capacity</strong> of the mitochondria, which is protective compared to individuals whose mitochondria are completely unable to cope.</p></li>
+<li><p><strong>Anaplerotic Role:</strong> Propionyl-L-carnitine can enter the tricarboxylic acid (TCA) cycle via conversion to succinate, which can help replenish energy cycle intermediates, especially during stress or limited fatty acid oxidation, potentially offering a metabolic benefit.</p></li>
+<li><p><strong>Reverse Causality/Complexity:</strong> Because this is a multivariable model, the protective effect of Propionylcarnitine is <em>dependent</em> of other strongly confounding variables like HbA1c and Glucose. Its dependent role might be protective, when its presence is part of a generally stressed system.</p></li>
+</ol>
+</section>
+<section id="lauroylcarnitine-textor-0.99" class="level2">
+<h2 class="anchored" data-anchor-id="lauroylcarnitine-textor-0.99">Lauroylcarnitine (<span class="math inline">\(\text{OR} = 0.99\)</span>)</h2>
+<ul>
+<li><strong>Direction of Effect (Bar Crossing OR=1):</strong> The OR bar for Lauroylcarnitine (C12, a medium-chain acylcarnitine) <strong>crosses the vertical <span class="math inline">\(\text{OR}=1\)</span> line</strong>. The confidence interval includes <span class="math inline">\(1.0\)</span>, meaning this variable has <strong>no statistically significant association</strong> with the odds of having a MetS Index <span class="math inline">\(\ge 58.67\)</span> in this multivariable model.</li>
+</ul>
+<p>Lauroylcarnitine is an intermediate in <strong>mitochondrial fatty acid oxidation (beta-oxidation)</strong>.</p>
+<ol type="1">
+<li><p><strong>Lack of Significance:</strong> The result confirms the finding from the variable importance plot, where Lauroylcarnitine had a <strong>zero (0)</strong> contribution to the explained variation. While its scatter plot showed an inverted U-shaped trend with the MetS Index, that relationship is either too weak or is entirely accounted for by other variables (like HbA1c or whr) in the full model.</p></li>
+<li><p><strong>Multicollinearity:</strong> It is highly likely that the metabolic stress signaled by Lauroylcarnitine is <strong>redundantly captured</strong> by other, more potent predictors in the model (e.g., Anhydroglucitol or SGPT), causing its independent contribution to drop to zero/non-significant.</p></li>
+</ol>
+<p>In essence, while the acylcarnitines are biologically relevant markers of mitochondrial function, only <strong>Propionylcarnitine</strong> retained a significant (and somewhat protective) association, while <strong>Lauroylcarnitine</strong>’s effect was non-significant in the final model.</p>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div id="fig-mod1_effects_table" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mod1_effects_table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="qcmmkxughh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qcmmkxughh table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#qcmmkxughh thead, #qcmmkxughh tbody, #qcmmkxughh tfoot, #qcmmkxughh tr, #qcmmkxughh td, #qcmmkxughh th {
+  border-style: none;
+}
+
+#qcmmkxughh p {
+  margin: 0;
+  padding: 0;
+}
+
+#qcmmkxughh .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qcmmkxughh .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#qcmmkxughh .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#qcmmkxughh .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#qcmmkxughh .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qcmmkxughh .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qcmmkxughh .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qcmmkxughh .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qcmmkxughh .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qcmmkxughh .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qcmmkxughh .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qcmmkxughh .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qcmmkxughh .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#qcmmkxughh .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#qcmmkxughh .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qcmmkxughh .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qcmmkxughh .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qcmmkxughh .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qcmmkxughh .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qcmmkxughh .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#qcmmkxughh .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#qcmmkxughh .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#qcmmkxughh .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qcmmkxughh .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#qcmmkxughh .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#qcmmkxughh .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qcmmkxughh .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qcmmkxughh .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qcmmkxughh .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qcmmkxughh .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#qcmmkxughh .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qcmmkxughh .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qcmmkxughh .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qcmmkxughh .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qcmmkxughh .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qcmmkxughh .gt_left {
+  text-align: left;
+}
+
+#qcmmkxughh .gt_center {
+  text-align: center;
+}
+
+#qcmmkxughh .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qcmmkxughh .gt_font_normal {
+  font-weight: normal;
+}
+
+#qcmmkxughh .gt_font_bold {
+  font-weight: bold;
+}
+
+#qcmmkxughh .gt_font_italic {
+  font-style: italic;
+}
+
+#qcmmkxughh .gt_super {
+  font-size: 65%;
+}
+
+#qcmmkxughh .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#qcmmkxughh .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#qcmmkxughh .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#qcmmkxughh .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#qcmmkxughh .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#qcmmkxughh .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#qcmmkxughh .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#qcmmkxughh .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#qcmmkxughh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<td colspan="9" class="gt_heading gt_title gt_font_normal gt_bottom_border"><strong><em>Effects Table</em></strong> of clinical parameters on risk for the metabolic syndrome as captured by the <code>MetS</code> index. The further away the central estimate and its corresponding intervals from unity the higher the variable’s effect.</td>
+</tr>
+<tr class="gt_col_headings gt_spanner_row even">
+<th rowspan="2" id="var" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"></th>
+<th colspan="2" id="ref" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Reference
+</div></th>
+<th colspan="3" id="odds_ratio" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Odds Ratio
+</div></th>
+<th colspan="3" id="change_from_unity" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+% Change From Unity
+</div></th>
+</tr>
+<tr class="gt_col_headings header">
+<th id="from" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">From</th>
+<th id="to" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">To</th>
+<th id="Effect" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Central<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1,2</sup></span></th>
+<th id="Lower-0.9" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Lower<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1,3</sup></span></th>
+<th id="Upper-0.9" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Upper<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1,3</sup></span></th>
+<th id="EffectPercFromUnity" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Central<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1,2</sup></span></th>
+<th id="LowerPercFromUnity" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Lower<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1,3</sup></span></th>
+<th id="UpperPercFromUnity" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Upper<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1,3</sup></span></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">MEDAS_Score</td>
+<td class="gt_row gt_center" headers="from">5</td>
+<td class="gt_row gt_center" headers="to">7</td>
+<td class="gt_row gt_center" headers="Effect">0.98</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.82</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.18</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #6189D5; color: #FFFFFF">−2.02</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−19.85</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">16.55</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">bcm_t_score</td>
+<td class="gt_row gt_center" headers="from">-0.5</td>
+<td class="gt_row gt_center" headers="to">0.98</td>
+<td class="gt_row gt_center" headers="Effect">1.08</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.81</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.46</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #7D7FC2; color: #FFFFFF">7.70</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−21.07</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">37.84</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">whr</td>
+<td class="gt_row gt_center" headers="from">0.93</td>
+<td class="gt_row gt_center" headers="to">1.04</td>
+<td class="gt_row gt_center" headers="Effect">1.33</td>
+<td class="gt_row gt_center" headers="Lower 0.9">1.04</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.68</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #AB6483; color: #FFFFFF">28.52</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #FF0000">3.92</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #FF0000">51.88</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">smm</td>
+<td class="gt_row gt_center" headers="from">25.58</td>
+<td class="gt_row gt_center" headers="to">36.53</td>
+<td class="gt_row gt_center" headers="Effect">1.91</td>
+<td class="gt_row gt_center" headers="Lower 0.9">1.51</td>
+<td class="gt_row gt_center" headers="Upper 0.9">2.41</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #CA2317; color: #FFFFFF">64.71</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #FF0000">41.21</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #FF0000">87.96</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">fatigue_index</td>
+<td class="gt_row gt_center" headers="from">68.05</td>
+<td class="gt_row gt_center" headers="to">102.9</td>
+<td class="gt_row gt_center" headers="Effect">1.26</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.89</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.78</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #A36C93; color: #FFFFFF">23.11</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−11.65</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">57.66</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">HbA1c_Perc</td>
+<td class="gt_row gt_center" headers="from">5.35</td>
+<td class="gt_row gt_center" headers="to">5.9</td>
+<td class="gt_row gt_center" headers="Effect">2.01</td>
+<td class="gt_row gt_center" headers="Lower 0.9">1.49</td>
+<td class="gt_row gt_center" headers="Upper 0.9">2.71</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #CC0D01; color: #FFFFFF">69.81</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #FF0000">39.88</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #FF0000">99.69</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">SGPT</td>
+<td class="gt_row gt_center" headers="from">20.48</td>
+<td class="gt_row gt_center" headers="to">34.15</td>
+<td class="gt_row gt_center" headers="Effect">1.35</td>
+<td class="gt_row gt_center" headers="Lower 0.9">1.13</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.60</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #AD627E; color: #FFFFFF">30.01</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #FF0000">12.22</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #FF0000">47.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">TBIL</td>
+<td class="gt_row gt_center" headers="from">0.41</td>
+<td class="gt_row gt_center" headers="to">0.73</td>
+<td class="gt_row gt_center" headers="Effect">0.77</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.63</td>
+<td class="gt_row gt_center" headers="Upper 0.9">0.95</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #809B9A; color: #FFFFFF">−26.14</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #006400">−46.20</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #006400">−5.13</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">Anhydroglucitol</td>
+<td class="gt_row gt_center" headers="from">75.75</td>
+<td class="gt_row gt_center" headers="to">127.03</td>
+<td class="gt_row gt_center" headers="Effect">0.63</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.50</td>
+<td class="gt_row gt_center" headers="Upper 0.9">0.81</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #88AA67; color: #FFFFFF">−46.20</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #006400">−69.31</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #006400">−21.07</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">Glucose</td>
+<td class="gt_row gt_center" headers="from">5072.62</td>
+<td class="gt_row gt_center" headers="to">7720.5</td>
+<td class="gt_row gt_center" headers="Effect">1.43</td>
+<td class="gt_row gt_center" headers="Lower 0.9">1.07</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.92</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #B55A6D; color: #FFFFFF">35.77</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #FF0000">6.77</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #FF0000">65.23</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">Glutamine_To_Glutamic_Acid_Ratio</td>
+<td class="gt_row gt_center" headers="from">6.64</td>
+<td class="gt_row gt_center" headers="to">15.84</td>
+<td class="gt_row gt_center" headers="Effect">0.85</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.76</td>
+<td class="gt_row gt_center" headers="Upper 0.9">0.95</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #7794B3; color: #FFFFFF">−16.25</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #006400">−27.44</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #006400">−5.13</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">Propionylcarnitine</td>
+<td class="gt_row gt_center" headers="from">0.44</td>
+<td class="gt_row gt_center" headers="to">0.75</td>
+<td class="gt_row gt_center" headers="Effect">0.81</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.68</td>
+<td class="gt_row gt_center" headers="Upper 0.9">0.97</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #7C97A7; color: #FFFFFF">−21.07</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #006400">−38.57</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #006400">−3.05</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">Lauroylcarnitine</td>
+<td class="gt_row gt_center" headers="from">0.03</td>
+<td class="gt_row gt_center" headers="to">0.06</td>
+<td class="gt_row gt_center" headers="Effect">0.99</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.85</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.17</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #5E89D8; color: #FFFFFF">−1.01</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−16.25</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">15.70</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">Rivoflavine</td>
+<td class="gt_row gt_center" headers="from">743.81</td>
+<td class="gt_row gt_center" headers="to">5072.79</td>
+<td class="gt_row gt_center" headers="Effect">0.89</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.66</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.19</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #7290BE; color: #FFFFFF">−11.65</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−41.55</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">17.40</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">Uracil</td>
+<td class="gt_row gt_center" headers="from">2102.35</td>
+<td class="gt_row gt_center" headers="to">3932.48</td>
+<td class="gt_row gt_center" headers="Effect">0.79</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.61</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.02</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #7E99A1; color: #FFFFFF">−23.57</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−49.43</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">1.98</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">HIAA</td>
+<td class="gt_row gt_center" headers="from">0.98</td>
+<td class="gt_row gt_center" headers="to">1.63</td>
+<td class="gt_row gt_center" headers="Effect">0.72</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.57</td>
+<td class="gt_row gt_center" headers="Upper 0.9">0.90</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #84A08A; color: #FFFFFF">−32.85</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #006400">−56.21</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #006400">−10.54</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">Indole3Lactic_Acid</td>
+<td class="gt_row gt_center" headers="from">0.12</td>
+<td class="gt_row gt_center" headers="to">0.31</td>
+<td class="gt_row gt_center" headers="Effect">0.70</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.57</td>
+<td class="gt_row gt_center" headers="Upper 0.9">0.86</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #86A283; color: #FFFFFF">−35.67</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #006400">−56.21</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #006400">−15.08</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">Indole</td>
+<td class="gt_row gt_center" headers="from">0.64</td>
+<td class="gt_row gt_center" headers="to">1.44</td>
+<td class="gt_row gt_center" headers="Effect">1.03</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.82</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.29</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #6B84D1; color: #FFFFFF">2.96</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−19.85</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">25.46</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">Hippuric_Acid</td>
+<td class="gt_row gt_center" headers="from">247.79</td>
+<td class="gt_row gt_center" headers="to">849.21</td>
+<td class="gt_row gt_center" headers="Effect">0.64</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.46</td>
+<td class="gt_row gt_center" headers="Upper 0.9">0.89</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #88A96B; color: #FFFFFF">−44.63</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #006400">−77.65</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #006400">−11.65</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">P_Coumaric_Acid_Sulfate</td>
+<td class="gt_row gt_center" headers="from">0.02</td>
+<td class="gt_row gt_center" headers="to">0.09</td>
+<td class="gt_row gt_center" headers="Effect">0.73</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.53</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.02</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #849F8D; color: #FFFFFF">−31.47</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−63.49</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">1.98</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">Dopamine</td>
+<td class="gt_row gt_center" headers="from">0.05</td>
+<td class="gt_row gt_center" headers="to">0.09</td>
+<td class="gt_row gt_center" headers="Effect">1.02</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.82</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.25</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #6686D4; color: #FFFFFF">1.98</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−19.85</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">22.31</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">Kynurenic_Acid</td>
+<td class="gt_row gt_center" headers="from">0.7</td>
+<td class="gt_row gt_center" headers="to">2.1</td>
+<td class="gt_row gt_center" headers="Effect">0.80</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.65</td>
+<td class="gt_row gt_center" headers="Upper 0.9">0.97</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #7D98A4; color: #FFFFFF">−22.31</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #006400">−43.08</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #006400">−3.05</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">P_Coumaric_Acid</td>
+<td class="gt_row gt_center" headers="from">0.03</td>
+<td class="gt_row gt_center" headers="to">0.1</td>
+<td class="gt_row gt_center" headers="Effect">1.02</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.78</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.34</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #6686D4; color: #FFFFFF">1.98</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−24.85</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">29.27</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">P_HBA_Sulfate</td>
+<td class="gt_row gt_center" headers="from">1643.94</td>
+<td class="gt_row gt_center" headers="to">5885.58</td>
+<td class="gt_row gt_center" headers="Effect">1.01</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.79</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.30</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #6187D7; color: #FFFFFF">1.00</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−23.57</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">26.24</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">P_Hydroxyphenyl_Acetic_Acid</td>
+<td class="gt_row gt_center" headers="from">6.66</td>
+<td class="gt_row gt_center" headers="to">14.99</td>
+<td class="gt_row gt_center" headers="Effect">1.10</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.83</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.47</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #837DBC; color: #FFFFFF">9.53</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−18.63</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">38.53</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">gender</td>
+<td class="gt_row gt_center" headers="from">Female</td>
+<td class="gt_row gt_center" headers="to">Male</td>
+<td class="gt_row gt_center" headers="Effect">1.47</td>
+<td class="gt_row gt_center" headers="Lower 0.9">1.22</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.78</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #B85665; color: #FFFFFF">38.53</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #FF0000">19.89</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #FF0000">57.66</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">Antihypertensives</td>
+<td class="gt_row gt_center" headers="from">No</td>
+<td class="gt_row gt_center" headers="to">Yes</td>
+<td class="gt_row gt_center" headers="Effect">1.58</td>
+<td class="gt_row gt_center" headers="Lower 0.9">1.25</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.98</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #BE4B51; color: #FFFFFF">45.74</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #FF0000">22.31</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #FF0000">68.31</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">Antidepressants</td>
+<td class="gt_row gt_center" headers="from">No</td>
+<td class="gt_row gt_center" headers="to">Yes</td>
+<td class="gt_row gt_center" headers="Effect">0.72</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.56</td>
+<td class="gt_row gt_center" headers="Upper 0.9">0.92</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #84A08A; color: #FFFFFF">−32.85</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity" style="color: #006400">−57.98</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity" style="color: #006400">−8.34</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">Site_Collection</td>
+<td class="gt_row gt_center" headers="from">AUTH</td>
+<td class="gt_row gt_center" headers="to">CBG</td>
+<td class="gt_row gt_center" headers="Effect">1.14</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.87</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.50</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #8D78B1; color: #FFFFFF">13.10</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−13.93</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">40.55</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">Site_Collection</td>
+<td class="gt_row gt_center" headers="from">AUTH</td>
+<td class="gt_row gt_center" headers="to">ICL</td>
+<td class="gt_row gt_center" headers="Effect">0.96</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.75</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.21</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #658BD0; color: #FFFFFF">−4.08</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−28.77</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">19.06</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="var">Site_Collection</td>
+<td class="gt_row gt_center" headers="from">AUTH</td>
+<td class="gt_row gt_center" headers="to">TEAGASC</td>
+<td class="gt_row gt_center" headers="Effect">0.92</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.71</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.19</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #6D8EC6; color: #FFFFFF">−8.34</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−34.25</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">17.40</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="var">Site_Collection</td>
+<td class="gt_row gt_center" headers="from">AUTH</td>
+<td class="gt_row gt_center" headers="to">UVEG</td>
+<td class="gt_row gt_center" headers="Effect">1.21</td>
+<td class="gt_row gt_center" headers="Lower 0.9">0.95</td>
+<td class="gt_row gt_center" headers="Upper 0.9">1.55</td>
+<td class="gt_row gt_center" headers="EffectPercFromUnity" style="background-color: #9B719F; color: #FFFFFF">19.06</td>
+<td class="gt_row gt_center" headers="LowerPercFromUnity">−5.13</td>
+<td class="gt_row gt_center" headers="UpperPercFromUnity">43.83</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="9" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <em>Adjusted to: gender=Female, MEDAS_Score=6, bcm_t_score=0.15, smm=30, Site_Collection=AUTH</em></td>
+</tr>
+<tr class="even">
+<td colspan="9" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> <em>Mean estimate of effect</em></td>
+</tr>
+<tr class="odd">
+<td colspan="9" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span> <em>90% confidence interval of mean estimate</em></td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod1_effects_table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;30: Effects table (i.e.&nbsp;odds ratios) of clinical parameters on risk for the metabolic syndrome as captured by the MetS index. The <code>% Change From Unity</code> is an interesting way of viewing the results.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="partial-dependence-plots-pdps" class="level2">
+<h2 class="anchored" data-anchor-id="partial-dependence-plots-pdps">Partial Dependence Plots (PDPs)</h2>
+<p>A <strong><em>PDP</em></strong> will show how the predicted probability of the event (<span class="math inline">\(\text{MetS} \ge 58.67\)</span>) changes as one specific variable changes, with all other variables held constant at the values listed in the model’s <code>Adjusted to:</code> caption. Here is the list of these values for each predictor in the model, where the <code>median</code> is used for continuous variables and the <code>reference</code> for categorical ones.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "gender=Female  MEDAS_Score=6  Antihypertensives=No  Antidepressants=No  bcm_t_score=0.15  whr=0.99  smm=30  fatigue_index=87.25  Site_Collection=AUTH  SGPT=28  TBIL=0.54  Anhydroglucitol=97.16  Glucose=6857  Glutamine_To_Glutamic_Acid_Ratio=9.671  Propionylcarnitine=0.5859  Lauroylcarnitine=0.04275  Rivoflavine=1611  Uracil=2937  HIAA=1.233  Indole3Lactic_Acid=0.1824  Indole=0.878  Hippuric_Acid=447  P_Coumaric_Acid_Sulfate=0.03505  Dopamine=0.06525  Kynurenic_Acid=1.304  P_Coumaric_Acid=0.05905  P_HBA_Sulfate=3182  P_Hydroxyphenyl_Acetic_Acid=9.698 "</code></pre>
+</div>
+</div>
+<p>Note: <strong><em>PDPs</em></strong> can be constructed for any combination of these variables.</p>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-model1_pdp_HbA1c_Perc_vs_MetS" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-model1_pdp_HbA1c_Perc_vs_MetS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-model1_pdp_HbA1c_Perc_vs_MetS-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model1_pdp_HbA1c_Perc_vs_MetS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;31: PDP of <code>% of Total Hemoglobin (mg/dL)</code> in modeling the <code>MetS</code> index. Demonstrates the steep, continuous increase in the predicted probability of high <code>MetS</code> risk as long-term blood glucose control worsens (i.e., as HbA1c levels rise). See <a href="#fig-HbA1c_Perc_vs_MetS_plot" class="quarto-xref">Figure&nbsp;8</a> for comparison to the unadjusted case.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-model1_pdp_Anhydroglucitol_vs_MetS" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-model1_pdp_Anhydroglucitol_vs_MetS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-model1_pdp_Anhydroglucitol_vs_MetS-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model1_pdp_Anhydroglucitol_vs_MetS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;32: PDP of <code>Anhydroglucitol (μM)</code> in modeling the <code>MetS</code> index. Confirms the strong protective effect of high Anhydroglucitol levels (which signal good short-term glucose control). The predicted probability of <code>MetS</code> decreases sharply as Anhydroglucitol concentration increases. See <a href="#fig-Anhydroglucitol_Glucose_vs_MetS_plot" class="quarto-xref">Figure&nbsp;11</a> for comparison to the unadjusted case.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-model1_pdp_Hippuric_Acid_vs_MetS" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-model1_pdp_Hippuric_Acid_vs_MetS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-model1_pdp_Hippuric_Acid_vs_MetS-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model1_pdp_Hippuric_Acid_vs_MetS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;33: PDP of <code>Hippuric Acid (μg/mmol of creatinine)</code> in modeling the <code>MetS</code> index. See <a href="#fig-Hippuric_Acid_vs_MetS_plot" class="quarto-xref">Figure&nbsp;18</a> for comparison to the unadjusted case.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-model1_pdp_smm_vs_MetS" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-model1_pdp_smm_vs_MetS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="modeling2_files/figure-html/fig-model1_pdp_smm_vs_MetS-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model1_pdp_smm_vs_MetS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;34: PDP of <code>Skeletal Muscle Mass</code> in modeling the <code>MetS</code> index. See <a href="#fig-gender_smm_vs_MetS_plot" class="quarto-xref">Figure&nbsp;6</a> for comparison to the unadjusted case.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+</section>
+<section id="added-value-of-metabolites" class="level2">
+<h2 class="anchored" data-anchor-id="added-value-of-metabolites">Added Value Of Metabolites</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="oixbmfssia" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#oixbmfssia table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#oixbmfssia thead, #oixbmfssia tbody, #oixbmfssia tfoot, #oixbmfssia tr, #oixbmfssia td, #oixbmfssia th {
+  border-style: none;
+}
+
+#oixbmfssia p {
+  margin: 0;
+  padding: 0;
+}
+
+#oixbmfssia .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#oixbmfssia .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#oixbmfssia .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#oixbmfssia .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#oixbmfssia .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#oixbmfssia .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oixbmfssia .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#oixbmfssia .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#oixbmfssia .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#oixbmfssia .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#oixbmfssia .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#oixbmfssia .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#oixbmfssia .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#oixbmfssia .gt_group_heading {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#oixbmfssia .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#oixbmfssia .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#oixbmfssia .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#oixbmfssia .gt_row {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#oixbmfssia .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oixbmfssia .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#oixbmfssia .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#oixbmfssia .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#oixbmfssia .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oixbmfssia .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#oixbmfssia .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#oixbmfssia .gt_last_summary_row {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oixbmfssia .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oixbmfssia .gt_first_grand_summary_row {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#oixbmfssia .gt_last_grand_summary_row_top {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oixbmfssia .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#oixbmfssia .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oixbmfssia .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#oixbmfssia .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oixbmfssia .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#oixbmfssia .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oixbmfssia .gt_left {
+  text-align: left;
+}
+
+#oixbmfssia .gt_center {
+  text-align: center;
+}
+
+#oixbmfssia .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#oixbmfssia .gt_font_normal {
+  font-weight: normal;
+}
+
+#oixbmfssia .gt_font_bold {
+  font-weight: bold;
+}
+
+#oixbmfssia .gt_font_italic {
+  font-style: italic;
+}
+
+#oixbmfssia .gt_super {
+  font-size: 65%;
+}
+
+#oixbmfssia .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#oixbmfssia .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#oixbmfssia .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#oixbmfssia .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#oixbmfssia .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#oixbmfssia .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#oixbmfssia .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#oixbmfssia .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#oixbmfssia div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border"><strong><em>Approximate Wald Statistics</em></strong> of the metabolites in the model. Response: Metabolic Syndrome Index</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Factor" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Factor</th>
+<th id="Chi-Square-Statistic" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Chi Square Statistic</th>
+<th id="Degrees-of-Freedom" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Degrees of Freedom</th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">p-value<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Anhydroglucitol</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">11.0280</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value" style="font-weight: bold">0.0040**</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">1.7137</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.1905</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Glucose</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">4.1937</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.1228</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">2.6733</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.1020</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Glutamine_To_Glutamic_Acid_Ratio</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">13.5271</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value" style="font-weight: bold">0.0012**</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.0418</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.8380</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Propionylcarnitine</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">4.1398</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.1262</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">2.4394</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.1183</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Lauroylcarnitine</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.2109</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.8999</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.0960</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.7567</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Rivoflavine</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">3.9156</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.1412</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">3.5184</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.0607</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Uracil</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">2.9481</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.2290</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">2.2635</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.1325</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">HIAA</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">7.3213</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.0257*</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">7.2259</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value" style="font-weight: bold">0.0072**</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Indole3Lactic_Acid</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">9.4809</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value" style="font-weight: bold">0.0087**</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">1.8097</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.1785</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Indole</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.5691</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.7524</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.4296</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.5122</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Hippuric_Acid</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">5.1009</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.0780</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">2.4235</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.1195</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">P_Coumaric_Acid_Sulfate</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">3.2177</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.2001</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.0843</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.7715</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Dopamine</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.6223</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.7326</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.3720</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.5419</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">Kynurenic_Acid</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">4.3217</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.1152</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.0324</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.8573</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">P_Coumaric_Acid</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.0166</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.9917</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.0139</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.9060</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">P_HBA_Sulfate</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.0277</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.9862</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.0275</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.8683</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">P_Hydroxyphenyl_Acetic_Acid</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.3059</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">2.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.8582</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">Nonlinear</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">0.0020</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">1.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.9643</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Factor">TOTAL NONLINEAR</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">26.6730</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">17.0000</td>
+<td class="gt_row gt_center" headers="p.value">0.0630</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Factor">TOTAL</td>
+<td class="gt_row gt_center" headers="Chi Square Statistic">141.8952</td>
+<td class="gt_row gt_center" headers="Degrees of Freedom">34.0000</td>
+<td class="gt_row gt_center" headers="p.value" style="font-weight: bold">0.0000***</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="4" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <em>p&lt;0.05; <strong>p&lt;0.01; </strong></em>p&lt;0.001</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<p>The last entry in the table <code>TOTAL</code> indicates a significant contribution of the metabolites when added to the model.</p>
+</section>
+<section id="model-changes-based-on-po-assumption" class="level2">
+<h2 class="anchored" data-anchor-id="model-changes-based-on-po-assumption">Model Changes Based On PO Assumption</h2>
+<p>TO DO</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
