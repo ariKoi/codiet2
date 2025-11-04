@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-11-03">
+<meta name="dcterms.date" content="2025-11-04">
 
 <title>Modeling &amp; Assessing Metabolite Added Value – Codiet Project</title>
 <style>
@@ -191,6 +191,12 @@ window.Quarto = {
  <span class="menu-text">Metabolic Syndrome Index Construction</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modeling2_AASpriority.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modeling &amp; Assessing Metabolite Added Value - Priority to AAS</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -324,8 +330,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#model-implementation" id="toc-model-implementation" class="nav-link" data-scroll-target="#model-implementation"><span class="header-section-number">4</span> Model Implementation</a>
   <ul class="collapse">
-  <li><a href="#key-elements-of-the-plot" id="toc-key-elements-of-the-plot" class="nav-link" data-scroll-target="#key-elements-of-the-plot">Key Elements of the Plot</a></li>
-  <li><a href="#model-performance-assessment" id="toc-model-performance-assessment" class="nav-link" data-scroll-target="#model-performance-assessment">🔍 Model Performance Assessment</a>
+  <li><a href="#model-performance-assessment" id="toc-model-performance-assessment" class="nav-link" data-scroll-target="#model-performance-assessment">Model Performance Assessment</a>
   <ul class="collapse">
   <li><a href="#bias-corrected-calibration-solid-line" id="toc-bias-corrected-calibration-solid-line" class="nav-link" data-scroll-target="#bias-corrected-calibration-solid-line">1. Bias Corrected Calibration (Solid Line)</a></li>
   <li><a href="#quantitative-performance-metrics" id="toc-quantitative-performance-metrics" class="nav-link" data-scroll-target="#quantitative-performance-metrics">2. Quantitative Performance Metrics</a></li>
@@ -339,8 +344,6 @@ window.Quarto = {
   <li><a href="#key-protective-predictors-or-1" id="toc-key-protective-predictors-or-1" class="nav-link" data-scroll-target="#key-protective-predictors-or-1">Key Protective Predictors (OR &lt; 1)</a></li>
   <li><a href="#acylcarnitine-interpretation" id="toc-acylcarnitine-interpretation" class="nav-link" data-scroll-target="#acylcarnitine-interpretation">Acylcarnitine Interpretation</a></li>
   </ul></li>
-  <li><a href="#propionylcarnitine-textor-0.81" id="toc-propionylcarnitine-textor-0.81" class="nav-link" data-scroll-target="#propionylcarnitine-textor-0.81">Propionylcarnitine (<span class="math inline">\(\text{OR} = 0.81\)</span>)</a></li>
-  <li><a href="#lauroylcarnitine-textor-0.99" id="toc-lauroylcarnitine-textor-0.99" class="nav-link" data-scroll-target="#lauroylcarnitine-textor-0.99">Lauroylcarnitine (<span class="math inline">\(\text{OR} = 0.99\)</span>)</a></li>
   <li><a href="#partial-dependence-plots-pdps" id="toc-partial-dependence-plots-pdps" class="nav-link" data-scroll-target="#partial-dependence-plots-pdps">Partial Dependence Plots (PDPs)</a></li>
   <li><a href="#added-value-of-metabolites" id="toc-added-value-of-metabolites" class="nav-link" data-scroll-target="#added-value-of-metabolites">Added Value Of Metabolites</a></li>
   <li><a href="#model-changes-based-on-po-assumption" id="toc-model-changes-based-on-po-assumption" class="nav-link" data-scroll-target="#model-changes-based-on-po-assumption">Model Changes Based On PO Assumption</a></li>
@@ -364,7 +367,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 3, 2025</p>
+      <p class="date">November 4, 2025</p>
     </div>
   </div>
   
@@ -3116,8 +3119,8 @@ Figure&nbsp;27: Assessing the agreement between the <strong>predicted probabilit
 </div>
 </div>
 <p>A perfectly calibrated model is one where, for any predicted probability <span class="math inline">\(P\)</span>, the event actually occurs in approximately <span class="math inline">\(P\)</span> fraction of the subjects. The calibration plot visually compares the predicted probability (x-axis) to the actual probability (y-axis).</p>
-<section id="key-elements-of-the-plot" class="level3">
-<h3 class="anchored" data-anchor-id="key-elements-of-the-plot">Key Elements of the Plot</h3>
+<section id="key-elements-of-the-plot" class="level4">
+<h4 class="anchored" data-anchor-id="key-elements-of-the-plot">Key Elements of the Plot</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -3166,7 +3169,7 @@ Figure&nbsp;27: Assessing the agreement between the <strong>predicted probabilit
 </table>
 </section>
 <section id="model-performance-assessment" class="level2">
-<h2 class="anchored" data-anchor-id="model-performance-assessment">🔍 Model Performance Assessment</h2>
+<h2 class="anchored" data-anchor-id="model-performance-assessment">Model Performance Assessment</h2>
 <section id="bias-corrected-calibration-solid-line" class="level3">
 <h3 class="anchored" data-anchor-id="bias-corrected-calibration-solid-line">1. Bias Corrected Calibration (Solid Line)</h3>
 <p>The solid black line indicates the corrected calibration performance:</p>
@@ -3320,10 +3323,8 @@ Figure&nbsp;29: Forest plots of odds ratios of the variables involved in modelin
 <h3 class="anchored" data-anchor-id="acylcarnitine-interpretation">Acylcarnitine Interpretation</h3>
 <p>Acylcarnitines which are biomarkers often linked to <strong>mitochondrial dysfunction</strong> in metabolic syndrome (MetS).</p>
 <p>Here is an explanation of their individual effects on the odds of having a high MetS Index (<span class="math inline">\(\text{MetS} \ge 58.67\)</span>), based on the model’s OR estimates.</p>
-</section>
-</section>
-<section id="propionylcarnitine-textor-0.81" class="level2">
-<h2 class="anchored" data-anchor-id="propionylcarnitine-textor-0.81">Propionylcarnitine (<span class="math inline">\(\text{OR} = 0.81\)</span>)</h2>
+<section id="propionylcarnitine-textor-0.81" class="level4">
+<h4 class="anchored" data-anchor-id="propionylcarnitine-textor-0.81">Propionylcarnitine (<span class="math inline">\(\text{OR} = 0.81\)</span>)</h4>
 <ul>
 <li><p><strong>Direction of Effect (Green Bar):</strong> The model shows a <strong>significant decrease</strong> in risk, as the OR bar is green and its confidence interval does not cross <span class="math inline">\(\text{OR}=1\)</span>.</p></li>
 <li><p><strong>Interpretation:</strong> An increase in Propionylcarnitine (C3) by its reference unit is associated with a <strong><span class="math inline">\(19\%\)</span> lower odds</strong> (<span class="math inline">\(1 - 0.81 = 0.19\)</span>) of having a MetS Index <span class="math inline">\(\ge 58.67\)</span>.</p></li>
@@ -3335,8 +3336,8 @@ Figure&nbsp;29: Forest plots of odds ratios of the variables involved in modelin
 <li><p><strong>Reverse Causality/Complexity:</strong> Because this is a multivariable model, the protective effect of Propionylcarnitine is <em>dependent</em> of other strongly confounding variables like HbA1c and Glucose. Its dependent role might be protective, when its presence is part of a generally stressed system.</p></li>
 </ol>
 </section>
-<section id="lauroylcarnitine-textor-0.99" class="level2">
-<h2 class="anchored" data-anchor-id="lauroylcarnitine-textor-0.99">Lauroylcarnitine (<span class="math inline">\(\text{OR} = 0.99\)</span>)</h2>
+<section id="lauroylcarnitine-textor-0.99" class="level4">
+<h4 class="anchored" data-anchor-id="lauroylcarnitine-textor-0.99">Lauroylcarnitine (<span class="math inline">\(\text{OR} = 0.99\)</span>)</h4>
 <ul>
 <li><strong>Direction of Effect (Bar Crossing OR=1):</strong> The OR bar for Lauroylcarnitine (C12, a medium-chain acylcarnitine) <strong>crosses the vertical <span class="math inline">\(\text{OR}=1\)</span> line</strong>. The confidence interval includes <span class="math inline">\(1.0\)</span>, meaning this variable has <strong>no statistically significant association</strong> with the odds of having a MetS Index <span class="math inline">\(\ge 58.67\)</span> in this multivariable model.</li>
 </ul>
@@ -4215,6 +4216,8 @@ Figure&nbsp;30: Effects table (i.e.&nbsp;odds ratios) of clinical parameters on 
 </figure>
 </div>
 </div>
+</section>
+</section>
 </section>
 <section id="partial-dependence-plots-pdps" class="level2">
 <h2 class="anchored" data-anchor-id="partial-dependence-plots-pdps">Partial Dependence Plots (PDPs)</h2>
