@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-11-04">
+<meta name="dcterms.date" content="2025-11-05">
 
 <title>Modeling &amp; Assessing Metabolite Added Value - Priority to AAS – Codiet Project</title>
 <style>
@@ -72,6 +72,35 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -199,6 +228,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#rexvar-2" id="toc-rexvar-2" class="nav-link" data-scroll-target="#rexvar-2">rexVar</a></li>
   </ul></li>
   <li><a href="#model-fit-1" id="toc-model-fit-1" class="nav-link" data-scroll-target="#model-fit-1">Model Fit</a></li>
+  <li><a href="#model-comparison-model-metabolites-only-vs.-model-original" id="toc-model-comparison-model-metabolites-only-vs.-model-original" class="nav-link" data-scroll-target="#model-comparison-model-metabolites-only-vs.-model-original">Model Comparison: Model Metabolites Only vs.&nbsp;Model Original</a>
+  <ul class="collapse">
+  <li><a href="#discrimination-and-accuracy-model-original-wins" id="toc-discrimination-and-accuracy-model-original-wins" class="nav-link" data-scroll-target="#discrimination-and-accuracy-model-original-wins">1. Discrimination and Accuracy (Model Original Wins)</a></li>
+  <li><a href="#calibration-model-metabolites-only-wins-but-both-are-underfit" id="toc-calibration-model-metabolites-only-wins-but-both-are-underfit" class="nav-link" data-scroll-target="#calibration-model-metabolites-only-wins-but-both-are-underfit">2. Calibration (Model Metabolites Only Wins, but both are Underfit)</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -219,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 4, 2025</p>
+      <p class="date">November 5, 2025</p>
     </div>
   </div>
   
@@ -492,6 +526,245 @@ Figure&nbsp;1: Assessing the agreement between the <strong>predicted probability
 </div>
 </div>
 </div>
+<div class="cell">
+<div id="tbl-fit_last_aas_t1_lrm" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-fit_last_aas_t1_lrm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Validation results of the final model when using only <code>metabolites</code> and with first priority the <code>Amino Acids &amp; Sugars</code>.
+</figcaption>
+<div aria-describedby="tbl-fit_last_aas_t1_lrm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="gmisc_table do-not-create-environment cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-bottom: 1px solid grey; font-weight: 900; border-top: 2px solid grey;">Index</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Original<br>
+Sample</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Training<br>
+Sample</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Test<br>
+Sample</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Optimism</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Corrected<br>
+Index</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Lower</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Upper</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Successful<br>
+Resamples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><em>D<sub>xy</sub></em></td>
+<td style="text-align: center;">0.4884</td>
+<td style="text-align: center;">0.4911</td>
+<td style="text-align: center;">0.4886</td>
+<td style="text-align: center;">0.0025</td>
+<td style="text-align: center;">0.4859</td>
+<td style="text-align: center;">0.4753</td>
+<td style="text-align: center;">0.4935</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>R<sup>2</sup></em></td>
+<td style="text-align: center;">0.4236</td>
+<td style="text-align: center;">0.4276</td>
+<td style="text-align: center;">0.4727</td>
+<td style="text-align: center;">-0.0452</td>
+<td style="text-align: center;">0.4687</td>
+<td style="text-align: center;">0.4318</td>
+<td style="text-align: center;">0.4947</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Intercept</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.0117</td>
+<td style="text-align: center;">-0.0117</td>
+<td style="text-align: center;">0.0117</td>
+<td style="text-align: center;">-0.0021</td>
+<td style="text-align: center;">0.023</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Slope</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.1843</td>
+<td style="text-align: center;">-0.1843</td>
+<td style="text-align: center;">1.1843</td>
+<td style="text-align: center;">1.1005</td>
+<td style="text-align: center;">1.2514</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><em>E<sub>max</sub></em></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.0393</td>
+<td style="text-align: center;">-0.0393</td>
+<td style="text-align: center;">0.0393</td>
+<td style="text-align: center;">0.0217</td>
+<td style="text-align: center;">0.0533</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>D</em></td>
+<td style="text-align: center;">0.6252</td>
+<td style="text-align: center;">0.5514</td>
+<td style="text-align: center;">0.6334</td>
+<td style="text-align: center;">-0.082</td>
+<td style="text-align: center;">0.7072</td>
+<td style="text-align: center;">0.6399</td>
+<td style="text-align: center;">0.7533</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><em>U</em></td>
+<td style="text-align: center;">-0.0133</td>
+<td style="text-align: center;">-0.0133</td>
+<td style="text-align: center;">-8.2502</td>
+<td style="text-align: center;">8.2369</td>
+<td style="text-align: center;">-8.2502</td>
+<td style="text-align: center;">-8.277</td>
+<td style="text-align: center;">-8.2285</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>Q</em></td>
+<td style="text-align: center;">0.6385</td>
+<td style="text-align: center;">0.5647</td>
+<td style="text-align: center;">8.8836</td>
+<td style="text-align: center;">-8.3189</td>
+<td style="text-align: center;">8.9574</td>
+<td style="text-align: center;">8.9131</td>
+<td style="text-align: center;">8.9904</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><em>B</em></td>
+<td style="text-align: center;">0.1697</td>
+<td style="text-align: center;">0.17</td>
+<td style="text-align: center;">0.1702</td>
+<td style="text-align: center;">-2e-04</td>
+<td style="text-align: center;">0.1699</td>
+<td style="text-align: center;">0.1693</td>
+<td style="text-align: center;">0.1708</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>g</em></td>
+<td style="text-align: center;">1.634</td>
+<td style="text-align: center;">1.6521</td>
+<td style="text-align: center;">1.9383</td>
+<td style="text-align: center;">-0.2862</td>
+<td style="text-align: center;">1.9202</td>
+<td style="text-align: center;">1.7442</td>
+<td style="text-align: center;">2.0418</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; border-bottom: 2px solid grey;"><em>g<sub>p</sub></em></td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.3076</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.3088</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.3378</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">-0.029</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.3366</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.3203</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.3488</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">400</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>See the <a href="./modeling2.html#tbl-mod1_val">validation results of the adjusted for other factors final model i.e.&nbsp;original</a> for comparison, which is summarised here. The comparison is based on their <strong><code>Corrected Index</code></strong> values, which represent the best estimate of performance on new, independent data.</p>
+</section>
+<section id="model-comparison-model-metabolites-only-vs.-model-original" class="level2">
+<h2 class="anchored" data-anchor-id="model-comparison-model-metabolites-only-vs.-model-original">Model Comparison: Model Metabolites Only vs.&nbsp;Model Original</h2>
+<p><strong>Which one discriminates better, and which one is better calibrated?</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Statistic</th>
+<th style="text-align: left;">Model Metabolites Only</th>
+<th style="text-align: left;">Model Original</th>
+<th style="text-align: left;">Interpretation/Difference</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Dxy (Discrimination)</strong></td>
+<td style="text-align: left;">0.4859</td>
+<td style="text-align: left;"><strong>0.5650</strong></td>
+<td style="text-align: left;"><strong>Model Original is better.</strong> It has a higher Somers’ <span class="math inline">\(D_{xy}\)</span> (closer to 1.0, further from 0.0), indicating better separation of outcomes.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>R2 (Variance Explained)</strong></td>
+<td style="text-align: left;">0.4687</td>
+<td style="text-align: left;"><strong>0.5964</strong></td>
+<td style="text-align: left;"><strong>Model Original is better.</strong> It explains a significantly higher proportion of the outcome variability.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Slope (Calibration)</strong></td>
+<td style="text-align: left;"><strong>1.1843</strong></td>
+<td style="text-align: left;">1.4007</td>
+<td style="text-align: left;"><strong>Model Metabolites Only is better calibrated.</strong> Both models show <strong>underfitting</strong> (Slope &gt; 1.0), but Model A’s slope (1.18) is closer to the ideal 1.0 than Model B’s (1.40).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Intercept (Calibration)</strong></td>
+<td style="text-align: left;"><strong>0.0117</strong></td>
+<td style="text-align: left;">0.0217</td>
+<td style="text-align: left;"><strong>Model Metabolites Only is slightly better calibrated</strong> in-the-large, as its intercept is closer to the ideal 0.0.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Brier Score (Accuracy)</strong></td>
+<td style="text-align: left;">0.1699</td>
+<td style="text-align: left;"><strong>0.1397</strong></td>
+<td style="text-align: left;"><strong>Model Original is better.</strong> It has a substantially lower Brier Score, indicating lower overall mean squared prediction error.</td>
+</tr>
+</tbody>
+</table>
+<section id="discrimination-and-accuracy-model-original-wins" class="level3">
+<h3 class="anchored" data-anchor-id="discrimination-and-accuracy-model-original-wins">1. Discrimination and Accuracy (Model Original Wins)</h3>
+<ul>
+<li><strong>Model Original</strong> clearly has superior <strong>discrimination</strong> (<span class="math inline">\(D_{xy}=0.5650\)</span> vs.&nbsp;<span class="math inline">\(0.4859\)</span>) and <strong>accuracy</strong> (Brier <span class="math inline">\(B=0.1397\)</span> vs.&nbsp;<span class="math inline">\(0.1699\)</span>).</li>
+<li>This means <strong>Model Original</strong> is much better at assigning a higher probability to positive outcomes and a lower probability to negative outcomes, and its predictions are generally closer to the true outcome value.</li>
+</ul>
+</section>
+<section id="calibration-model-metabolites-only-wins-but-both-are-underfit" class="level3">
+<h3 class="anchored" data-anchor-id="calibration-model-metabolites-only-wins-but-both-are-underfit">2. Calibration (Model Metabolites Only Wins, but both are Underfit)</h3>
+<ul>
+<li><strong>Model Metabolites Only</strong> is closer to perfect calibration (Slope <span class="math inline">\(\approx 1.0\)</span>) than Model B.</li>
+<li><strong>Both models exhibit underfitting</strong> (Slope <span class="math inline">\(&gt; 1.0\)</span>).
+<ul>
+<li><strong>Model Metabolites Only (Slope 1.1843):</strong> Its predictions are only slightly too modest and need a small degree of expansion.</li>
+<li><strong>Model Original (Slope 1.4007):</strong> Its predictions are quite significantly too modest. The model is too cautious, and its predictions would need to be expanded by multiplying the original coefficients by <span class="math inline">\(1.40\)</span> to achieve ideal calibration.</li>
+</ul></li>
+</ul>
+<p>While Model Metabolites Only is slightly better calibrated (closer Slope to 1.0), <strong>Model Original’s superior discrimination and significantly lower Brier Score outweigh the minor calibration difference.</strong> In practical terms, Model Original is a much stronger predictor of the outcome.</p>
+<p><strong>Model Original</strong> is a stronger model that needs <strong>recalibration</strong> (likely by incorporating the <span class="math inline">\(\text{Slope}_{\text{Corrected}}\)</span> of 1.4007 into future predictions or coefficient adjustments) to fully realize its predictive power.</p>
 <p>&nbsp;</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -524,6 +797,7 @@ Figure&nbsp;3: Forest plot of odds ratios of the variables involved in modeling 
 </div>
 
 
+</section>
 </section>
 </section>
 

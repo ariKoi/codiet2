@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-11-04">
+<meta name="dcterms.date" content="2025-11-05">
 
 <title>Modeling &amp; Assessing Metabolite Added Value – Codiet Project</title>
 <style>
@@ -334,6 +334,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#bias-corrected-calibration-solid-line" id="toc-bias-corrected-calibration-solid-line" class="nav-link" data-scroll-target="#bias-corrected-calibration-solid-line">1. Bias Corrected Calibration (Solid Line)</a></li>
   <li><a href="#quantitative-performance-metrics" id="toc-quantitative-performance-metrics" class="nav-link" data-scroll-target="#quantitative-performance-metrics">2. Quantitative Performance Metrics</a></li>
+  <li><a href="#performance-statistics" id="toc-performance-statistics" class="nav-link" data-scroll-target="#performance-statistics">3. Performance Statistics</a></li>
   <li><a href="#top-predictors-and-interpretation" id="toc-top-predictors-and-interpretation" class="nav-link" data-scroll-target="#top-predictors-and-interpretation">Top Predictors and Interpretation</a></li>
   <li><a href="#key-metabolic-and-clinical-findings" id="toc-key-metabolic-and-clinical-findings" class="nav-link" data-scroll-target="#key-metabolic-and-clinical-findings">Key Metabolic and Clinical Findings</a></li>
   </ul></li>
@@ -367,7 +368,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 4, 2025</p>
+      <p class="date">November 5, 2025</p>
     </div>
   </div>
   
@@ -3189,6 +3190,340 @@ Figure&nbsp;27: Assessing the agreement between the <strong>predicted probabilit
 <li><p><strong><span class="math inline">\(\mathbf{0.9}\)</span> Quantile of absolute error <span class="math inline">\(\mathbf{= 0.083}\)</span></strong>: For <span class="math inline">\(90\%\)</span> of the predictions, the absolute error is <span class="math inline">\(8.3\%\)</span> or less. This reinforces the view that the model is well-calibrated for the majority of the population.</p></li>
 </ul>
 <p>The model is generally <strong>well-calibrated</strong> (low MAE and MSE), especially in the moderate risk range. However, it shows a tendency to be slightly <strong>overly pessimistic (overestimate risk)</strong> for subjects in the lowest probability range.</p>
+</section>
+<section id="performance-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="performance-statistics">3. Performance Statistics</h3>
+<p>The following output is the internal validation of the penalized ordinal regression model (via the bootstrap).</p>
+<div class="cell">
+<div id="tbl-mod1_val" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mod1_val-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Validation results of the priority based final model.
+</figcaption>
+<div aria-describedby="tbl-mod1_val-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="gmisc_table do-not-create-environment cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-bottom: 1px solid grey; font-weight: 900; border-top: 2px solid grey;">Index</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Original<br>
+Sample</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Training<br>
+Sample</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Test<br>
+Sample</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Optimism</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Corrected<br>
+Index</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Lower</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Upper</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Successful<br>
+Resamples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><em>D<sub>xy</sub></em></td>
+<td style="text-align: center;">0.5697</td>
+<td style="text-align: center;">0.5717</td>
+<td style="text-align: center;">0.567</td>
+<td style="text-align: center;">0.0046</td>
+<td style="text-align: center;">0.565</td>
+<td style="text-align: center;">0.5474</td>
+<td style="text-align: center;">0.5807</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>R<sup>2</sup></em></td>
+<td style="text-align: center;">0.4954</td>
+<td style="text-align: center;">0.4995</td>
+<td style="text-align: center;">0.6006</td>
+<td style="text-align: center;">-0.1011</td>
+<td style="text-align: center;">0.5964</td>
+<td style="text-align: center;">0.5577</td>
+<td style="text-align: center;">0.6283</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Intercept</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.0217</td>
+<td style="text-align: center;">-0.0217</td>
+<td style="text-align: center;">0.0217</td>
+<td style="text-align: center;">-0.0071</td>
+<td style="text-align: center;">0.0477</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Slope</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.4007</td>
+<td style="text-align: center;">-0.4007</td>
+<td style="text-align: center;">1.4007</td>
+<td style="text-align: center;">1.3153</td>
+<td style="text-align: center;">1.4807</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><em>E<sub>max</sub></em></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.0774</td>
+<td style="text-align: center;">-0.0774</td>
+<td style="text-align: center;">0.0774</td>
+<td style="text-align: center;">0.0644</td>
+<td style="text-align: center;">0.0891</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>D</em></td>
+<td style="text-align: center;">0.8534</td>
+<td style="text-align: center;">0.6861</td>
+<td style="text-align: center;">0.9111</td>
+<td style="text-align: center;">-0.225</td>
+<td style="text-align: center;">1.0784</td>
+<td style="text-align: center;">0.9975</td>
+<td style="text-align: center;">1.1431</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><em>U</em></td>
+<td style="text-align: center;">-0.0133</td>
+<td style="text-align: center;">-0.0133</td>
+<td style="text-align: center;">-8.1011</td>
+<td style="text-align: center;">8.0878</td>
+<td style="text-align: center;">-8.1011</td>
+<td style="text-align: center;">-8.1332</td>
+<td style="text-align: center;">-8.0765</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>Q</em></td>
+<td style="text-align: center;">0.8667</td>
+<td style="text-align: center;">0.6994</td>
+<td style="text-align: center;">9.0123</td>
+<td style="text-align: center;">-8.3128</td>
+<td style="text-align: center;">9.1796</td>
+<td style="text-align: center;">9.1047</td>
+<td style="text-align: center;">9.2441</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><em>B</em></td>
+<td style="text-align: center;">0.139</td>
+<td style="text-align: center;">0.1387</td>
+<td style="text-align: center;">0.1394</td>
+<td style="text-align: center;">-7e-04</td>
+<td style="text-align: center;">0.1397</td>
+<td style="text-align: center;">0.1365</td>
+<td style="text-align: center;">0.1451</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>g</em></td>
+<td style="text-align: center;">1.7831</td>
+<td style="text-align: center;">1.7985</td>
+<td style="text-align: center;">2.4951</td>
+<td style="text-align: center;">-0.6965</td>
+<td style="text-align: center;">2.4796</td>
+<td style="text-align: center;">2.3094</td>
+<td style="text-align: center;">2.6216</td>
+<td style="text-align: center;">400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; border-bottom: 2px solid grey;"><em>g<sub>p</sub></em></td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.3208</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.3216</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.3778</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">-0.0562</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.377</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.3626</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">0.3912</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">400</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Each metric represents:</p>
+<section id="d_xy" class="level4">
+<h4 class="anchored" data-anchor-id="d_xy">1. <span class="math inline">\(D_{xy}\)</span></h4>
+<ul>
+<li><p><strong>Meaning:</strong> Somers’ D rank correlation between predicted probabilities and observed outcomes.</p></li>
+<li><p><strong>Interpretation:</strong> Measures model discrimination — how well it distinguishes between outcomes.</p></li>
+<li><p><strong>Range:</strong> -1 to 1.</p></li>
+<li><p><strong>Relationship:</strong> ( <span class="math inline">\(D_{xy}\)</span> = 2•(C - 0.5) ), where <em>C</em> is the concordance (AUC) index.</p>
+<ul>
+<li>So, ( <span class="math inline">\(D_{xy}\)</span> = 0.5697 ) roughly means an AUC of ( 0.7848 ).</li>
+</ul></li>
+</ul>
+</section>
+<section id="r2" class="level4">
+<h4 class="anchored" data-anchor-id="r2">2. <span class="math inline">\(R^2\)</span></h4>
+<ul>
+<li><strong>Meaning:</strong> The <strong>Nagelkerke / Cox–Snell-like R²</strong> for logistic or survival models (a measure of explained variation).</li>
+<li><strong>Interpretation:</strong> Fraction of variation explained by the model; higher = better fit.</li>
+<li><strong>Note:</strong> This is not the same as the linear-model ( <span class="math inline">\(R^2\)</span> ), but conceptually similar.</li>
+</ul>
+</section>
+<section id="intercept" class="level4">
+<h4 class="anchored" data-anchor-id="intercept">3. Intercept</h4>
+<ul>
+<li><strong>Meaning:</strong> Bias in calibration intercept after validation.</li>
+<li><strong>Interpretation:</strong>
+<ul>
+<li>Ideally 0.</li>
+<li>Positive = model tends to underpredict/underestimate outcomes.</li>
+<li>Negative = model tends to overpredict/overestimate outcomes.</li>
+</ul></li>
+</ul>
+</section>
+<section id="slope" class="level4">
+<h4 class="anchored" data-anchor-id="slope">4. Slope</h4>
+<ul>
+<li><strong>Meaning:</strong> Calibration slope between predicted probabilties of the event versus observed frequencies of the event.</li>
+<li><strong>Interpretation:</strong>
+<ul>
+<li>Ideal = 1 (perfect calibration).</li>
+<li><span class="math inline">\(&lt;1\)</span> = predictions are <strong>too extreme (too close to 0 or 1)</strong> (overfitting/overestimation). Calibration curve is flatter than the ideal line on the diagonal.</li>
+<li><span class="math inline">\(&gt;1\)</span> = predictions are <strong>too conservative or modest</strong> (underfitting/underestimation). The model is not confident enough and shrinks its predictions towards the mean of the observed frequencies. Calibration curve is steeper than the ideal line on the diagonal (e.g., predicted range is only 0.3 to 0.7), even though the true observed risks span a wider range (e.g., 0.1 to 0.9). Predictions need to be expanded (pushed further away from the mean) to match the true observed event rates.</li>
+</ul></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Overfitting (Slope <strong>&lt; 1.0</strong>)</th>
+<th style="text-align: left;">Underfitting (Slope <strong>&gt; 1.0</strong>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Model Complexity</strong></td>
+<td style="text-align: left;">Too complex or too many predictors relative to data size.</td>
+<td style="text-align: left;">Too simple or too few predictors; ignores important variables.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Model Coefficients</strong></td>
+<td style="text-align: left;">Too large (<strong>Too confident</strong>).</td>
+<td style="text-align: left;">Too small (<strong>Too modest</strong> or cautious).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Predictions</strong></td>
+<td style="text-align: left;"><strong>Too Extreme</strong> (pushed too close to 0 or 1).</td>
+<td style="text-align: left;"><strong>Too Modest</strong> (clumped too close to the mean event rate).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Calibration Plot</strong></td>
+<td style="text-align: left;">Curve is <strong>Flatter</strong> than the Ideal Line (Shrinkage needed).</td>
+<td style="text-align: left;">Curve is <strong>Steeper</strong> than the Ideal Line (Expansion needed).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Correction</strong></td>
+<td style="text-align: left;">Apply <strong>shrinkage</strong> (e.g., multiply coefficients by the corrected slope).</td>
+<td style="text-align: left;"><strong>Add relevant predictors</strong> or complexity (if data allows).</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="emax" class="level4">
+<h4 class="anchored" data-anchor-id="emax">5. Emax</h4>
+<ul>
+<li><strong>Meaning:</strong> Maximum absolute difference between predicted and observed calibration curves.</li>
+<li><strong>Interpretation:</strong>
+<ul>
+<li>Measures the worst-case deviation from perfect calibration.</li>
+<li>Smaller values = better calibration.</li>
+</ul></li>
+</ul>
+</section>
+<section id="d" class="level4">
+<h4 class="anchored" data-anchor-id="d">6. D</h4>
+<ul>
+<li><strong>Meaning:</strong> Discrimination index based on log-likelihood (also called <em>discrimination index D</em>).</li>
+<li><strong>Interpretation:</strong>
+<ul>
+<li>Higher values = better separation of predicted probabilities between outcome groups.</li>
+<li>Related to model likelihood ratio χ² statistics.</li>
+</ul></li>
+</ul>
+</section>
+<section id="u" class="level4">
+<h4 class="anchored" data-anchor-id="u">7. U</h4>
+<ul>
+<li><strong>Meaning:</strong> Unreliability index — measures the <strong>lack of calibration</strong> (calibration error).</li>
+<li><strong>Interpretation:</strong>
+<ul>
+<li>Smaller (closer to 0 or less negative) = better calibration.</li>
+<li>Large magnitude values indicate miscalibration.</li>
+</ul></li>
+</ul>
+</section>
+<section id="q" class="level4">
+<h4 class="anchored" data-anchor-id="q">8. Q</h4>
+<ul>
+<li><strong>Meaning:</strong> A combined measure of overall model quality: ( Q = D - U ).</li>
+<li><strong>Interpretation:</strong>
+<ul>
+<li>Reflects overall predictive accuracy (discrimination adjusted for calibration).</li>
+<li>Higher = better model.</li>
+</ul></li>
+</ul>
+</section>
+<section id="b" class="level4">
+<h4 class="anchored" data-anchor-id="b">9. B</h4>
+<ul>
+<li><strong>Meaning:</strong> Brier score (mean squared error of predicted probabilities).</li>
+<li><strong>Interpretation:</strong>
+<ul>
+<li>Range 0–0.25 for binary outcomes.</li>
+<li>Lower = better predictions (perfect = 0).</li>
+</ul></li>
+</ul>
+</section>
+<section id="g" class="level4">
+<h4 class="anchored" data-anchor-id="g">10. g</h4>
+<ul>
+<li><strong>Meaning:</strong> <em>Gini’s mean difference</em> of predicted log odds between outcome groups (or “discrimination slope”).</li>
+<li><strong>Interpretation:</strong>
+<ul>
+<li>Higher = better discrimination (separation between predicted probabilities of events vs non-events).</li>
+</ul></li>
+</ul>
+</section>
+<section id="gp" class="level4">
+<h4 class="anchored" data-anchor-id="gp">11. gp</h4>
+<ul>
+<li><strong>Meaning:</strong> Same as <strong>g</strong>, but on the <strong>probability</strong> scale instead of the log-odds scale.</li>
+<li><strong>Interpretation:</strong>
+<ul>
+<li>Mean absolute difference in predicted probabilities between outcome groups.</li>
+<li>Higher values = stronger discrimination.</li>
+</ul></li>
+</ul>
+<hr>
+<p>&nbsp;</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-mod1_rexVar" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -3204,6 +3539,7 @@ Figure&nbsp;28: Quantifying the relative contribution of the various predictors 
 </div>
 </div>
 <p><strong>X-axis: Relative Explained Variation:</strong> This represents the independent contribution of each predictor (or term) to the total variance explained by the model. Higher values mean the variable is a stronger predictor. <strong>Right Y-axis: Percent of Total:</strong> This shows the percentage contribution of each variable to the sum of explained variations across all listed variables.</p>
+</section>
 </section>
 <section id="top-predictors-and-interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="top-predictors-and-interpretation">Top Predictors and Interpretation</h3>
