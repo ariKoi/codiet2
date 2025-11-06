@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-11-05">
+<meta name="dcterms.date" content="2025-11-06">
 
 <title>Modeling &amp; Assessing Metabolite Added Value – Codiet Project</title>
 <style>
@@ -368,7 +368,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 5, 2025</p>
+      <p class="date">November 6, 2025</p>
     </div>
   </div>
   
@@ -3365,7 +3365,7 @@ Resamples</th>
 <section id="d_xy" class="level4">
 <h4 class="anchored" data-anchor-id="d_xy">1. <span class="math inline">\(D_{xy}\)</span></h4>
 <ul>
-<li><p><strong>Meaning:</strong> Somers’ D rank correlation between predicted probabilities and observed outcomes.</p></li>
+<li><p><strong>Meaning:</strong> Somers’ D rank correlation between predicted probabilities and observed outcomes i.e.&nbsp;Are the high predictions for the event and low predictions for the non-event?</p></li>
 <li><p><strong>Interpretation:</strong> Measures model discrimination — how well it distinguishes between outcomes.</p></li>
 <li><p><strong>Range:</strong> -1 to 1.</p></li>
 <li><p><strong>Relationship:</strong> ( <span class="math inline">\(D_{xy}\)</span> = 2•(C - 0.5) ), where <em>C</em> is the concordance (AUC) index.</p>
@@ -3397,7 +3397,7 @@ Resamples</th>
 <section id="slope" class="level4">
 <h4 class="anchored" data-anchor-id="slope">4. Slope</h4>
 <ul>
-<li><strong>Meaning:</strong> Calibration slope between predicted probabilties of the event versus observed frequencies of the event.</li>
+<li><strong>Meaning:</strong> Calibration slope between predicted probabilties of the event versus observed frequencies of the event. The corrected slope can be thought of as shrinkage factor that takes into account overfitting.</li>
 <li><strong>Interpretation:</strong>
 <ul>
 <li>Ideal = 1 (perfect calibration).</li>
@@ -3450,10 +3450,10 @@ Resamples</th>
 <section id="emax" class="level4">
 <h4 class="anchored" data-anchor-id="emax">5. Emax</h4>
 <ul>
-<li><strong>Meaning:</strong> Maximum absolute difference between predicted and observed calibration curves.</li>
+<li><strong>Meaning:</strong> Maximum absolute difference between predicted and calibrated probabilities.</li>
 <li><strong>Interpretation:</strong>
 <ul>
-<li>Measures the worst-case deviation from perfect calibration.</li>
+<li>Measures the worst-case deviation from calibrated probabilities of the event.</li>
 <li>Smaller values = better calibration.</li>
 </ul></li>
 </ul>
@@ -3472,7 +3472,7 @@ Resamples</th>
 <section id="u" class="level4">
 <h4 class="anchored" data-anchor-id="u">7. U</h4>
 <ul>
-<li><strong>Meaning:</strong> Unreliability index — measures the <strong>lack of calibration</strong> (calibration error).</li>
+<li><strong>Meaning:</strong> Unreliability index — measures the <strong>lack of calibration</strong> (calibration error). Technically, this is the difference in -2•log-likelihood between un-calibrated X•β (the linear predictor) and X•β with overall intercept and slope calibrated to test sample divided by the sample size.</li>
 <li><strong>Interpretation:</strong>
 <ul>
 <li>Smaller (closer to 0 or less negative) = better calibration.</li>
@@ -3505,17 +3505,17 @@ Resamples</th>
 <section id="g" class="level4">
 <h4 class="anchored" data-anchor-id="g">10. g</h4>
 <ul>
-<li><strong>Meaning:</strong> <em>Gini’s mean difference</em> of predicted log odds between outcome groups (or “discrimination slope”).</li>
+<li><strong>Meaning:</strong> <em>Total g-index</em> or <em>Gini’s Mean Difference</em> of predicted log odds (i.e.&nbsp;the linear predictor) between outcome groups (or “discrimination slope”). The total g-index summarizes the overall predictive ability of the model or how much higher are the predicted odds for the high-risk group compared to the low-risk group? (Quantification of magnitude).</li>
 <li><strong>Interpretation:</strong>
 <ul>
-<li>Higher = better discrimination (separation between predicted probabilities of events vs non-events).</li>
+<li>Higher = better discrimination (separation between predicted probabilities of events vs non-events). The larger <em>Total g-index</em> means the model is spreading the predicted risk values more widely, indicating better discrimination.</li>
 </ul></li>
 </ul>
 </section>
 <section id="gp" class="level4">
 <h4 class="anchored" data-anchor-id="gp">11. gp</h4>
 <ul>
-<li><strong>Meaning:</strong> Same as <strong>g</strong>, but on the <strong>probability</strong> scale instead of the log-odds scale.</li>
+<li><strong>Meaning:</strong> Same as <strong>g</strong>, but on the <strong>probability</strong> scale instead of the log-odds scale (using the logistic function).</li>
 <li><strong>Interpretation:</strong>
 <ul>
 <li>Mean absolute difference in predicted probabilities between outcome groups.</li>
