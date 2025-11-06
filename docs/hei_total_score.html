@@ -199,6 +199,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#boxplots-2" id="toc-boxplots-2" class="nav-link" data-scroll-target="#boxplots-2">Boxplots</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#index-construction" id="toc-index-construction" class="nav-link" data-scroll-target="#index-construction"><span class="header-section-number">3</span> Index Construction</a></li>
   </ul>
 </nav>
     </div>
@@ -11448,10 +11449,15 @@ Figure&nbsp;6: HILIC Panel in relation to <code>HEI Total Score</code>.
 </figcaption>
 </figure>
 </div>
-
-
 </section>
 </section>
+</section>
+<section id="index-construction" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Index Construction</h1>
+<p>The <code>HEI Total Score</code> is non-representative as there is a gap for values between 45 and 55. In addition the manner by which the score is calculated creates biased measurements since it assigns max scores of 10 or 5 points if a specific threshold is exceeded regardless of what is the actual measurement distance from the threshold i.e.&nbsp;if the threshold is 6% then the case having 5.9% and the case having 3% will both be given a score of 10 even though the first cases is marginally different from the threshold while the second cases is half the threshold and should therefore be given a higher score. In addition, if the score is split into less than 50 and higher than 50, then the two groups will be unbalanced since one will have about 44 cases while the other about 104. This will make any statistical analysis challenging.</p>
+<p>Constructing an index similarly as with the <code>MetS</code> index would resolve those issues.</p>
+
+
 </section>
 
 </main> <!-- /main -->
